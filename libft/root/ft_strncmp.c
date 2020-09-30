@@ -1,40 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/30 17:17:20 by saoh              #+#    #+#             */
-/*   Updated: 2020/09/30 19:22:57 by saoh             ###   ########.fr       */
+/*   Created: 2020/09/30 19:32:53 by saoh              #+#    #+#             */
+/*   Updated: 2020/09/30 19:41:32 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char		*ft_strnstr(const char *str1, const char *str2, size_t len)
+int			ft_strncmp(const char *str1, const char *str2, size_t c)
 {
 	size_t	i;
-	size_t	ct;
-	size_t	str2_len;
 
 	i = 0;
-	while (str2[i])
-		i++;
-	str2_len = i;
-	if (str2_len == 0)
-		return ((char *)str1);
-	i = 0;
-	while (i < len)
+	while (i < c)
 	{
-		ct = 0;
-		while (ct < str2_len)
-		{
-			if (str1[i + ct] != str2[ct])
-				break ;
-			ct++;
-			if (ct == str2_len)
-				return ((char *)str1 + i);
-		}
+		if (str1[i] > str2[i])
+			return (1);
+		else if (str1[i] < str2[i])
+			return (-1);
 		i++;
 	}
-	return (NULL);
+	return (0);
 }
