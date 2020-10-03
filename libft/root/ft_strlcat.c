@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 19:28:10 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/03 19:28:45 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/03 20:50:34 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ size_t				ft_strlcat(char *dest, const char *src, size_t n)
 	src_len = ft_strlen((char *)src);
 	if (dest_len < n - 1 && n > 0)
 	{
-		while (i < n)
+		while (i + dest_len < n - 1)
 		{
 			dest[i + dest_len] = src[i];
 			i++;
 		}
-		dest[i] = 0;
+		dest[i + dest_len] = 0;
 	}
 	if (dest_len < n)
 		return (dest_len + src_len);
