@@ -6,52 +6,66 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 15:13:06 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/04 17:47:15 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/05 15:22:06 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
+static size_t	ft_split_len(char const *s, char c)
+{
+	size_t		i;
+
+	i = 0;
+	while (s[i] != c && s[i])
+		i++;
+	return (i);
+}
+
 static size_t	ft_split_count(char const *s, char c)
 {
 	size_t		i;
-	size_t		sp_ct;
+	size_t		ct;
 
 	i = 0;
-	sp_ct = 1;
-	if (s[0] == c)
-
+	ct = 1;
+	while (s[i] == c && s[i])
+		i++;
+	if (s[i] == 0)
+		return (0);
 	while (s[i])
 	{
-		if (s[i] == c && s[i - 1] != c)
-			sp_ct++;
+		if (s[i] == c && s[i + 1] != c && s[i + 1] != 0)
+			ct++;
 		i++;
 	}
-	return (sp_ct);
+	return (ct);
 }
 
-int				ft_split_s(char const *s, char c, char **sp_s)
+static int		ft_split_s(char const *s, char c, char **sp_s)
 {
 	size_t		i;
 	size_t		j;
 	size_t		ct;
-	size_t		cutline;
-	size_t		sub_line;
+	size_t		sp_len;
 
 	i = 0;
 	ct = 0;
-	sub_line = 0;
+	while (s[i] == c)
+		i++;
 	while (s[i])
 	{
-		if (s[i] == c && s[i - 1] != c)
-		{
-			cutline = i;
-			sp_s[ct] = (char *)malloc(sizeof(char) * (cutline - sub_line + 1))
-			sub_line = cutline + 1;
-			ct++;
-		}
-		i++;
+		j = 0;
+		sp_len = ft_split_len(s + i, c);
+		if (!(sp_s[ct] = (char *)malloc(sizeof(char) * (sp_len + 1))))
+			return (0);
+		while (s[i] != c && s[i])
+			sp_s[ct][j++] = s[i++];
+		while (s[i] == c && s[i])
+			i++;
+		sp_s[ct++][j] = 0;
 	}
+	return (1);
 }
 
 char			**ft_split(char const *s, char c)
@@ -59,9 +73,12 @@ char			**ft_split(char const *s, char c)
 	size_t		sp_ct;
 	char		**sp_s;
 
-	sp_ct = ft_split_count(s, c);
-	if (!(sp_s = (char **)malloc(sizeof(char *) * sp_ct)))
+	if ((sp_ct = ft_split_count(s, c)) == 0)
+		return (NULL);
+	if (!(sp_s = (char **)malloc(sizeof(char *) * (sp_ct + 1))))
 		return (NULL);
 	if (ft_split_s(s, c, sp_s) == 0)
 		return (NULL);
+	sp_s[sp_ct] = 0;
+	return (sp_s);
 }
