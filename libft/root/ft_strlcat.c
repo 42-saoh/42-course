@@ -6,9 +6,11 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 19:28:10 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/03 20:50:34 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/07 18:30:10 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <unistd.h>
 
 static size_t		ft_strlen(char *str)
 {
