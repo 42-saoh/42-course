@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/30 16:43:09 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/08 14:57:01 by saoh             ###   ########.fr       */
+/*   Created: 2020/09/28 16:31:23 by saoh              #+#    #+#             */
+/*   Updated: 2020/10/08 15:18:43 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strchr(const char *str, int c)
+void		*ft_memmove(void *dest, const void *src, size_t n)
 {
 	size_t	i;
+	char	clone[n];
 
 	i = 0;
-	while (str[i])
+	while (i < n)
 	{
-		if (str[i] == c)
-			return ((char *)str + i);
+		clone[i] = *((char *)src + i);
 		i++;
 	}
-	return (NULL);
+	i = 0;
+	while (i < n)
+	{
+		*((char *)dest + i) = clone[i];
+		i++;
+	}
+	return (dest);
 }

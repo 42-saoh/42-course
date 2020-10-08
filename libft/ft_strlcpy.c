@@ -1,42 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/30 17:17:20 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/08 14:58:42 by saoh             ###   ########.fr       */
+/*   Created: 2020/09/30 19:46:51 by saoh              #+#    #+#             */
+/*   Updated: 2020/10/08 16:20:31 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strnstr(const char *str1, const char *str2, size_t len)
+size_t		ft_strlcpy(char *dest, const char *src, size_t n)
 {
-	size_t	i;
-	size_t	ct;
-	size_t	str2_len;
+	size_t i;
+	size_t src_len;
 
 	i = 0;
-	while (str2[i])
-		i++;
-	str2_len = i;
-	if (str2_len == 0)
-		return ((char *)str1);
-	i = 0;
-	while (i < len)
+	src_len = 0;
+	while (src[src_len])
+		src_len++;
+	if (n == 0)
+		return (src_len);
+	while (i < n - 1 && i < src_len)
 	{
-		ct = 0;
-		while (ct < str2_len)
-		{
-			if (str1[i + ct] != str2[ct])
-				break ;
-			ct++;
-			if (ct == str2_len)
-				return ((char *)str1 + i);
-		}
+		dest[i] = src[i];
 		i++;
 	}
-	return (NULL);
+	dest[i] = 0;
+	return (src_len);
 }

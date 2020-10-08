@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/30 19:32:53 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/08 14:58:31 by saoh             ###   ########.fr       */
+/*   Created: 2020/09/28 19:21:59 by saoh              #+#    #+#             */
+/*   Updated: 2020/10/08 15:20:58 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_strncmp(const char *str1, const char *str2, size_t c)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
-	while (i < c)
+	while (i < n)
 	{
-		if (str1[i] > str2[i])
-			return (1);
-		else if (str1[i] < str2[i])
-			return (-1);
+		if (*((char *)s + i) == c)
+			return ((char *)s + i);
 		i++;
 	}
-	return (0);
+	return (NULL);
 }

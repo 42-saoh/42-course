@@ -6,21 +6,11 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 21:18:36 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/08 14:59:05 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/08 15:04:32 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static size_t	ft_strlen(char const *str)
-{
-	size_t		i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
 
 static size_t	ft_del_num(char const *s1, char const *set)
 {

@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memcpy.c                                           :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/28 14:25:04 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/08 14:19:41 by saoh             ###   ########.fr       */
+/*   Created: 2020/10/08 16:31:26 by saoh              #+#    #+#             */
+/*   Updated: 2020/10/08 16:35:30 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		*ft_memcpy(void *dest, void *src, size_t size)
+char			*ft_strrchr(const char *s, int c)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
-	while (i < size)
-	{
-		*((char *)dest + i) = *((char *)src + i);
+	while (s[i])
 		i++;
+	while (i >= 0)
+	{
+		if (s[i] == c)
+			return ((char *)s + i);
+		i--;
 	}
-	return (dest);
+	return (NULL);
 }

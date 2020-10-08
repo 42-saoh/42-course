@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/28 16:31:23 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/08 14:55:32 by saoh             ###   ########.fr       */
+/*   Created: 2020/10/03 19:28:10 by saoh              #+#    #+#             */
+/*   Updated: 2020/10/08 16:23:29 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		*ft_memmove(void *dest, void *src, size_t size)
+size_t				ft_strlcat(char *dest, const char *src, size_t n)
 {
-	size_t	i;
-	char	clone[size];
+	size_t			i;
+	size_t			dest_len;
+	size_t			src_len;
 
 	i = 0;
-	while (i < size)
+	dest_len = ft_strlen(dest);
+	src_len = ft_strlen((char *)src);
+	if (dest_len < n - 1 && n > 0)
 	{
-		clone[i] = *((char *)src + i);
-		i++;
+		while (i + dest_len < n - 1 && i < src_len)
+		{
+			dest[i + dest_len] = src[i];
+			i++;
+		}
+		dest[i + dest_len] = 0;
 	}
-	i = 0;
-	while (i < size)
-	{
-		*((char *)dest + i) = clone[i];
-		i++;
-	}
+	if (dest_len < n)
+		return (dest_len + src_len);
+	return (src_len + n);
 }
