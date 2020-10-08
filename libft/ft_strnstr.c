@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:17:20 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/08 16:47:36 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/08 16:53:04 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char		*ft_strnstr(const char *str1, const char *str2, size_t len)
 	while (i < len)
 	{
 		ct = 0;
-		while (ct < str2_len)
+		while (ct < str2_len && i + ct < len)
 		{
 			if (str1[i + ct] != str2[ct])
 				break ;
