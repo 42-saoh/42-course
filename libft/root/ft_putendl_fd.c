@@ -6,11 +6,11 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 16:17:34 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/05 18:51:22 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/08 14:56:15 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
 void	ft_putendl_fd(char *s, int fd)
 {

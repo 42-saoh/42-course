@@ -6,11 +6,11 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 20:57:03 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/03 21:16:33 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/08 14:57:33 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
 static size_t	ft_strlen(char *str)
 {

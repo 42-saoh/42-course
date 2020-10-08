@@ -6,11 +6,11 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 15:13:06 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/05 15:22:06 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/08 14:56:44 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
 static size_t	ft_split_len(char const *s, char c)
 {

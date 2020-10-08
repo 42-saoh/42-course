@@ -6,9 +6,11 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:17:20 by saoh              #+#    #+#             */
-/*   Updated: 2020/09/30 19:22:57 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/08 14:58:42 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 char		*ft_strnstr(const char *str1, const char *str2, size_t len)
 {

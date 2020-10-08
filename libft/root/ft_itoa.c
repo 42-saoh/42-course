@@ -6,11 +6,11 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 17:47:29 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/04 19:43:11 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/08 14:18:52 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
 static int		ft_val_ct(long val, int m)
 {

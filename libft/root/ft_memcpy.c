@@ -6,9 +6,11 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 14:25:04 by saoh              #+#    #+#             */
-/*   Updated: 2020/09/28 14:33:14 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/08 14:19:41 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 void		*ft_memcpy(void *dest, void *src, size_t size)
 {

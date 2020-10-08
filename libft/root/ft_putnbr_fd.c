@@ -6,11 +6,11 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 18:53:25 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/05 19:14:30 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/08 14:56:27 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
 static void		ft_nbr(long val, int fd)
 {

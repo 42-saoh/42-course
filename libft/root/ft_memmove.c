@@ -6,9 +6,11 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 16:31:23 by saoh              #+#    #+#             */
-/*   Updated: 2020/09/28 16:57:58 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/08 14:55:32 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 void		*ft_memmove(void *dest, void *src, size_t size)
 {

@@ -6,9 +6,11 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 19:32:53 by saoh              #+#    #+#             */
-/*   Updated: 2020/09/30 19:41:32 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/08 14:58:31 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int			ft_strncmp(const char *str1, const char *str2, size_t c)
 {

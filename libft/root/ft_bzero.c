@@ -6,9 +6,11 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 14:15:01 by saoh              #+#    #+#             */
-/*   Updated: 2020/09/28 14:21:12 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/08 14:17:20 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 void		ft_bzero(void *src, size_t size)
 {

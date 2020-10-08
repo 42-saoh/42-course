@@ -6,11 +6,11 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 19:46:12 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/03 21:18:02 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/08 14:59:14 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
 char		*ft_substr(const char *str, unsigned int start, size_t len)
 {

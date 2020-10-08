@@ -1,6 +1,9 @@
 #ifndef	LIBFT_H
 #define	LIBFT_H
 
+#include <unistd.h>
+#include <stdlib.h>
+
 int		ft_atoi(const char *str);
 void	ft_bzero(void *src, size_t size);
 void	*ft_calloc(size_t elt_count, size_t elt_size);

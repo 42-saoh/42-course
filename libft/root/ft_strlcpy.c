@@ -6,11 +6,11 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 19:46:51 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/07 18:30:24 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/08 14:57:56 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
 size_t		ft_strlcpy(char *dest, const char *src, size_t n)
 {

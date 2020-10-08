@@ -6,11 +6,11 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 15:35:32 by saoh              #+#    #+#             */
-/*   Updated: 2020/09/29 15:43:41 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/08 14:57:16 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
 char		*ft_strdup(const char *str)
 {

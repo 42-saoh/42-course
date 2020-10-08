@@ -6,9 +6,11 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 13:25:02 by saoh              #+#    #+#             */
-/*   Updated: 2020/09/28 14:33:26 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/08 14:55:55 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 void		*ft_memset(void *dest, int val, size_t size)
 {
