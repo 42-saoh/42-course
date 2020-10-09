@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 16:17:34 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/08 14:56:15 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/09 11:25:53 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ void	ft_putendl_fd(char *s, int fd)
 	while (s[i])
 		i++;
 	write(fd, s, i);
-	write(fd, "\n\n", 2);
+	write(fd, "\n", 1);
 }

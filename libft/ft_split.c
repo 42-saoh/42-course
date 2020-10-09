@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 15:13:06 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/08 14:56:44 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/09 11:23:29 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,7 @@ char			**ft_split(char const *s, char c)
 	size_t		sp_ct;
 	char		**sp_s;
 
-	if ((sp_ct = ft_split_count(s, c)) == 0)
-		return (NULL);
+	sp_ct = ft_split_count(s, c);
 	if (!(sp_s = (char **)malloc(sizeof(char *) * (sp_ct + 1))))
 		return (NULL);
 	if (ft_split_s(s, c, sp_s) == 0)

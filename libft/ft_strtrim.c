@@ -6,16 +6,17 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 21:18:36 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/08 15:04:32 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/09 13:29:34 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	ft_del_num(char const *s1, char const *set)
+static size_t	ft_front_del_num(char const *s1, char const *set)
 {
 	size_t		i;
 	size_t		j;
+	size_t		flag;
 	size_t		del_num;
 
 	i = 0;
@@ -23,55 +24,91 @@ static size_t	ft_del_num(char const *s1, char const *set)
 	while (s1[i])
 	{
 		j = 0;
+		flag = 0;
 		while (set[j])
 		{
 			if (s1[i] == set[j])
 			{
+				flag++;
 				del_num++;
-				break ;
 			}
 			j++;
 		}
+		if (flag == 0)
+			break ;
 		i++;
 	}
 	return (del_num);
 }
 
-static void		ft_trim(char const *s1, char const *set, char *clone)
+static size_t	ft_back_del_num(char const *s1, char const *set)
 {
 	size_t		i;
 	size_t		j;
+	size_t		flag;
 	size_t		del_num;
 
-	i = 0;
+	i = ft_strlen(s1) - 1;
 	del_num = 0;
-	while (s1[i])
+	while (i >= 0)
 	{
 		j = 0;
+		flag = 0;
 		while (set[j])
 		{
 			if (s1[i] == set[j])
 			{
+				flag++;
 				del_num++;
-				break ;
 			}
 			j++;
 		}
-		if (j == ft_strlen(set))
-			clone[i - del_num] = s1[i];
+		if (flag == 0)
+			break ;
+		i--;
+	}
+	return (del_num);
+}
+
+static char		*ft_trim(char const *s1, size_t fdn, size_t bdn)
+{
+	size_t		i;
+	size_t		del_num;
+	char		*trim;
+
+	i = 0;
+	del_num = fdn + bdn;
+	if (!(trim = (char *)malloc(sizeof(char) * (ft_strlen(s1) - del_num + 1))))
+		return (NULL);
+	del_num = 0;
+	while (s1[i])
+	{
+		if (i < fdn)
+		{
+			i++;
+			del_num++;
+			continue ;
+		}
+		else if (i == ft_strlen(s1) - bdn)
+			break ;
+		trim[i - del_num] = s1[i];
 		i++;
 	}
-	clone[i] = 0;
+	trim[i - del_num] = 0;
+	return (trim);
 }
 
 char			*ft_strtrim(char const *s1, char const *set)
 {
-	size_t		del_num;
-	char		*clone;
+	size_t		front_del_num;
+	size_t		back_del_num;
+	char		*trim;
 
-	del_num = ft_del_num(s1, set);
-	if (!(clone = (char *)malloc(sizeof(char) * (ft_strlen(s1) - del_num + 1))))
+	front_del_num = ft_front_del_num(s1, set);
+	back_del_num = ft_back_del_num(s1, set);
+	if (front_del_num == ft_strlen(s1))
+		back_del_num = 0;
+	if ((trim = ft_trim(s1, front_del_num, back_del_num)) == NULL)
 		return (NULL);
-	ft_trim(s1, set, clone);
-	return (clone);
+	return (trim);
 }

@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 19:46:12 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/08 14:59:14 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/09 11:40:08 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char		*ft_substr(const char *str, unsigned int start, size_t len)
 	i = 0;
 	while (i < len)
 	{
-		substr[i] = str[i + start - 1];
+		substr[i] = str[i + start];
 		i++;
 	}
 	substr[i] = 0;
