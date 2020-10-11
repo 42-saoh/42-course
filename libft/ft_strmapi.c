@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 19:19:24 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/08 14:58:23 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/11 15:07:14 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ char				*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 		ch_str[i] = f(i, s[i]);
 		i++;
 	}
+	ch_str[i] = 0;
 	return (ch_str);
 }
