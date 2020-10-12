@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 16:31:23 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/08 15:18:43 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/09 18:47:50 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ void		*ft_memmove(void *dest, const void *src, size_t n)
 	char	clone[n];
 
 	i = 0;
+	if (dest == 0 && src == 0)
+	{
+		dest = 0;
+		return (dest);
+	}
 	while (i < n)
 	{
 		clone[i] = *((char *)src + i);
