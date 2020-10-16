@@ -39,20 +39,35 @@ SRC := ft_memset.c \
 			ft_putendl_fd.c \
 			ft_putnbr_fd.c \
 
+BONUS :=	ft_lstnew.c \
+			ft_lstadd_front.c \
+			ft_lstsize.c \
+			ft_lstlast.c \
+			ft_lstadd_back.c \
+			ft_lstdelone.c \
+			ft_lstclear.c \
+			ft_lstiter.c \
+			ft_lstmap.c
+
 OBJECTS = *.o
-CFLAGS = -Wall -Wextra -Werror
+RM = rm -rf
 
 all : $(NAME)
 
 $(NAME) :
-	gcc $(CFLAGS) -c $(SRC)
+	$(CC) $(CFLAGS) -c $(SRC)
+	ar rc $(NAME) $(OBJECTS)
+	ranlib $(NAME)
+
+bonus : 
+	$(CC) $(CFLAGS) -c $(SRC) $(BONUS)
 	ar rc $(NAME) $(OBJECTS)
 	ranlib $(NAME)
 
 clean :
-	/bin/rm -f *.o
+	$(RM) *.o
 
 fclean : clean
-	/bin/rm -f $(NAME)
+	$(RM) $(NAME)
 
 re : fclean all
