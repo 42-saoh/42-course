@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 21:18:36 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/09 13:29:34 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/18 16:01:21 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static size_t	ft_front_del_num(char const *s1, char const *set)
 	{
 		j = 0;
 		flag = 0;
-		while (set[j])
+		while (j < ft_strlen(set))
 		{
 			if (s1[i] == set[j])
 			{
@@ -54,7 +54,7 @@ static size_t	ft_back_del_num(char const *s1, char const *set)
 	{
 		j = 0;
 		flag = 0;
-		while (set[j])
+		while (j < ft_strlen(set))
 		{
 			if (s1[i] == set[j])
 			{
@@ -104,10 +104,21 @@ char			*ft_strtrim(char const *s1, char const *set)
 	size_t		back_del_num;
 	char		*trim;
 
+	if (s1 == NULL)
+	{
+		trim = 0;
+		return (trim);
+	}
+	if (set == NULL)
+	{
+		if ((trim = ft_trim(s1, 0, 0)) == NULL)
+			return (NULL);
+		return (trim);
+	}
 	front_del_num = ft_front_del_num(s1, set);
-	back_del_num = ft_back_del_num(s1, set);
 	if (front_del_num == ft_strlen(s1))
-		back_del_num = 0;
+		return (ft_strdup(""));
+	back_del_num = ft_back_del_num(s1, set);
 	if ((trim = ft_trim(s1, front_del_num, back_del_num)) == NULL)
 		return (NULL);
 	return (trim);

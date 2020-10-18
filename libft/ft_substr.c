@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 19:46:12 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/11 15:03:06 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/18 14:39:40 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ char		*ft_substr(const char *str, unsigned int start, size_t len)
 	char	*substr;
 	size_t	i;
 
-	if (ft_strlen(str) <= (size_t)start)
+	if (ft_strlen(str) <= (size_t)start && str == NULL)
 	{
-		substr = malloc(0);
+		substr = 0;
 		return (substr);
 	}
 	else if (!(substr = (char *)malloc(sizeof(char) * (len + 1))))
 		return (NULL);
 	i = 0;
-	while (i < len)
+	while (i < len && i + start < ft_strlen(str))
 	{
 		substr[i] = str[i + start];
 		i++;
