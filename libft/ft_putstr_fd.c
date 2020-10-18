@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 16:10:58 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/11 15:12:44 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/18 18:49:16 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void		ft_putstr_fd(char *s, int fd)
 {
 	size_t	i;
 
+	if (s == NULL)
+		return ;
 	i = 0;
 	while (s[i])
 		i++;
