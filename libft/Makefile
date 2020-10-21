@@ -1,8 +1,19 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: saoh </var/mail/saoh>                      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/10/21 15:14:14 by saoh              #+#    #+#              #
+#    Updated: 2020/10/21 15:20:19 by saoh             ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = libft.a
-OBJS_D := objs/
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-INCS = -I ./test/
+OBJECTS = *.o
 
 SRC := ft_memset.c \
 			ft_bzero.c \
@@ -49,23 +60,18 @@ BONUS :=	ft_lstnew.c \
 			ft_lstiter.c \
 			ft_lstmap.c
 
-OBJECTS = *.o
-RM = rm -rf
-
-all : $(NAME)
-
 $(NAME) :
 	$(CC) $(CFLAGS) -c $(SRC)
 	ar rc $(NAME) $(OBJECTS)
-	ranlib $(NAME)
+
+all : $(NAME)
 
 bonus : 
 	$(CC) $(CFLAGS) -c $(SRC) $(BONUS)
 	ar rc $(NAME) $(OBJECTS)
-	ranlib $(NAME)
 
 clean :
-	$(RM) *.o
+	$(RM) $(OBJECTS)
 
 fclean : clean
 	$(RM) $(NAME)
