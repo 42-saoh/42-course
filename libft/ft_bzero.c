@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 14:15:01 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/08 14:17:20 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/24 13:58:16 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,8 @@
 
 void		ft_bzero(void *src, size_t size)
 {
-	size_t	i;
-
-	i = 0;
-	while (i < size)
+	while (size--)
 	{
-		*((char *)src + i) = 0;
-		i++;
+		*((char *)src++) = 0;
 	}
 }

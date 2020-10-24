@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 15:49:12 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/21 14:48:32 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/24 13:41:16 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	t_list	*n_lst;
 	t_list	*temp;
 
-	if (lst == NULL || f == NULL || del == NULL)
+	if (lst == NULL || f == NULL)
 	{
 		n_lst = 0;
 		return (n_lst);

@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 21:18:36 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/18 16:01:21 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/24 16:09:02 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 static size_t	ft_front_del_num(char const *s1, char const *set)
 {
-	size_t		i;
+	int			i;
 	size_t		j;
 	size_t		flag;
 	size_t		del_num;
 
-	i = 0;
+	i = -1;
 	del_num = 0;
-	while (s1[i])
+	while (s1[++i])
 	{
 		j = 0;
 		flag = 0;
@@ -31,12 +31,12 @@ static size_t	ft_front_del_num(char const *s1, char const *set)
 			{
 				flag++;
 				del_num++;
+				break ;
 			}
 			j++;
 		}
 		if (flag == 0)
 			break ;
-		i++;
 	}
 	return (del_num);
 }
@@ -48,9 +48,9 @@ static size_t	ft_back_del_num(char const *s1, char const *set)
 	size_t		flag;
 	size_t		del_num;
 
-	i = ft_strlen(s1) - 1;
+	i = ft_strlen(s1);
 	del_num = 0;
-	while (i >= 0)
+	while (--i >= 0)
 	{
 		j = 0;
 		flag = 0;
@@ -60,12 +60,12 @@ static size_t	ft_back_del_num(char const *s1, char const *set)
 			{
 				flag++;
 				del_num++;
+				break ;
 			}
 			j++;
 		}
 		if (flag == 0)
 			break ;
-		i--;
 	}
 	return (del_num);
 }
@@ -110,11 +110,7 @@ char			*ft_strtrim(char const *s1, char const *set)
 		return (trim);
 	}
 	if (set == NULL)
-	{
-		if ((trim = ft_trim(s1, 0, 0)) == NULL)
-			return (NULL);
-		return (trim);
-	}
+		return (ft_strdup(s1));
 	front_del_num = ft_front_del_num(s1, set);
 	if (front_del_num == ft_strlen(s1))
 		return (ft_strdup(""));

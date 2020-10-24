@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 13:25:02 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/08 14:55:55 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/24 14:20:19 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		*ft_memset(void *dest, int val, size_t size)
 	i = 0;
 	while (i < size)
 	{
-		*((char *)dest + i) = val;
+		*((unsigned char *)dest + i) = (unsigned char)val;
 		i++;
 	}
 	return (dest);

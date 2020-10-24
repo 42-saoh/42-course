@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 14:25:04 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/09 18:42:01 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/24 14:18:04 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void		*ft_memcpy(void *dest, const void *src, size_t n)
 	}
 	while (i < n)
 	{
-		*((char *)dest + i) = *((char *)src + i);
+		*((unsigned char *)dest + i) = *((unsigned char *)src + i);
 		i++;
 	}
 	return (dest);

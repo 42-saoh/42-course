@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 15:13:06 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/18 18:39:40 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/24 15:29:24 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ static size_t	ft_split_count(char const *s, char c)
 	return (ct);
 }
 
-static void		ft_split_free(char **sp_s, size_t ct)
+static void		ft_split_free(char **sp_s)
 {
 	size_t		i;
 
 	i = 0;
-	while (i < ct)
+	while (sp_s[i])
 	{
 		free(sp_s[i]);
 		i++;
@@ -72,7 +72,7 @@ static int		ft_split_s(char const *s, char c, char **sp_s)
 		sp_len = ft_split_len(s + i, c);
 		if (!(sp_s[ct] = (char *)malloc(sizeof(char) * (sp_len + 1))))
 		{
-			ft_split_free(sp_s, ct);
+			ft_split_free(sp_s);
 			return (0);
 		}
 		while (s[i] != c && s[i])
@@ -97,8 +97,10 @@ char			**ft_split(char const *s, char c)
 	sp_ct = ft_split_count(s, c);
 	if (!(sp_s = (char **)malloc(sizeof(char *) * (sp_ct + 1))))
 		return (NULL);
+	sp_s[sp_ct] = 0;
+	if (sp_ct == 0)
+		return (sp_s);
 	if (ft_split_s(s, c, sp_s) == 0)
 		return (NULL);
-	sp_s[sp_ct] = 0;
 	return (sp_s);
 }
