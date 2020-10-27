@@ -6,9 +6,11 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 16:06:55 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/27 18:15:23 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/27 18:29:50 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "get_next_line.h"
 
 size_t		ft_strlen(const char *str)
 {
