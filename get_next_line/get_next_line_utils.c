@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 16:06:55 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/30 13:39:10 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/30 20:30:44 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,10 @@ char		*ft_strjoin(char *s1, char const *s2)
 	size_t	i;
 	char	*str;
 
-	if (s1 == NULL || s2 == NULL)
+	if (s1 == NULL && s2 == NULL)
 		return (NULL);
+	if (s1 == NULL || s2 == NULL)
+		return (s1 == NULL ? ft_strdup(s2) : ft_strdup(s1));
 	i = 0;
 	if (!(str = (char *)malloc(sizeof(char)
 					* (ft_strlen(s1) + ft_strlen(s2) + 1))))

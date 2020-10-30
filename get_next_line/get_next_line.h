@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 18:13:00 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/30 13:39:17 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/30 20:07:20 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define GET_NEXT_LINE_H
 # include <unistd.h>
 # include <stdlib.h>
+# include <fcntl.h>
+
+# ifndef OPEN_MAX
+#  define OPEN_MAX 32
+# endif
+
 
 size_t		ft_strlen(const char *str);
 char		*ft_strchr(const char *str, int c);
