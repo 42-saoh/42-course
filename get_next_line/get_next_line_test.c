@@ -6,45 +6,61 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 16:12:09 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/27 20:52:17 by saoh             ###   ########.fr       */
+/*   Updated: 2020/10/30 19:48:46 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int		get_next_line(int fd, char **line)
+int		chr_buf(char *buff, char *chr_buff, char **line, int ret)
 {
-	static char *buff = NULL;
-	char		*rd_str;
-	char		*t_str;
-	char		*s_str;
-	int			a;
+	char	*t_buff;
 
-	if (!(rd_str = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
-		return (-1);
-	if ((a = read(fd, rd_str, BUFFER_SIZE)) == 0)
+	if (*(chr_buff + 1) != 0)
 	{
-		free(rd_str);
-		return (0);
-	}
-	rd_str[a] = 0;
-	if (buff == NULL)
-		buff = ft_strdup("");
-	if ((t_str = ft_strchr(rd_str, '\n')) != NULL)
-	{
-		s_str = ft_substr(rd_str, 0, t_str - rd_str)
-		*line = ft_strjoin(buff, s_str)
+		*line = ft_substr(buff, 0, chr_buff - buff);
+		t_buff = ft_strdup(chr_buff + 1);
 		free(buff);
-		if (*(t_str + 1) != 0)
-			buff = ft_strdup(t_str + 1);
+		buff = t_buff;
 	}
 	else
 	{
-		s_str = ft_strdup(buff);
+		*line = ft_substr(buff, 0, chr_buff - buff);
 		free(buff);
-		buff = ft_strjoin(s_str, rd_str)) == NULL)
+		buff = 0;
 	}
-	free(s_str);
-	free(rd_str);
+	if (ret == 0)
+		return (0);
 	return (1);
+}
+
+int		chr_nul(char *buff, char **line)
+{
+	*line = buff;
+	buff = 0;
+	return (0);
+}
+
+int		get_next_line(int fd, char **line)
+{
+	static char		*buff = 0;
+	char			rd_str[BUFFER_SIZE + 1];
+	char			*chr_buff;
+	int				ret;
+
+	if (fd < 0 || !line || BUFFER_SIZE <= 0)
+		return (-1);
+	while ((ret = read(fd, rd_str, BUFFER_SIZE)) >= 0)
+	{
+		rd_str[ret] = 0;
+		if (buff == 0 && ret != 0)
+			buff = ft_strdup(rd_str);
+		else if (buff != 0 && ret != 0)
+			buff = ft_strjoin(buff, rd_str);
+		if ((chr_buff = ft_strchr(buff, '\n')) != NULL)
+			return (chr_buf(buff, chr_buff, line, ret));
+		else if (chr_buff == NULL && ret == 0)
+			return (chr_nul(buff, line));
+	}
+	return (-1);
 }
