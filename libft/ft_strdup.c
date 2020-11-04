@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 15:35:32 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/24 14:49:54 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/04 15:20:02 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,14 @@
 
 char		*ft_strdup(const char *str)
 {
+	char	*c_clone;
 	char	*clone;
-	size_t	i;
 
 	if (!(clone = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1))))
 		return (NULL);
-	i = 0;
-	while (str[i])
-	{
-		clone[i] = str[i];
-		i++;
-	}
-	clone[i] = 0;
+	c_clone = clone;
+	while (*str)
+		*c_clone++ = *str++;
+	*c_clone = 0;
 	return (clone);
 }

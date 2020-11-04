@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 11:07:11 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/11 14:36:52 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/04 14:20:49 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,27 @@
 
 int			ft_atoi(const char *str)
 {
-	int		i;
 	long	minus;
 	long	val;
 
 	minus = 1;
-	i = 0;
 	val = 0;
-	while (((str[i] >= 9 && str[i] <= 13) || str[i] == ' ') && str[i] != 0)
-		i++;
-	if (str[i] == '+' || str[i] == '-')
+	while (((*str >= 9 && *str <= 13) || *str == ' ') && *str != 0)
+		str++;
+	if (*str == '+' || *str == '-')
 	{
-		if (str[i] == '-')
+		if (*str == '-')
 			minus = -1;
-		i++;
+		str++;
 	}
-	while ((str[i] >= '0' && str[i] <= '9') && str[i] != 0)
+	while ((*str >= '0' && *str <= '9') && *str != 0)
 	{
-		val = (val * 10) + (str[i] - '0');
+		val = (val * 10) + (*str - '0');
 		if (val * minus > 2147483647)
 			return (-1);
 		else if (val * minus < -2147483648)
 			return (0);
-		i++;
+		str++;
 	}
 	return (val * minus);
 }

@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 14:38:50 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/24 14:15:35 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/04 14:45:40 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@ void		*ft_calloc(size_t elt_count, size_t elt_size)
 {
 	size_t	i;
 	void	*temp;
+	void	*c_temp;
 
-	if (!(temp = (void *)malloc(elt_size * elt_count)))
+	i = elt_count * elt_size;
+	if (!(temp = (void *)malloc(i)))
 		return (NULL);
-	i = 0;
-	while (i < elt_count * elt_size)
+	c_temp = temp;
+	while (i--)
 	{
-		*((char *)temp + i) = 0;
-		i++;
+		*((char *)c_temp++) = 0;
 	}
 	return (temp);
 }

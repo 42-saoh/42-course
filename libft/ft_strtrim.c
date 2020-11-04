@@ -6,116 +6,54 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 21:18:36 by saoh              #+#    #+#             */
-/*   Updated: 2020/10/24 16:09:02 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/04 17:06:35 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	ft_front_del_num(char const *s1, char const *set)
+char			*ft_find(char *c_s1, char const *set, int flag)
 {
-	int			i;
-	size_t		j;
-	size_t		flag;
-	size_t		del_num;
+	char const	*c_set;
 
-	i = -1;
-	del_num = 0;
-	while (s1[++i])
+	c_set = set;
+	if (flag == 1)
 	{
-		j = 0;
-		flag = 0;
-		while (j < ft_strlen(set))
-		{
-			if (s1[i] == set[j])
-			{
-				flag++;
-				del_num++;
-				break ;
-			}
-			j++;
-		}
-		if (flag == 0)
-			break ;
+		while (*c_s1)
+			c_s1++;
+		c_s1--;
 	}
-	return (del_num);
-}
-
-static size_t	ft_back_del_num(char const *s1, char const *set)
-{
-	size_t		i;
-	size_t		j;
-	size_t		flag;
-	size_t		del_num;
-
-	i = ft_strlen(s1);
-	del_num = 0;
-	while (--i >= 0)
+	while (*c_set)
 	{
-		j = 0;
-		flag = 0;
-		while (j < ft_strlen(set))
+		if (*c_s1 == *c_set)
 		{
-			if (s1[i] == set[j])
-			{
-				flag++;
-				del_num++;
-				break ;
-			}
-			j++;
-		}
-		if (flag == 0)
-			break ;
-	}
-	return (del_num);
-}
-
-static char		*ft_trim(char const *s1, size_t fdn, size_t bdn)
-{
-	size_t		i;
-	size_t		del_num;
-	char		*trim;
-
-	i = 0;
-	del_num = fdn + bdn;
-	if (!(trim = (char *)malloc(sizeof(char) * (ft_strlen(s1) - del_num + 1))))
-		return (NULL);
-	del_num = 0;
-	while (s1[i])
-	{
-		if (i < fdn)
-		{
-			i++;
-			del_num++;
+			c_set = set;
+			if (flag == 1)
+				c_s1--;
+			else
+				c_s1++;
 			continue ;
 		}
-		else if (i == ft_strlen(s1) - bdn)
-			break ;
-		trim[i - del_num] = s1[i];
-		i++;
+		c_set++;
 	}
-	trim[i - del_num] = 0;
-	return (trim);
+	return (c_s1);
 }
 
 char			*ft_strtrim(char const *s1, char const *set)
 {
-	size_t		front_del_num;
-	size_t		back_del_num;
 	char		*trim;
+	char		*c_s1;
+	char		*last_s;
 
 	if (s1 == NULL)
-	{
-		trim = 0;
-		return (trim);
-	}
+		return (NULL);
 	if (set == NULL)
 		return (ft_strdup(s1));
-	front_del_num = ft_front_del_num(s1, set);
-	if (front_del_num == ft_strlen(s1))
+	c_s1 = (char *)s1;
+	c_s1 = ft_find(c_s1, set, 0);
+	if (*c_s1 == 0)
 		return (ft_strdup(""));
-	back_del_num = ft_back_del_num(s1, set);
-	if ((trim = ft_trim(s1, front_del_num, back_del_num)) == NULL)
-		return (NULL);
+	last_s = ft_find(c_s1, set, 1);
+	trim = ft_substr(c_s1, 0, last_s - c_s1 + 1);
 	return (trim);
 }
