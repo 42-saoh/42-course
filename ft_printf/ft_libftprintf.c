@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 16:44:13 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/08 20:44:20 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/08 20:49:10 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ void		ft_precision(t_lst lst)
 t_lst		ft_sort_symbol(t_lst lst)
 {
 	if (*(lst.f) >= '1' && *(lst.f) <= '9')
-		ft_number(lst);
+		ft_width(lst);
 	else if (*(lst.f) == '0' && lst.minus != '1')
 		ft_zero(lst);
 	else if (*(lst.f) == '-' && lst.minus != '1' && lst.nm != '1')
 		ft_minus(lst);
 	else if (*(lst.f) == '*')
-		ft_star(lst);
+		ft_variable_argument_width(lst);
 	else if (*(lst.f) == '.')
 		ft_precision(lst);
 	else if (*(lst.f) == '%' && *(lst.f - 1) == '%')
