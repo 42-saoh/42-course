@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/02 16:58:45 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/04 14:14:42 by saoh             ###   ########.fr       */
+/*   Created: 2020/09/29 10:20:56 by saoh              #+#    #+#             */
+/*   Updated: 2020/10/21 11:51:15 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include <unistd.h>
-# include <stdarg.h>
-# include <stdlib.h>
+#include "libft.h"
 
-typedef	struct			s_list
+int		ft_memcmp(const void *ptr1, const void *ptr2, size_t size)
 {
-		void			*content;
-		struct s_list	*next;
-}						t_list;
+	size_t i;
 
-typedef struct			s_lst
-{
-		va_list			*ap;
-		const char		*f;
-		char			*print;
-		int				result;
-}						t_lst;
-
-int		ft_printf(char *f, ...);
-
-#endif
+	i = 0;
+	while (i < size)
+	{
+		if (*((unsigned char *)ptr1 + i) != (*((unsigned char *)ptr2 + i)))
+			return ((*((unsigned char *)ptr1 + i)
+						- (*((unsigned char *)ptr2 + i))));
+		else
+			i++;
+	}
+	return (0);
+}

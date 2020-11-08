@@ -1,40 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/02 16:44:13 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/04 14:12:48 by saoh             ###   ########.fr       */
+/*   Created: 2020/10/16 13:06:06 by saoh              #+#    #+#             */
+/*   Updated: 2020/10/16 17:48:20 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-t_lst		ft_persent(t_lst lst)
+void		ft_lstadd_front(t_list **lst, t_list *new)
 {
-	if (*(lst.f + 1) == NULL)
-	{
-		lst.result = -1;
-		return (lst);
-	}
-	if (*(lst.f + 1) == 
-}
-
-int			ft_printf(const char *f, ...)
-{
-	t_lst	lst;
-	
-	lst.f = f;
-	va_start(lst.ap, lst.f);
-	while (*lst.f)
-	{
-		if (ft_strchr(*lst.f, '%') != NULL)
-			lst = ft_persent(lst);
-		if (lst.result < 0)
-			return (-1);
-	}
-	va_end(lst.ap);
-	return (lst.result);
+	if (new == NULL)
+		return ;
+	new->next = *lst;
+	*lst = new;
 }
