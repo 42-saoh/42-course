@@ -6,21 +6,21 @@
 #    By: saoh </var/mail/saoh>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/08 15:14:14 by saoh              #+#    #+#              #
-#    Updated: 2020/11/08 17:41:29 by saoh             ###   ########.fr        #
+#    Updated: 2020/11/10 16:17:51 by saoh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-OBJECTS = ft_libftprintf.o
+OBJECTS = test.o
 LIBFT = -L./libft -lft
-INC_LINK = -I./libft/libft.h -I.ft_libftprintf.h
+INC_LINK = -I.ft_libftprintf.h
 
 $(OBJECTS)/%.o: $(SRC)/%.c
 	$(CC) $(FLAGS) $(INC_LINK) -o $@ -c $<
 
-SRC := ft_libftprintf.c
+SRC := test.c
 
 $(NAME) : $(OBJECTS) lib
 	$(CC) $(CFLAGS) $(OBJECTS) $(INC_LINK) $(LIBFT) -o $(NAME)

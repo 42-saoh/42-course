@@ -6,18 +6,9 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 20:17:35 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/09 21:23:07 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/10 18:37:48 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-static void			ft_put_symbol(char *str, int len, int width, char c)
-{
-	while(len < width)
-	{
-		str[len] = c;
-		len++;
-	}
-}
 
 static void		ft_char_minus(t_lst lst, char *str, char c)
 {
@@ -62,6 +53,7 @@ t_lst			ft_char(t_lst lst)
 	else
 		str[0] = va_c;
 	str[lst.width] = 0;
+	lst.f++;
 	ft_lstadd_back(%lst.list, ft_lstnew(str));
 	return (lst);
 }
