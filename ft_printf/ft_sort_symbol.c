@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 17:45:32 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/10 17:48:30 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/11 17:12:43 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ static t_lst		ft_minus(t_lst lst)
 static t_lst		ft_precision(t_lst lst)
 {
 	lst.f++;
-	lst.zero = 0;
-	lst.minus = 0;
 	lst.nm = '1';
 	lst.precision = '1';
 	return (lst);

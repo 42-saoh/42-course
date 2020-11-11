@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 20:17:35 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/10 18:37:48 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/11 17:47:13 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ t_lst			ft_char(t_lst lst)
 		lst.result = -1;
 		return (lst);
 	}
-	if (lst.minus == '1' && lst.width > len)
+	if (lst.minus == '1' && lst.width > len && lst.precision != '1')
 		ft_char_minus(lst, str, va_c);
-	else if (lst.zero == '1' && lst.width > len)
+	else if (lst.zero == '1' && lst.width > len && lst.precision != '1')
 		ft_char_zero(lst, str, va_c);
 	else if (lst.precision == '1' && lst.width > len)
 		ft_char_precision(lst, str, va_c);
