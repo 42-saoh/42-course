@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 21:00:47 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/11 17:13:13 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/11 18:01:40 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ static void		ft_str_precision(t_lst lst, char *str, char *va_str)
 	ft_strlcat(str, va_str, lst.width + 1);
 }
 
+static void		ft_str_width(t_lst lst, char *str, char *va_str)
+{
+	ft_put_symbol(str, 0, lst.width - lst.len, ' ');
+	ft_strlcat(str, va_str, lst.width + 1);
+}
+
 t_lst			ft_str(t_lst lst)
 {
 	char	*va_str;
@@ -44,12 +50,14 @@ t_lst			ft_str(t_lst lst)
 		lst.result = -1;
 		return (lst);
 	}
-	if (lst.minus == '1' && lst.width > len && lst.precision != '1')
+	if (lst.minus == '1' && lst.width > lst.len && lst.precision != '1')
 		ft_str_minus(lst, str, va_str);
-	else if (lst.zero == '1' && lst.width > len && lst.precision != '1')
+	else if (lst.zero == '1' && lst.width > lst.len && lst.precision != '1')
 		ft_str_zero(lst, str, va_str);
-	else if (lst.precision == '1' && lst.width > len)
+	else if (lst.precision == '1' && lst.width > lst.len)
 		ft_str_precision(lst, str, va_str);
+	else if (lst.width > lst.len)
+		ft_str_width(lst, str, va_str);
 	else
 		str = va_str;
 	ft_lstadd_back(%lst.list, ft_lstnew(str));

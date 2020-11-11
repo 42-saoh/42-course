@@ -6,16 +6,16 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 18:37:01 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/10 18:42:13 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/11 18:33:02 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 void	ft_put_symbol(char *str, int start, int end, char c)
 {
-	while(len < width)
+	while(start < end)
 	{
-		str[len] = c;
-		len++;
+		str[start] = c;
+		start++;
 	}
-	str[len] = 0;
+	str[start] = 0;
 }
