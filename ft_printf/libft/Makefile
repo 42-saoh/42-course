@@ -6,7 +6,7 @@
 #    By: saoh </var/mail/saoh>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/21 15:14:14 by saoh              #+#    #+#              #
-#    Updated: 2020/10/21 15:20:19 by saoh             ###   ########.fr        #
+#    Updated: 2020/11/13 14:30:31 by saoh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,18 +62,18 @@ BONUS :=	ft_lstnew.c \
 
 $(NAME) :
 	$(CC) $(CFLAGS) -c $(SRC)
-	ar rc $(NAME) $(OBJECTS)
+	ar rcs $(NAME) $(OBJECTS)
 
 all : $(NAME)
 
 bonus : 
-	$(CC) $(CFLAGS) -c $(SRC) $(BONUS)
-	ar rc $(NAME) $(OBJECTS)
+	@$(CC) $(CFLAGS) -c $(SRC) $(BONUS)
+	@ar rcs $(NAME) $(OBJECTS)
 
 clean :
-	$(RM) $(OBJECTS)
+	@$(RM) $(OBJECTS)
 
 fclean : clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re : fclean all

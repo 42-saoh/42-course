@@ -6,9 +6,19 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 15:03:40 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/12 18:03:57 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/13 12:26:49 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+void	ft_select_int(t_lst *lst)
+{
+	if (lst->width > lst->len && lst->width > lst->prewidth)
+		return ();
+	else if (lst->prewidth > lst->len && lst->prewidth >= lst->width)
+		lst->width = lst->prewidth;
+	else
+		lst->width = len;
+}
 
 int			ft_numlen(long va_int)
 {
@@ -48,7 +58,6 @@ void		ft_int_minus(t_lst *lst, char *str, long va_int)
 		va_int = -va_int;
 		*str = '-';
 		ft_put_int(str, va_int, lst->len);
-	}
 	else if (va_int == 0)
 		*str = '0';
 	else
