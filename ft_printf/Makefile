@@ -6,17 +6,17 @@
 #    By: saoh </var/mail/saoh>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/08 15:14:14 by saoh              #+#    #+#              #
-#    Updated: 2020/11/13 14:29:18 by saoh             ###   ########.fr        #
+#    Updated: 2020/11/13 15:29:24 by saoh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-OBJECTS = test.o
+OBJECTS = *.o
 LIBFT = -L./libft -lft
 
-SRC := test.c
+SRC := *.c
 
 $(NAME) : lib
 	@cp libft/libft.a $(NAME)

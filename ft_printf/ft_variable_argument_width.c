@@ -6,9 +6,11 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 17:51:51 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/12 14:55:01 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/13 15:30:59 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ft_libftprintf.h"
 
 void	ft_variable_argument_width(t_lst *lst)
 {
@@ -19,7 +21,7 @@ void	ft_variable_argument_width(t_lst *lst)
 	else
 	{
 		lst->result = -1;
-		return ();
+		return ;
 	}
 	lst->f++;
 }

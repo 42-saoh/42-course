@@ -6,9 +6,11 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 17:45:32 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/12 14:54:40 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/13 15:34:27 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ft_libftprintf.h"
 
 static void		ft_zero(t_lst *lst)
 {
@@ -39,7 +41,7 @@ static void		ft_persent(t_lst *lst)
 	if (!(str = (char *)malloc(sizeof(char) * 2)))
 	{
 		lst->result = -1;
-		return ();
+		return ;
 	}
 	lst->f++;
 	str[0] = '%';

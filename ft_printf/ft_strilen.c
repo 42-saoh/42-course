@@ -6,9 +6,11 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 20:26:16 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/09 21:03:17 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/13 15:23:33 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ft_libftprintf.h"
 
 int		ft_strilen(const char *str)
 {

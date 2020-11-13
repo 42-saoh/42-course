@@ -6,9 +6,11 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 17:05:38 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/12 14:58:59 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/13 15:40:14 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ft_libftprintf.h"
 
 static void			ft_put_adress(char *str, unsigned int adress)
 {
@@ -26,7 +28,7 @@ static void			ft_put_adress(char *str, unsigned int adress)
 			str[i] = hex_adr + ('a' - 10);
 		else
 			str[i] = hex_adr + '0';
-		c /= 16;
+		adress /= 16;
 		i--;
 	}
 	str[11] = 0;
@@ -35,7 +37,7 @@ static void			ft_put_adress(char *str, unsigned int adress)
 static void			ft_adress_minus(t_lst *lst, char *str, unsigned int adress)
 {
 	ft_put_adress(str, adress);
-	ft_put_symbol(str, 11, lst->width, ' ')
+	ft_put_symbol(str, 11, lst->width, ' ');
 }
 
 static void			ft_adress_width(t_lst *lst, char *str, unsigned int adress)
@@ -49,10 +51,10 @@ void				ft_adress(t_lst *lst)
 	unsigned int	adress;
 	char			*str;
 
-	if (lst->zero == '1' || lst->prewitdh > 0)
+	if (lst->zero == '1' || lst->prewidth > 0)
 	{
 		lst->result = -1;
-		return ();
+		return ;
 	}
 	adress = (unsigned int)va_arg(lst->ap, void *);
 	lst->len = 11;
@@ -60,7 +62,7 @@ void				ft_adress(t_lst *lst)
 	if(!(str = (char *)malloc(sizeof(char) * (lst->width + 1))))
 	{
 		lst->result = -1;
-		return ();
+		return ;
 	}
 	if (lst->minus == '1')
 		ft_adress_minus(lst, str, adress);
@@ -68,6 +70,5 @@ void				ft_adress(t_lst *lst)
 		ft_adress_width(lst, str, adress);
 	else
 		ft_put_adress(str, adress);
-	ft_lstadd_back(&lst.list, ft_lstnew(str));
-	return (lst);
+	ft_lstadd_back(&lst->list, ft_lstnew(str));
 }

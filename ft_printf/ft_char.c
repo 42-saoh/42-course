@@ -6,9 +6,11 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 20:17:35 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/12 14:53:35 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/13 15:41:39 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ft_libftprintf.h"
 
 static void		ft_char_minus(t_lst *lst, char *str, char c)
 {
@@ -47,15 +49,15 @@ void			ft_char(t_lst *lst)
 	ft_width_select(lst);
 	if(!(str = (char *)malloc(sizeof(char) * (lst->width + 1))))
 	{
-		lst.result = -1;
-		return ();
+		lst->result = -1;
+		return ;
 	}
-	if (lst->minus == '1' && lst->width > lst.len && lst->precision != '1')
+	if (lst->minus == '1' && lst->width > lst->len && lst->precision != '1')
 		ft_char_minus(lst, str, va_c);
 	else if (lst->zero == '1' && lst->width > lst->len
 			&& lst->precision != '1')
 		ft_char_zero(lst, str, va_c);
-	else if (lst->precision == '1' && lst->width > lst.len)
+	else if (lst->precision == '1' && lst->width > lst->len)
 		ft_char_precision(lst, str, va_c);
 	else if (lst->width > lst->len)
 		ft_char_width(lst, str, va_c);
@@ -63,5 +65,5 @@ void			ft_char(t_lst *lst)
 		str[0] = va_c;
 	str[lst->width] = 0;
 	lst->f++;
-	ft_lstadd_back(%lst->list, ft_lstnew(str));
+	ft_lstadd_back(&lst->list, ft_lstnew(str));
 }
