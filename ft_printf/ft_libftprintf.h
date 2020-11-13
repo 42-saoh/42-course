@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 16:58:45 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/13 16:08:52 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/13 16:52:18 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ typedef struct			s_lst
 		int				width;
 		int				prewidth;
 		int				len;
-		va_list			ap;
 		char			*chrf;
 		char			*f;
+		va_list			ap;
 		t_list			*list;
 }						t_lst;
 

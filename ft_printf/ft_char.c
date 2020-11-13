@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 20:17:35 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/13 15:41:39 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/13 16:51:55 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ static void		ft_char_width(t_lst *lst, char *str, char c)
 
 void			ft_char(t_lst *lst)
 {
-	char	va_c;
 	char	*str;
+	char	va_c;
 
-	va_c = va_arg(lst->ap, int);
+	va_c = (char)va_arg(lst->ap, int);
 	lst->len = 1;
 	ft_width_select(lst);
 	if(!(str = (char *)malloc(sizeof(char) * (lst->width + 1))))

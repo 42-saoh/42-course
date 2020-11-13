@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 16:44:13 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/13 16:20:21 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/13 16:50:26 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int			ft_printf(const char *f, ...)
 	lst->list = NULL;
 	lst->f = (char *)f;
 	va_start(lst->ap, f);
-	while (lst->chrf == ft_strchr(lst->f, '%'))
+	while ((lst->chrf = ft_strchr(lst->f, '%')) != NULL)
 	{
 		ft_init_lst(lst);
 		ft_until_persent_str(lst);
