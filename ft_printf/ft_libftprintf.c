@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 16:44:13 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/13 16:50:26 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/16 19:32:03 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void		ft_print(t_lst *lst)
 	t_list 	*curr;
 	int		len;
 
+	ft_lstadd_back(&lst->list, ft_lstnew(ft_strdup(lst->f)));
 	curr = lst->list;
 	len = 0;
 	while(curr != NULL)
@@ -58,6 +59,16 @@ void		ft_print(t_lst *lst)
 	}
 }
 
+int			ft_end(t_lst *lst)
+{
+	int		len;
+
+	len = lst->result;
+	ft_lstclear(&lst->list, free);
+	free(lst);
+	return (len);
+}
+
 int			ft_printf(const char *f, ...)
 {
 	t_lst	*lst;
@@ -66,6 +77,7 @@ int			ft_printf(const char *f, ...)
 		return (-1);
 	lst->list = NULL;
 	lst->f = (char *)f;
+	lst->result = 0;
 	va_start(lst->ap, f);
 	while ((lst->chrf = ft_strchr(lst->f, '%')) != NULL)
 	{
@@ -73,9 +85,9 @@ int			ft_printf(const char *f, ...)
 		ft_until_persent_str(lst);
 		ft_sort_symbol(lst);
 		if (lst->result < 0)
-			return (-1);
+			return (ft_end(lst));
 	}
 	ft_print(lst);
 	va_end(lst->ap);
-	return (lst->result);
+	return (ft_end(lst));
 }

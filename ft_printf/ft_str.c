@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 21:00:47 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/13 15:34:05 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/16 19:33:23 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void			ft_str(t_lst *lst)
 	else if (lst->width > lst->len)
 		ft_str_width(lst, str, va_str);
 	else
-		str = va_str;
+		str = ft_strdup(va_str);
+	lst->f++;
 	ft_lstadd_back(&lst->list, ft_lstnew(str));
 }

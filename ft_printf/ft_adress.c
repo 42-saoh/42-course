@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 17:05:38 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/13 18:09:51 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/16 19:05:21 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,6 @@ void				ft_adress(t_lst *lst)
 		ft_adress_width(lst, str, adress);
 	else
 		ft_put_adress(str, adress, lst->len);
+	lst->f++;
 	ft_lstadd_back(&lst->list, ft_lstnew(str));
 }
