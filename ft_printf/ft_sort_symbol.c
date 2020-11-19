@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 17:45:32 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/19 15:37:10 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/19 16:26:34 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,7 @@ static void		ft_persent(t_lst *lst)
 	char	*str;
 
 	if (!(str = (char *)malloc(sizeof(char) * 2)))
-	{
-		lst->result = -1;
-		return ;
-	}
+		return (ft_error_result(lst));
 	lst->f++;
 	str[0] = '%';
 	str[1] = 0;

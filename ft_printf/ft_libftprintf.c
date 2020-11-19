@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 16:44:13 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/19 15:28:59 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/19 16:25:28 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ static void		ft_until_persent_str(t_lst *lst)
 		return ;
 	}
 	if (!(str = ft_substr(lst->f, 0, lst->chrf - lst->f)))
-	{
-		lst->result = -1;
-		return ;
-	}
+		return (ft_error_result(lst));
 	ft_lstadd_back(&lst->list, ft_lstnew(str));
 	lst->f = lst->chrf + 1;
 }

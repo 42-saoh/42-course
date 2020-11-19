@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 16:58:45 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/13 16:52:18 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/19 16:24:31 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct			s_lst
 }						t_lst;
 
 int						ft_printf(const char *f, ...);
+void					ft_error_result(t_lst *lst);
 void					ft_sort_symbol(t_lst *lst);
 void					ft_width(t_lst *lst);
 void					ft_variable_argument_width(t_lst *lst);

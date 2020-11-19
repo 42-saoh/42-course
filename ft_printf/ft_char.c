@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 20:17:35 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/19 15:35:28 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/19 16:28:57 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ static void		ft_flag_select(t_lst *lst, char *str)
 	else
 		return (ft_lstadd_back(&lst->list, ft_lstnew(str)));
 	if (!(flag_str = (char *)malloc(sizeof(char) * (lst->width + 1))))
-	{
-		lst->result = -1;
-		return ;
-	}
+		return (ft_error_result(lst));
 	if (lst->zero == '1')
 		ft_put_symbol(flag_str, 0, lst->width, '0');
 	else
@@ -44,13 +41,10 @@ void			ft_char(t_lst *lst)
 	char	*str;
 	int		va_c;
 
+	if(!(str = (char *)malloc(sizeof(char) * 2)) || lst->prewidth > 0)
+		return (ft_error_result(lst));
 	va_c = va_arg(lst->ap, int);
 	lst->len = 1;
-	if(!(str = (char *)malloc(sizeof(char) * 2)) || lst->prewidth > 0)
-	{
-		lst->result = -1;
-		return ;
-	}
 	str[0] = va_c;
 	str[1] = 0;
 	lst->f++;
