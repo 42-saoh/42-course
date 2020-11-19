@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 20:17:35 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/19 16:28:57 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/19 20:02:15 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static void		ft_flag_select(t_lst *lst, char *str)
 	ft_lstadd_back(&lst->list, ft_lstnew(flag_str));
 	ft_lstadd_back(&lst->list, ft_lstnew(str));
 }
-
 void			ft_char(t_lst *lst)
 {
 	char	*str;

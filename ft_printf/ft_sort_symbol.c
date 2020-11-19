@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 17:45:32 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/19 16:26:34 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/19 20:11:27 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		ft_sort_symbol(t_lst *lst)
 	{
 		if (*(lst->f) >= '1' && *(lst->f) <= '9')
 			ft_width(lst);
-		else if (*(lst->f) == '0' && lst->minus != '1')
+		else if (*(lst->f) == '0' && (lst->minus != '1' || lst->precision != 0))
 			ft_zero(lst);
 		else if (*(lst->f) == '-' && lst->minus != '1' && lst->nm != '1')
 			ft_minus(lst);
