@@ -6,64 +6,53 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 20:17:35 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/16 20:30:42 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/19 15:35:28 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_libftprintf.h"
 
-static void		ft_char_minus(t_lst *lst, char *str, char c)
+static void		ft_flag_select(t_lst *lst, char *str)
 {
-	str[0] = c;
-	ft_put_symbol(str, lst->len, lst->width, ' ');
-}
+	char *flag_str;
 
-static void		ft_char_zero(t_lst *lst, char *str, char c)
-{
-	ft_put_symbol(str, 0, lst->width - lst->len, '0');
-	str[lst->width - lst->len] = c;
-}
-
-static void		ft_char_precision(t_lst *lst, char *str, char c)
-{
-	if (lst->prewidth == lst->width)
-		ft_put_symbol(str, 0, lst->width - lst->len, '0');
-	else if (lst->width > lst->len)
-		ft_put_symbol(str, 0, lst->width - lst->len, ' ');
-	str[lst->width - lst->len] = c;
-}
-
-static void		ft_char_width(t_lst *lst, char *str, char c)
-{
-	ft_put_symbol(str, 0, lst->width - lst->len, ' ');
-	str[lst->width - lst->len] = c;
+	if (lst->width > lst->len)
+		lst->width = lst->width - lst->len;
+	else
+		return (ft_lstadd_back(&lst->list, ft_lstnew(str)));
+	if (!(flag_str = (char *)malloc(sizeof(char) * (lst->width + 1))))
+	{
+		lst->result = -1;
+		return ;
+	}
+	if (lst->zero == '1')
+		ft_put_symbol(flag_str, 0, lst->width, '0');
+	else
+		ft_put_symbol(flag_str, 0, lst->width, ' ');
+	if (lst->minus == '1')
+	{
+		ft_lstadd_back(&lst->list, ft_lstnew(str));
+		ft_lstadd_back(&lst->list, ft_lstnew(flag_str));
+		return ;
+	}
+	ft_lstadd_back(&lst->list, ft_lstnew(flag_str));
+	ft_lstadd_back(&lst->list, ft_lstnew(str));
 }
 
 void			ft_char(t_lst *lst)
 {
 	char	*str;
-	char	va_c;
+	int		va_c;
 
-	va_c = (char)va_arg(lst->ap, int);
+	va_c = va_arg(lst->ap, int);
 	lst->len = 1;
-	ft_width_select(lst);
-	if(!(str = (char *)malloc(sizeof(char) * (lst->width + 1))))
+	if(!(str = (char *)malloc(sizeof(char) * 2)) || lst->prewidth > 0)
 	{
 		lst->result = -1;
 		return ;
 	}
-	if (lst->minus == '1' && lst->width > lst->len && lst->precision != '1')
-		ft_char_minus(lst, str, va_c);
-	else if (lst->zero == '1' && lst->width > lst->len
-			&& lst->precision != '1')
-		ft_char_zero(lst, str, va_c);
-	else if (lst->precision == '1' && lst->width > lst->len)
-		ft_char_precision(lst, str, va_c);
-	else if (lst->width > lst->len)
-		ft_char_width(lst, str, va_c);
-	else
-		str[0] = va_c;
-	str[lst->width] = 0;
+	str[0] = va_c;
+	str[1] = 0;
 	lst->f++;
-	ft_lstadd_back(&lst->list, ft_lstnew(str));
+	return (ft_flag_select(lst, str));
 }

@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 16:44:13 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/16 19:32:03 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/19 15:28:59 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,10 @@ void		ft_print(t_lst *lst)
 	while(curr != NULL)
 	{
 		len = ft_strilen(curr->content);
+		if (curr->next == NULL && len == 0)
+			len = 0;
+		else if (len == 0)
+			len = 1;
 		write(1, curr->content, len);
 		lst->result = lst->result + len;
 		curr = curr->next;

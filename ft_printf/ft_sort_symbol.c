@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 17:45:32 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/13 16:47:34 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/19 15:37:10 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static void		ft_zero(t_lst *lst)
 
 static void		ft_minus(t_lst *lst)
 {
-	lst->f++;
+	while(*(lst->f) == '-')
+		lst->f++;
 	lst->minus = '1';
 }
 
