@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 16:58:45 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/21 15:46:53 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/21 16:15:12 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void					ft_char(t_lst *lst);
 void					ft_str(t_lst *lst);
 void					ft_adress(t_lst *lst);
 void					ft_persent(t_lst *lst);
+void					ft_unsigned(t_lst *lst);
 
 int						ft_strilen(const char *str);
 

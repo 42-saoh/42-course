@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 16:52:25 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/21 15:34:59 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/21 16:14:49 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	ft_format_specifier(t_lst *lst)
 		return (ft_adress(lst));
 	else if (*(lst->f) == '%')
 		return (ft_persent(lst));
+	else if (*(lst->f) == 'u')
+		return (ft_unsigned(lst));
 	else
 		return (ft_error_result(lst));
 }
