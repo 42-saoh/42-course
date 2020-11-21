@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 17:45:32 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/19 20:11:27 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/21 15:46:44 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,23 @@ static void		ft_precision(t_lst *lst)
 	lst->precision = '1';
 }
 
-static void		ft_persent(t_lst *lst)
+static void		ft_variable_argument_width(t_lst *lst)
 {
-	char	*str;
+	int			ap;
 
-	if (!(str = (char *)malloc(sizeof(char) * 2)))
+	ap = va_arg(lst->ap, int);
+	if (ap < 0 && lst->precision == 0)
+	{
+		lst->minus = '1';
+		ap = -ap;
+	}
+	if (lst->precision == '1' && lst->prewidth == 0)
+		lst->prewidth = ap;
+	else if (lst->precision == 0 && lst->width == 0)
+		lst->width = ap;
+	else
 		return (ft_error_result(lst));
 	lst->f++;
-	str[0] = '%';
-	str[1] = 0;
-	ft_lstadd_back(&lst->list, ft_lstnew(str));
 }
 
 void		ft_sort_symbol(t_lst *lst)
@@ -61,10 +68,8 @@ void		ft_sort_symbol(t_lst *lst)
 			ft_variable_argument_width(lst);
 		else if (*(lst->f) == '.' && lst->precision != '1')
 			ft_precision(lst);
-		else if (*(lst->f) == '%' && *(lst->f - 1) == '%')
-			return (ft_persent(lst));
 		else if ((*(lst->f) >= 'a' && *(lst->f) <= 'z')
-				|| (*(lst->f) >= 'A' && *(lst->f) <= 'Z'))
+				|| (*(lst->f) >= 'A' && *(lst->f) <= 'Z') || *(lst->f) == '%')
 			return (ft_format_specifier(lst));
 		else
 			lst->result = -1;

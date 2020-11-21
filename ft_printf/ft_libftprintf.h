@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 16:58:45 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/19 16:24:31 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/21 15:46:53 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int						ft_printf(const char *f, ...);
 void					ft_error_result(t_lst *lst);
 void					ft_sort_symbol(t_lst *lst);
 void					ft_width(t_lst *lst);
-void					ft_variable_argument_width(t_lst *lst);
 void					ft_format_specifier(t_lst *lst);
 
 void					ft_put_symbol(char *str, int start, int end, char c);
@@ -45,8 +44,8 @@ void					ft_put_symbol(char *str, int start, int end, char c);
 void					ft_char(t_lst *lst);
 void					ft_str(t_lst *lst);
 void					ft_adress(t_lst *lst);
+void					ft_persent(t_lst *lst);
 
 int						ft_strilen(const char *str);
-void					ft_width_select(t_lst *lst);
 
 #endif

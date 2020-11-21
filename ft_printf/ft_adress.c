@@ -6,17 +6,21 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 17:05:38 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/16 19:05:21 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/21 15:45:38 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_libftprintf.h"
 
-int					ft_get_len(unsigned long adress)
+static int			ft_get_len(t_lst *lst, unsigned long adress)
 {
 	int				len;
 
 	len = 2;
+	if (lst->precision == '1' && adress == 0)
+		return (len);
+	else if (adress == 0)
+		return (3);
 	while (adress > 0)
 	{
 		adress /= 16;
@@ -46,16 +50,27 @@ static void			ft_put_adress(char *str, unsigned long adress, int len)
 	str[len] = 0;
 }
 
-static void			ft_adress_minus(t_lst *lst, char *str, unsigned long adress)
+static void			ft_flag_select(t_lst *lst, char *str)
 {
-	ft_put_adress(str, adress, lst->len);
-	ft_put_symbol(str, 11, lst->width, ' ');
-}
+	char			*flag_str;
 
-static void			ft_adress_width(t_lst *lst, char *str, unsigned long adress)
-{
-	ft_put_symbol(str, 0, lst->width - lst->len, ' ');
-	ft_put_adress(str + (lst->width - lst->len),  adress, lst->len);
+	if (lst->width > lst->len)
+		lst->width = lst->width - lst->len;
+	else
+		return (ft_lstadd_back(&lst->list, ft_lstnew(str)));
+	if (!(flag_str = (char *)malloc(sizeof(char) * (lst->width + 1))))
+		return (ft_error_result(lst));
+	ft_put_symbol(flag_str, 0, lst->width, ' ');
+	if (lst->minus == 0)
+	{
+		ft_lstadd_back(&lst->list, ft_lstnew(flag_str));
+		ft_lstadd_back(&lst->list, ft_lstnew(str));
+	}
+	else
+	{
+		ft_lstadd_back(&lst->list, ft_lstnew(str));
+		ft_lstadd_back(&lst->list, ft_lstnew(flag_str));
+	}
 }
 
 void				ft_adress(t_lst *lst)
@@ -64,24 +79,12 @@ void				ft_adress(t_lst *lst)
 	char			*str;
 
 	if (lst->zero == '1' || lst->prewidth > 0)
-	{
-		lst->result = -1;
-		return ;
-	}
+		return (ft_error_result(lst));
 	adress = (unsigned long)va_arg(lst->ap, void *);
-	lst->len = ft_get_len(adress);
-	ft_width_select(lst);
-	if(!(str = (char *)malloc(sizeof(char) * (lst->width + 1))))
-	{
-		lst->result = -1;
-		return ;
-	}
-	if (lst->minus == '1')
-		ft_adress_minus(lst, str, adress);
-	else if (lst->width > lst->len)
-		ft_adress_width(lst, str, adress);
-	else
-		ft_put_adress(str, adress, lst->len);
+	lst->len = ft_get_len(lst, adress);
+	if(!(str = (char *)malloc(sizeof(char) * (lst->len + 1))))
+		return (ft_error_result(lst));
+	ft_put_adress(str, adress, lst->len);
 	lst->f++;
-	ft_lstadd_back(&lst->list, ft_lstnew(str));
+	ft_flag_select(lst, str);
 }
