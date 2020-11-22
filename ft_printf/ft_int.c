@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 17:04:42 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/22 17:45:07 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/22 19:50:09 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,5 @@ void		ft_int(t_lst *lst)
 	else
 		ft_negative_put_str(lst, str, lst->len, val);
 	lst->f++;
-	ft_flag_num_select(lst, str);
+	ft_flag_unsigned_select(lst, str);
 }
