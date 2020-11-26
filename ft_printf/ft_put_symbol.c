@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 18:37:01 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/13 15:23:03 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/26 19:24:46 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_put_symbol(char *str, int start, int end, char c)
 {
-	while(start < end)
+	while (start < end)
 	{
 		str[start] = c;
 		start++;

@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 17:05:38 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/21 15:45:38 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/26 19:24:06 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void				ft_adress(t_lst *lst)
 		return (ft_error_result(lst));
 	adress = (unsigned long)va_arg(lst->ap, void *);
 	lst->len = ft_get_len(lst, adress);
-	if(!(str = (char *)malloc(sizeof(char) * (lst->len + 1))))
+	if (!(str = (char *)malloc(sizeof(char) * (lst->len + 1))))
 		return (ft_error_result(lst));
 	ft_put_adress(str, adress, lst->len);
 	lst->f++;

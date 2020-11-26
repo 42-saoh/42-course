@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 17:45:32 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/21 15:46:44 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/26 21:14:22 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void		ft_zero(t_lst *lst)
 {
-	while(*(lst->f) == '0')
+	while (*(lst->f) == '0')
 		lst->f++;
 	if (lst->precision != '1')
 		lst->zero = '1';
@@ -23,7 +23,7 @@ static void		ft_zero(t_lst *lst)
 
 static void		ft_minus(t_lst *lst)
 {
-	while(*(lst->f) == '-')
+	while (*(lst->f) == '-')
 		lst->f++;
 	lst->minus = '1';
 }
@@ -54,13 +54,13 @@ static void		ft_variable_argument_width(t_lst *lst)
 	lst->f++;
 }
 
-void		ft_sort_symbol(t_lst *lst)
+void			ft_sort_symbol(t_lst *lst)
 {
 	while (lst->result >= 0)
 	{
 		if (*(lst->f) >= '1' && *(lst->f) <= '9')
 			ft_width(lst);
-		else if (*(lst->f) == '0' && (lst->minus != '1' || lst->precision != 0))
+		else if (*(lst->f) == '0')
 			ft_zero(lst);
 		else if (*(lst->f) == '-' && lst->minus != '1' && lst->nm != '1')
 			ft_minus(lst);

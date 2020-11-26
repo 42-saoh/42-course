@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 17:04:42 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/25 16:24:05 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/26 21:08:09 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static void		ft_negative_len(t_lst *lst, int val)
 	int			len;
 
 	len = 0;
-	n_val = -val;
+	n_val = val;
+	n_val = -n_val;
 	while (n_val > 0)
 	{
 		n_val /= 10;
@@ -51,7 +52,7 @@ static void		ft_negative_len(t_lst *lst, int val)
 	lst->m = 1;
 }
 
-static void		ft_put_str(t_lst *lst, char *str, int len, unsigned int val)
+static void		ft_put_str(t_lst *lst, char *str, int len, int val)
 {
 	if (val == 0 && lst->precision == '1' && lst->prewidth == 0)
 	{
@@ -76,7 +77,8 @@ static void		ft_negative_put_str(char *str, int len, int val)
 {
 	long		n_val;
 
-	n_val = -val;
+	n_val = val;
+	n_val = -n_val;
 	str[len--] = 0;
 	while (n_val > 0)
 	{
@@ -86,10 +88,10 @@ static void		ft_negative_put_str(char *str, int len, int val)
 	}
 }
 
-void		ft_int(t_lst *lst)
+void			ft_int(t_lst *lst)
 {
-	char	*str;
-	int		val;
+	char		*str;
+	int			val;
 
 	str = 0;
 	val = va_arg(lst->ap, int);

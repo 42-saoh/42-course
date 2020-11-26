@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 16:44:13 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/25 16:20:17 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/26 19:22:43 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void		ft_init_lst(t_lst *lst)
 
 static void		ft_until_persent_str(t_lst *lst)
 {
-	char			*str;
+	char		*str;
 
 	if (lst->chrf == lst->f)
 	{
@@ -40,15 +40,15 @@ static void		ft_until_persent_str(t_lst *lst)
 	lst->f = lst->chrf + 1;
 }
 
-void		ft_print(t_lst *lst)
+static void		ft_print(t_lst *lst)
 {
-	t_list 	*curr;
-	int		len;
+	t_list		*curr;
+	int			len;
 
 	ft_lstadd_back(&lst->list, ft_lstnew(ft_strdup(lst->f)));
 	curr = lst->list;
 	len = 0;
-	while(curr != NULL)
+	while (curr != NULL)
 	{
 		len = ft_strilen(curr->content);
 		if (curr->next == NULL && len == 0)
@@ -61,9 +61,9 @@ void		ft_print(t_lst *lst)
 	}
 }
 
-int			ft_end(t_lst *lst)
+int				ft_end(t_lst *lst)
 {
-	int		len;
+	int			len;
 
 	len = lst->result;
 	ft_lstclear(&lst->list, free);
@@ -71,10 +71,10 @@ int			ft_end(t_lst *lst)
 	return (len);
 }
 
-int			ft_printf(const char *f, ...)
+int				ft_printf(const char *f, ...)
 {
-	t_lst	*lst;
-	
+	t_lst		*lst;
+
 	if (!(lst = malloc(sizeof(t_lst))))
 		return (-1);
 	lst->list = NULL;

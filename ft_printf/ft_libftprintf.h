@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 16:58:45 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/25 16:26:30 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/26 19:19:14 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,19 @@
 
 typedef struct			s_lst
 {
-		char			minus;
-		char			nm;
-		char			zero;
-		char			precision;
-		int				result;
-		int				width;
-		int				prewidth;
-		int				len;
-		int				m;
-		char			*chrf;
-		char			*f;
-		va_list			ap;
-		t_list			*list;
+	char				minus;
+	char				nm;
+	char				zero;
+	char				precision;
+	int					result;
+	int					width;
+	int					prewidth;
+	int					len;
+	int					m;
+	char				*chrf;
+	char				*f;
+	va_list				ap;
+	t_list				*list;
 }						t_lst;
 
 int						ft_printf(const char *f, ...);

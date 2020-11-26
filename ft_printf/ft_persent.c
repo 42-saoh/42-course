@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 15:37:17 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/21 15:58:19 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/26 19:25:10 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void		ft_flag_select(t_lst *lst, char *str)
 		return (ft_lstadd_back(&lst->list, ft_lstnew(str)));
 	if (!(flag_str = (char *)malloc(sizeof(char) * (lst->width + 1))))
 		return (ft_error_result(lst));
-	if (lst->zero == '1' && lst->minus !='1')
+	if (lst->zero == '1' && lst->minus != '1')
 		ft_put_symbol(flag_str, 0, lst->width, '0');
 	else
 		ft_put_symbol(flag_str, 0, lst->width, ' ');
@@ -38,7 +38,7 @@ static void		ft_flag_select(t_lst *lst, char *str)
 	}
 }
 
-void		ft_persent(t_lst *lst)
+void			ft_persent(t_lst *lst)
 {
 	char	*str;
 

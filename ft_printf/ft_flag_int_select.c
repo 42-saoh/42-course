@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 17:06:51 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/26 18:31:06 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/26 19:26:54 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,29 +59,30 @@ static char		*ft_flag_width(t_lst *lst)
 
 static void		ft_list_minus(t_lst *lst, char *str, char *pre, char *width)
 {
-		if (lst->m == 1)
-			ft_lstadd_back(&lst->list, ft_lstnew(ft_strdup("-")));
-		if (pre != 0)
-			ft_lstadd_back(&lst->list, ft_lstnew(pre));
-		if (str != 0)
-			ft_lstadd_back(&lst->list, ft_lstnew(str));
-		if (width != 0)
-			ft_lstadd_back(&lst->list, ft_lstnew(width));
+	if (lst->m == 1)
+		ft_lstadd_back(&lst->list, ft_lstnew(ft_strdup("-")));
+	if (pre != 0)
+		ft_lstadd_back(&lst->list, ft_lstnew(pre));
+	if (str != 0)
+		ft_lstadd_back(&lst->list, ft_lstnew(str));
+	if (width != 0)
+		ft_lstadd_back(&lst->list, ft_lstnew(width));
 }
 
 static void		ft_list(t_lst *lst, char *str, char *pre, char *width)
 {
-		if (width != 0 && *width == ' ')
-			ft_lstadd_back(&lst->list, ft_lstnew(width));
-		if (lst->m == 1)
-			ft_lstadd_back(&lst->list, ft_lstnew(ft_strdup("-")));
-		if (width != 0 && *width == '0')
-			ft_lstadd_back(&lst->list, ft_lstnew(width));
-		if (pre != 0)
-			ft_lstadd_back(&lst->list, ft_lstnew(pre));
-		if (str != 0)
-			ft_lstadd_back(&lst->list, ft_lstnew(str));
+	if (width != 0 && *width == ' ')
+		ft_lstadd_back(&lst->list, ft_lstnew(width));
+	if (lst->m == 1)
+		ft_lstadd_back(&lst->list, ft_lstnew(ft_strdup("-")));
+	if (width != 0 && *width == '0')
+		ft_lstadd_back(&lst->list, ft_lstnew(width));
+	if (pre != 0)
+		ft_lstadd_back(&lst->list, ft_lstnew(pre));
+	if (str != 0)
+		ft_lstadd_back(&lst->list, ft_lstnew(str));
 }
+
 void			ft_flag_int_select(t_lst *lst, char *str)
 {
 	char		*width;
