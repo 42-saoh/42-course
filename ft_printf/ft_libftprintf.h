@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 16:58:45 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/22 20:22:55 by saoh             ###   ########.fr       */
+/*   Updated: 2020/11/25 16:26:30 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct			s_lst
 		int				width;
 		int				prewidth;
 		int				len;
+		int				m;
 		char			*chrf;
 		char			*f;
 		va_list			ap;
@@ -41,6 +42,7 @@ void					ft_format_specifier(t_lst *lst);
 
 void					ft_put_symbol(char *str, int start, int end, char c);
 void					ft_flag_unsigned_select(t_lst *lst, char *str);
+void					ft_flag_int_select(t_lst *lst, char *str);
 
 void					ft_char(t_lst *lst);
 void					ft_str(t_lst *lst);
