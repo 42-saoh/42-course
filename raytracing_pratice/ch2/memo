@@ -1,1 +1,5 @@
 ft_color의get_color_val에서 리턴값이 |로 되어있는데 ||로도 실험해보고 이것 말고 그냥 int 변수 만들어서 해보기.
+BMP_HEADER_SIZE가 54 가 아닌 122 인지 물어보기.
+raw_fill_data에서 왜 y, x, z순으로 들어가는지 물어보기.
+open 함수 확인.
+0일때 (즉 mlx로는 실행이 잘 됌) 하지만 bmp로 저장이 안 됌 틀린곳을 찾아봐야겠슴.

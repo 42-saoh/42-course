@@ -22,7 +22,7 @@ t_img_data		*create_img_data(int width, int height)
 	return (result);
 }
 
-void		*free_img_data(t_img_data *data)
+void		free_img_data(t_img_data *data)
 {
 	int		w;
 

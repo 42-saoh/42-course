@@ -1,4 +1,4 @@
-#include <minirt.h>
+#include "ch2.h"
 
 void	show_gradation(int is_save)
 {
