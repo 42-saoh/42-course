@@ -52,8 +52,7 @@ char		*get_bmp_filename(char *filename)
 	size_t	len;
 
 	len = ft_strlen(filename);
-	if ((result = (char *)malloc(len + 2)))
-		return (0);
+	result = (char *)malloc(len + 2);
 	c_result = result;
 	while (*filename)
 		*c_result++ = *filename++;
