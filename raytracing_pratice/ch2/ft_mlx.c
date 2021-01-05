@@ -55,3 +55,5 @@ void			mlx_show(t_img_data *data, char *title)
 	mlx_loop(vars.mlx);
 	free(img);
 }
+
+

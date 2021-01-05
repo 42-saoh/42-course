@@ -2,22 +2,22 @@
 
 void		raw_fill_header(t_img_data *data, char **raw_bmp, int img_size)
 {
-	**raw_bmp = 'B';
-	*(*raw_bmp + 1) = 'M';
+	*(unsigned short *)*raw_bmp = 'B';
+	*(unsigned short *)(*raw_bmp + 1) = 'M';
 	*(unsigned int *)(*raw_bmp + 2) = (unsigned int)img_size + BMP_HEADER_SIZE;
-	*(unsigned int *)(*raw_bmp + 6) = 0u;
-	*(unsigned char *)(*raw_bmp + 10) = BMP_HEADER_SIZE;
+	*(unsigned short *)(*raw_bmp + 6) = 0u;
+	*(unsigned short *)(*raw_bmp + 10) = BMP_HEADER_SIZE;
 	*(unsigned int *)(*raw_bmp + 14) = BMP_HEADER_SIZE - 14;
-	*(unsigned int *)(*raw_bmp + 18) = data->width;
-	*(unsigned int *)(*raw_bmp + 22) = data->height;
+	*(int *)(*raw_bmp + 18) = data->width;
+	*(int *)(*raw_bmp + 22) = data->height;
 	*(unsigned short *)(*raw_bmp + 26) = 1;
 	*(unsigned short *)(*raw_bmp + 28) = 24;
 	*(unsigned int *)(*raw_bmp + 30) = 0;
 	*(unsigned int *)(*raw_bmp + 34) = (unsigned int)img_size;
-	*(unsigned int *)(*raw_bmp + 38) = 3780;
-	*(unsigned int *)(*raw_bmp + 42) = 3780;
-	*(int *)(*raw_bmp + 46) = 0;
-	*(int *)(*raw_bmp + 50) = 0;
+	*(int *)(*raw_bmp + 38) = 3780;
+	*(int *)(*raw_bmp + 42) = 3780;
+	*(unsigned int *)(*raw_bmp + 46) = 0;
+	*(unsigned int *)(*raw_bmp + 50) = 0;
 }
 
 void		raw_fill_data(t_img_data *data, char *raw_bmp)

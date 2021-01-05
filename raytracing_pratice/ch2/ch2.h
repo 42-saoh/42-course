@@ -37,11 +37,11 @@ typedef struct		s_mlx_data
 	int				endian;
 }					t_mlx_data;
 
-# define BMP_HEADER_SIZE 122
+# define BMP_HEADER_SIZE 54
 
 void				show_gradation(int is_save);
 t_img_data			*create_img_data(int width, int height);
-void				draw_gradaition(t_img_data *data);
+void				draw_gradation(t_img_data *data);
 t_vec				*vec_create(double x, double y, double z);
 int					get_color_val(t_vec *color);
 t_vec				*get_color(int rgb);

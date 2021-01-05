@@ -6,11 +6,11 @@
 #    By: saoh </var/mail/saoh>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/08 15:14:14 by saoh              #+#    #+#              #
-#    Updated: 2021/01/03 23:09:35 by saoh             ###   ########.fr        #
+#    Updated: 2021/01/05 16:59:27 by saoh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libfttest.a
+NAME = libtest.a
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 OBJECTS = *.o
