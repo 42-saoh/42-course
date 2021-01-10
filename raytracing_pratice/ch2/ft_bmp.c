@@ -32,7 +32,7 @@ void		raw_fill_data(t_img_data *data, char *raw_bmp)
 	while (h < data->height)
 	{
 		w = 0;
-		while (w < data->height)
+		while (w < data->width)
 		{
 			color = get_color(data->img[w][h]);
 			*(raw_bmp + locate++) = (unsigned char)(color->y);
