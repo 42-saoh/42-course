@@ -11,8 +11,9 @@ void	show_sky(int is_save)
 	info = init_sky_info(2.0 * aspect_ratio, 2.0, 1.0);
 	draw_sky(img, info);
 	if (is_save)
-		save_bmp(img, "ch2.rt");
+		save_bmp(img, "ch4.rt");
 	else
-		mlx_show(img, "Gradation");
+		mlx_show(img, "Sky");
+	free(info);
 	free_img_data(img);
 }
