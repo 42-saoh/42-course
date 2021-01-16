@@ -1,4 +1,4 @@
-#include "ch5.h"
+#include "ch6.h"
 
 t_img_data		*create_img_data(int width, int height)
 {

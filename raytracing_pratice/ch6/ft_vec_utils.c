@@ -1,4 +1,4 @@
-#include "ch5.h"
+#include "ch6.h"
 
 double		vec_length_squared(t_vec *vec)
 {

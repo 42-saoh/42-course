@@ -1,4 +1,4 @@
-#include "ch5.h"
+#include "ch6.h"
 
 t_sphere		*init_sphere(t_vec *center, double radius)
 {
@@ -75,7 +75,7 @@ void			draw_sphere(t_img_data *data, t_sky_info *info, t_sphere *s)
 			t = hit_sphere(s, r);
 			if (t > 0.0)
 				data->img[x][y] = cal_ray_color(r, s, y);
-			ray_gree(r, 0);
+			ray_free(r, 0);
 			x++;
 		}
 		y++;

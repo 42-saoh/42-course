@@ -1,4 +1,4 @@
-#include "ch5.h"
+#include "ch6.h"
 
 t_vec	*vec_add_apply(t_vec *vec1, t_vec *vec2)
 {

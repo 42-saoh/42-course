@@ -1,4 +1,4 @@
-#include "ch5.h"
+#include "ch6.h"
 
 void		raw_fill_header(t_img_data *data, char **raw_bmp, int img_size)
 {

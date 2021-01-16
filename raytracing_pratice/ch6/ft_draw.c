@@ -1,4 +1,4 @@
-#include "ch5.h"
+#include "ch6.h"
 
 t_sky			*init_sky(t_sky_info *info, t_vec *origin)
 {

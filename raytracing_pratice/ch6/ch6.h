@@ -1,5 +1,5 @@
-#ifndef CH4_H
-# define CH4_H
+#ifndef CH6_H
+# define CH6_H
 # include <stdlib.h>
 # include <unistd.h>
 # include <mlx.h>
@@ -38,21 +38,15 @@ typedef struct		s_mlx_data
 	int				endian;
 }					t_mlx_data;
 
-typedef struct		s_sky_info
-{
-	double			viewport_width;
-	double			viewport_height;
-	double			focal_length;
-}					t_sky_info;
-
-typedef struct		s_sky
+typedef struct		s_camera
 {
 	t_img_data		*data;
+	double			aspect_ratio;
+	t_vec			*origin;
+	t_vec			*lower_left_corner;
 	t_vec			*horizontal;
 	t_vec			*vertical;
-	t_vec			*lower_left_corner;
-	t_vec			*origin;
-}					t_sky;
+}					t_camera;
 
 typedef struct		s_ray
 {
@@ -68,19 +62,14 @@ typedef struct		s_sphere
 
 # define BMP_HEADER_SIZE 54
 
-void				show_sky(int is_save);
+void				show_normal_sphere(int is_save);
 t_img_data			*create_img_data(int width, int height);
-void				draw_sky(t_img_data *data, t_sky_info *info);
 t_vec				*vec_create(double x, double y, double z);
 int					get_color_val(t_vec *color);
 t_vec				*get_color(int rgb);
 void				save_bmp(t_img_data *data, char *filename);
 void				mlx_show(t_img_data *data, char *title);
 void				free_img_data(t_img_data *data);
-t_sky_info			*init_sky_info(double viewport_width,
-		double viewport_height, double focal_length);
-t_sky				*init_sky(t_sky_info *info, t_vec *origin);
-t_ray				*cal_sky_ray(int x, int y, t_sky *my_sky);
 void				ray_free(t_ray *r, int is_orig_free);
 t_vec				*vec_mul_const_apply(t_vec *vec, double val);
 t_vec				*vec_div_const_apply(t_vec *vec, double val);

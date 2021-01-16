@@ -1,4 +1,4 @@
-#include "ch5.h"
+#include "ch6.h"
 
 double		clamp(double val, double min, double max)
 {

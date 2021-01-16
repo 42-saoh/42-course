@@ -1,4 +1,4 @@
-#include "ch5.h"
+#include "ch6.h"
 
 void			mlx_draw_by_img_data(t_mlx_data *mlx_data, t_img_data *img_data)
 {

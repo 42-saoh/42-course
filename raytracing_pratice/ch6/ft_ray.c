@@ -1,4 +1,4 @@
-#include "ch5.h"
+#include "ch6.h"
 
 t_ray		*ray_create(t_vec *origin, t_vec *direction)
 {
