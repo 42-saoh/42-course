@@ -9,84 +9,132 @@
 # include <math.h>
 # include "./libft/libft.h"
 
-typedef struct		s_img_data
+typedef struct			s_img_data
 {
-	int				**img;
-	int				width;
-	int				height;
-}					t_img_data;
+	int					**img;
+	int					width;
+	int					height;
+}						t_img_data;
 
-typedef struct		s_vec
+typedef struct			s_vec
 {
-	double			x;
-	double			y;
-	double			z;
-}					t_vec;
+	double				x;
+	double				y;
+	double				z;
+}						t_vec;
 
-typedef struct		s_vars
+typedef struct			s_vars
 {
-	void			*mlx;
-	void			*win;
-}					t_vars;
+	void				*mlx;
+	void				*win;
+}						t_vars;
 
-typedef struct		s_mlx_data
+typedef struct			s_mlx_data
 {
-	void			*img;
-	char			*addr;
-	int				bits_per_pixel;
-	int				line_length;
-	int				endian;
-}					t_mlx_data;
+	void				*img;
+	char				*addr;
+	int					bits_per_pixel;
+	int					line_length;
+	int					endian;
+}						t_mlx_data;
 
-typedef struct		s_camera
+typedef struct			s_ray
 {
-	t_img_data		*data;
-	double			aspect_ratio;
-	t_vec			*origin;
-	t_vec			*lower_left_corner;
-	t_vec			*horizontal;
-	t_vec			*vertical;
-}					t_camera;
+	t_vec				*orig;
+	t_vec				*dir;
+}						t_ray;
 
-typedef struct		s_ray
+typedef struct			s_sphere
 {
-	t_vec			*orig;
-	t_vec			*dir;
-}					t_ray;
+	t_vec				*center;
+	double				radius;
+}						t_sphere;
 
-typedef struct		s_sphere
+typedef struct			s_hit_record
 {
-	t_vec			*center;
-	double			radius;
-}					t_sphere;
+	t_vec				*p;
+	t_vec				*normal;
+	double				t;
+	int					is_front_face;
+	struct s_material	*mat;
+}						t_hit_record;
+
+
+typedef struct			s_camera
+{
+	t_img_data			*data;
+	double				aspect_ratio;
+	t_vec				*origin;
+	t_vec				*lower_left_corner;
+	t_vec				*horizontal;
+	t_vec				*vertical;
+}						t_camera;
+
+typedef struct			s_hitlst_info
+{
+	t_ray				*ray;
+	double				t_min;
+	double				t_max;
+	double				a;
+	double				half_b;
+	double				root_d;
+	t_hit_record		*rec;
+	struct s_material	*mat;
+}						t_hitlst_info;
+
+typedef struct			s_hittable
+{
+	void				*obj;
+	int					obj_type;
+	int					(*hit)(void *s, t_ray *r, t_hitlst_info *info,
+			t_hit_record *rec);
+	struct s_material	*mat;
+}						t_hittable;
+
+typedef struct			s_material_info
+{
+	t_vec				*attenuation;
+	t_ray				*scattered;
+}						t_material_info;
+
+typedef struct			s_material
+{
+	int					(*scatter)(struct s_material *mat, t_ray *ray_in, 
+			t_hit_record *rec, t_material_info *info);
+	int					mat_type;
+	t_vec				*color;
+	double				fuzz;
+}						t_material;
 
 # define BMP_HEADER_SIZE 54
+# define OBJ_SPHERE 1
+# define HIT_T_MIN 0.001
 
-void				show_normal_sphere(int is_save);
-t_img_data			*create_img_data(int width, int height);
-t_vec				*vec_create(double x, double y, double z);
-int					get_color_val(t_vec *color);
-t_vec				*get_color(int rgb);
-void				save_bmp(t_img_data *data, char *filename);
-void				mlx_show(t_img_data *data, char *title);
-void				free_img_data(t_img_data *data);
-void				ray_free(t_ray *r, int is_orig_free);
-t_vec				*vec_mul_const_apply(t_vec *vec, double val);
-t_vec				*vec_div_const_apply(t_vec *vec, double val);
-t_vec				*vec_add(t_vec *vec1, t_vec *vec2);
-t_vec				*vec_sub(t_vec *vec1, t_vec *vec2);
-t_vec				*vec_add_apply(t_vec *vec1, t_vec *vec2);
-t_vec				*vec_sub_apply(t_vec *vec1, t_vec *vec2);
-t_vec				*vec_unit_apply(t_vec *vec);
-t_vec				*vec_mul_const(t_vec *vec1, double val);
-t_vec				*vec_div_const(t_vec *vec1, double val);
-double				vec_length_squared(t_vec *vec);
-double				vec_length(t_vec *vec);
-double				vec_dot(t_vec *vec1, t_vec *vec2);
-t_vec				*vec_unit(t_vec *vec);
-t_ray				*ray_create(t_vec *origin, t_vec *direction);
-t_vec				*ray_at(t_ray *ray, double t);
-void				ray_free(t_ray *ray, int is_orig_free);
-t_sphere			*init_sphere(t_vec *center, double radius);
+void					show_normal_sphere(int is_save);
+t_img_data				*create_img_data(int width, int height);
+t_vec					*vec_create(double x, double y, double z);
+int						get_color_val(t_vec *color);
+t_vec					*get_color(int rgb);
+void					save_bmp(t_img_data *data, char *filename);
+void					mlx_show(t_img_data *data, char *title);
+void					free_img_data(t_img_data *data);
+void					ray_free(t_ray *r, int is_orig_free);
+t_vec					*vec_mul_const_apply(t_vec *vec, double val);
+t_vec					*vec_div_const_apply(t_vec *vec, double val);
+t_vec					*vec_add(t_vec *vec1, t_vec *vec2);
+t_vec					*vec_sub(t_vec *vec1, t_vec *vec2);
+t_vec					*vec_add_apply(t_vec *vec1, t_vec *vec2);
+t_vec					*vec_sub_apply(t_vec *vec1, t_vec *vec2);
+t_vec					*vec_unit_apply(t_vec *vec);
+t_vec					*vec_mul_const(t_vec *vec1, double val);
+t_vec					*vec_div_const(t_vec *vec1, double val);
+double					vec_length_squared(t_vec *vec);
+double					vec_length(t_vec *vec);
+double					vec_dot(t_vec *vec1, t_vec *vec2);
+t_vec					*vec_unit(t_vec *vec);
+t_ray					*ray_create(t_vec *origin, t_vec *direction);
+t_vec					*ray_at(t_ray *ray, double t);
+void					ray_free(t_ray *ray, int is_orig_free);
+t_sphere				*init_sphere(t_vec *center, double radius);
 
 #endif
