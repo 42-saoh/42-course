@@ -136,5 +136,30 @@ t_ray					*ray_create(t_vec *origin, t_vec *direction);
 t_vec					*ray_at(t_ray *ray, double t);
 void					ray_free(t_ray *ray, int is_orig_free);
 t_sphere				*init_sphere(t_vec *center, double radius);
+void					free_sphere(t_sphere *s);
+t_camera				*camera_new(double aspect_ratio);
+t_ray					*camera_get_ray(t_camera *cam, double u, double v);
+void					set_camera_llc(t_camera *cam, t_vec *lookat);
+void					free_camera(t_camera *cam);
+t_hit_record			*hit_record_new(void);
+void					reset_hit_record(t_hit_record *rec);
+void					free_hit_record(t_hit_record *rec);
+void					hit_set_normal(t_hit_record *record, t_ray *r);
+t_list					*hitlst_new(void);
+void					hitlst_add(t_list *lst, void *obj, int obj_type);
+void					free_hitlst(t_list *lst);
+int						hitlst_hit(t_list *lst, t_hitlst_info *info);
+t_hitlst_info			*hitlst_info_new(t_ray *r);
+void					free_hitlst_info(t_hitlst_info *info,
+		int is_ray_ori_free);
+t_hittable				*hittable_create(void *obj, int obj_type);
+void					free_hittable(t_hittable *h);
+void					free_material(t_material *mat);
+int						check_sphere_hitrange(void *s, t_ray *r,
+		t_hitlst_info *info, t_hit_record *rec);
+int						sphere_hit(void *s, t_ray *r, t_hitlst_info *info,
+		t_hit_record *rec);
+void					draw_hittable(t_camera *cam, t_list *lst);
+int						cal_hittable_color(t_list *lst, t_hitlst_info *info);
 
 #endif

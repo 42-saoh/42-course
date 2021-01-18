@@ -1,6 +1,6 @@
 #include "ch6.h"
 
-t_hit_record			*hit_record_new()
+t_hit_record			*hit_record_new(void)
 {
 	t_hit_record		*result;
 

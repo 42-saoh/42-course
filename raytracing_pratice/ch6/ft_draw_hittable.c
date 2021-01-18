@@ -46,6 +46,8 @@ void				draw_hittable(t_camera *cam, t_list *lst)
 			lst_info = hitlst_info_new(camera_get_ray(cam, u, v));
 			cam->data->img[x][y] = cal_hittable_color(lst, lst_info);
 			free_hitlst_info(lst_info, 0);
+			x++;
 		}
+		y--;
 	}
 }

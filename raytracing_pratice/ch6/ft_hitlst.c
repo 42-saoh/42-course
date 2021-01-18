@@ -29,3 +29,23 @@ void			free_hitlst(t_list *lst)
 	free_hittable(lst->content);
 	free(lst);
 }
+
+int				hitlst_hit(t_list *lst, t_hitlst_info *info)
+{
+	int			hit_anything;
+	t_hittable	*hittable;
+
+	hit_anything = 0;
+	while (lst && lst->content)
+	{
+		hittable = (t_hittable *)(lst->content);
+		info->mat = hittable->mat;
+		if ((*(hittable->hit))(hittable->obj, info->ray, info, info->rec))
+		{
+			hit_anything = 1;
+			info->t_max = info->rec->t;
+		}
+		lst = lst->next;
+	}
+	return (hit_anything);
+}
