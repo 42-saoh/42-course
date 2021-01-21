@@ -1,0 +1,50 @@
+server {
+		listen 80;
+		listen [::]:80;
+		server_name _;
+		return 301 https://$host$request_uri;
+}
+
+server {
+		listen 443;
+		listen [::]:443;
+		ssl on;
+
+		ssl_certificate /etc/nginx/ssl/mysite.crt;
+		ssl_certificate_key /etc/nginx/ssl/mysite.key;
+
+		root /var/www/html/;
+		index index.php index.html index.htm index.nginx-debian.html;
+		server_name _;
+
+		error_log /var/log/nginx/mysite.com_error.log;
+		access_log /var/log/nginx/mysite.com_access.log;
+
+		location / {
+				autoindex on;
+				try_files $uri $uri/ =404;
+		}
+
+		location = /favicon.ico {
+				log_not_found off; access_log off;
+		}
+
+		location = /robots.txt {
+				log_not_found off; access_log off; allow all;
+		}
+
+		location ~* \.(css|gif|ico|jpeg|jpg|js|png)$ {
+				expires max;
+				log_not_found off;
+		}
+
+		location ~ \.php$ {
+				include snippets/fastcgi-php.conf;
+				fastcgi_pass unix:/var/run/php/php7.3-fpm.sock;
+				fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
+		}
+
+		location ~ /\.ht {
+				deny all;
+		}
+}
