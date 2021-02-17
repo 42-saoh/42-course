@@ -6,7 +6,7 @@
 #    By: saoh </var/mail/saoh>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/08 15:14:14 by saoh              #+#    #+#              #
-#    Updated: 2021/02/17 16:52:10 by saoh             ###   ########.fr        #
+#    Updated: 2021/02/17 17:03:54 by saoh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,10 +47,11 @@ all: $(NAME)
 
 clean:
 	@$(MAKE) -C ./libft clean
+	@$(MAKE) -C ./mlx clean
 	$(RM) $(OBJS)
 
 fclean: clean
 	@$(MAKE) -C ./libft fclean
-	$(RM) $(LIBNAME) $(NAME)
+	$(RM) $(LIBNAME) $(MLXNAME) $(NAME)
 
 re: fclean all
