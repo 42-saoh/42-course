@@ -59,7 +59,6 @@ typedef struct			s_hit_record
 	struct s_material	*mat;
 }						t_hit_record;
 
-
 typedef struct			s_camera
 {
 	t_img_data			*data;

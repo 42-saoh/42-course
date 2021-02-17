@@ -9,7 +9,7 @@ void	show_normal_sphere(int is_save)
 	t_list		*hitlst;
 
 	aspect_ratio = 16.0 / 9.0;
-	img = create_img_data(400, (int)(400 / aspect_ratio));
+	img = create_img_data(1600, (int)(1600 / aspect_ratio));
 	cam = camera_new(aspect_ratio);
 	cam->data = img;
 	hitlst = hitlst_new();
@@ -19,7 +19,7 @@ void	show_normal_sphere(int is_save)
 	hitlst_add(hitlst, (void *)s, OBJ_SPHERE);
 	draw_hittable(cam, hitlst);
 	if (is_save)
-		save_bmp(img, "ch4.rt");
+		save_bmp(img, "ch6.rt");
 	else
 		mlx_show(img, "Sky");
 	free_hitlst(hitlst);

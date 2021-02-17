@@ -42,7 +42,7 @@ int				sphere_hit(void *s, t_ray *r, t_hitlst_info *info,
 	c = vec_dot(oc, oc) - pow(((t_sphere *)s)->radius, 2);
 	discriminant = pow(half_b, 2) - (a * c);
 	free(oc);
-	if (discriminant <= 0)
+	if (discriminant < 0)
 		return (0);
 	info->a = a;
 	info->half_b = half_b;
