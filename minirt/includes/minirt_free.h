@@ -3,7 +3,6 @@
 # include "minirt.h"
 
 void					free_img_data(t_img_data *data);
-void					ray_free(t_ray *r, int is_orig_free);
 void					ray_free(t_ray *ray, int is_orig_free);
 void					free_sphere(t_sphere *s);
 void					free_camera(t_camera *cam);

@@ -2,24 +2,24 @@
 
 void			mlx_draw_by_img_data(t_mlx_data *mlx_data, t_img_data *img_data)
 {
-	int			width;
-	int			height;
+	int			w;
+	int			h;
 	int			next;
 	char		*dest;
 
-	width = 0;
-	while (width < img_data->width)
+	w = 0;
+	while (w < img_data->width)
 	{
-		height = 0;
-		while (height < img_data->height)
+		h = 0;
+		while (h < img_data->height)
 		{
-			next = (img_data->height - height - 1) * mlx_data->line_length;
-			next += width * (mlx_data->bits_per_pixel / 8);
+			next = (img_data->height - h - 1) * mlx_data->line_length;
+			next += w * (mlx_data->bits_per_pixel / 8);
 			dest = mlx_data->addr + next;
-			*(unsigned int *)dest = img_data->img[width][height];
-			height++;
+			*(unsigned int *)dest = img_data->img[w][h];
+			h++;
 		}
-		width++;
+		w++;
 	}
 }
 

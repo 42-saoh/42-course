@@ -2,5 +2,5 @@
 
 int main()
 {
-	show_sphere_camera(0);
+	show_sphere(0);
 }

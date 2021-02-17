@@ -1,12 +1,12 @@
 #include "minirt.h"
 
-double		clamp(double x, double min, double max)
+double		clamp(double val, double min, double max)
 {
-	if (x < min)
+	if (val < min)
 		return (min);
-	if (x > max)
+	if (val > max)
 		return (max);
-	return (x);
+	return (val);
 }
 
 double		get_radian(double degree)

@@ -3,13 +3,14 @@
 int				check_sphere_hitrange(void *s, t_ray *r, t_hitlst_info *info,
 		t_hit_record *rec)
 {
-	int			is_big_t;
+	int			plus_minus;
 	double		t;
 
-	is_big_t = 0;
-	while (is_big_t < 2)
+	plus_minus = 0;
+	while (plus_minus < 2)
 	{
-		t = (-info->half_b + info->root_d * (is_big_t ? (1) : (-1))) / info->a;
+		t = (-info->half_b + info->root_d *
+				(plus_minus ? (1) : (-1))) / info->a;
 		if (info->t_min < t && t < info->t_max)
 		{
 			if (rec->p)
@@ -22,7 +23,7 @@ int				check_sphere_hitrange(void *s, t_ray *r, t_hitlst_info *info,
 			rec->mat = info->mat;
 			return (1);
 		}
-		is_big_t++;
+		plus_minus++;
 	}
 	return (0);
 }

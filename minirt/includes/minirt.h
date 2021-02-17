@@ -57,7 +57,7 @@ t_hittable				*hittable_mat_create(void *obj, int obj_type,
 		t_material  *mat);
 t_camera				*camera_locate_new(t_vec *lookfrom, t_vec *lookat,
 		double aspect_ratio, double vfov);
-double					clamp(double x, double min, double max);
+double					clamp(double val, double min, double max);
 double					get_radian(double degree);
 t_thread_info			*tinfo_new(t_camera *cam, t_list *lst, int tnum);
 int						tinfo_get_step(t_thread_info *info);

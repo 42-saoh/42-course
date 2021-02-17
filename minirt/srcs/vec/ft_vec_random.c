@@ -25,13 +25,13 @@ t_vec			*vec_random_in_unit_sphere(void)
 t_vec			*vec_random_unit(void)
 {
 	double		a;
-	double		z;
-	double		r;
+	double		cos_b;
+	double		sin_b;
 
 	a = random_double_range(0, 2 * MINI_PI);
-	z = random_double_range(-1, 1);
-	r = sqrt(1.0 - z * z);
-	return (vec_create(r * cos(a), r * sin(a), z));
+	cos_b = random_double_range(-1, 1);
+	sin_b = sqrt(1.0 - cos_b * cos_b);
+	return (vec_create(sin_b * cos(a), sin_b * sin(a), cos_b));
 }
 
 t_vec			*vec_random_in_hemisphere(t_vec *normal)

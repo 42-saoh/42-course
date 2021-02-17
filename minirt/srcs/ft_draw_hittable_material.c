@@ -12,14 +12,14 @@ t_vec				*get_sky_color_t(double t)
 	return (target);
 }
 
-t_hitlst_info		*get_hitlst_by_locate(int x, int y, t_camera *cam)
+t_hitlst_info		*get_hitlst_by_locate(int w, int h, t_camera *cam)
 {
 	double			u;
 	double			v;
 	t_ray			*ray;
 
-	u = ((double)x + random_double()) / (cam->data->width -1);
-	v = ((double)y + random_double()) / (cam->data->height -1);
+	u = ((double)w + random_double()) / (cam->data->width -1);
+	v = ((double)h + random_double()) / (cam->data->height -1);
 	ray = camera_get_ray(cam, u, v);
 	return (hitlst_info_new(ray));
 }
@@ -67,28 +67,28 @@ void				get_hittable_material_color(t_list *lst,
 
 void				*render(void *arg)
 {
-	int				x;
-	int				y;
+	int				w;
+	int				h;
 	int				locate;
 	t_vec			*color;
 	t_thread_info	*t_info;
 
 	t_info = (t_thread_info *)arg;
-	y = tinfo_get_y_init_value(t_info);
-	while ((--y) >= (tinfo_get_step(t_info) * (t_info->tnum - 1)))
+	h = tinfo_get_y_init_value(t_info);
+	while ((--h) >= (tinfo_get_step(t_info) * (t_info->tnum - 1)))
 	{
-		x = -1;
-		while ((++x) < t_info->cam->data->width)
+		w = -1;
+		while ((++w) < t_info->cam->data->width)
 		{
 			color = vec_create(0, 0, 0);
 			locate = 0;
 			while (locate < ANTI_SAMPLES)
 			{
 				get_hittable_material_color(t_info->lst,
-						get_hitlst_by_locate(x, y, t_info->cam), color);
+						get_hitlst_by_locate(w, h, t_info->cam), color);
 				locate++;
 			}
-			t_info->cam->data->img[x][y] = get_color_sample_gamma(color);
+			t_info->cam->data->img[w][h] = get_color_sample_gamma(color);
 			free(color);
 		}
 	}
