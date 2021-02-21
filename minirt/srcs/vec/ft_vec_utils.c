@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_vec_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/21 21:51:00 by saoh              #+#    #+#             */
+/*   Updated: 2021/02/21 21:52:06 by saoh             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 double		vec_length_squared(t_vec *vec)
@@ -12,7 +24,7 @@ double		vec_length(t_vec *vec)
 
 double		vec_dot(t_vec *vec1, t_vec *vec2)
 {
-	return (vec1->x * vec2->x + vec1->y *vec2->y + vec1->z * vec2->z);
+	return (vec1->x * vec2->x + vec1->y * vec2->y + vec1->z * vec2->z);
 }
 
 t_vec		*vec_cross(t_vec *vec1, t_vec *vec2)

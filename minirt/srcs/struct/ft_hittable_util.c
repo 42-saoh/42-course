@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_hittable_util.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/21 21:53:36 by saoh              #+#    #+#             */
+/*   Updated: 2021/02/21 21:54:43 by saoh             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 t_hittable			*hittable_create(void *obj, int obj_type)
@@ -15,14 +27,15 @@ t_hittable			*hittable_create(void *obj, int obj_type)
 
 void				free_hittable(t_hittable *h)
 {
-	if(h->obj_type == OBJ_SPHERE)
+	if (h->obj_type == OBJ_SPHERE)
 		free_sphere(h->obj);
 	if (h->mat)
 		free_material(h->mat);
 	free(h);
 }
 
-t_hittable			*hittable_mat_create(void *obj, int obj_type, t_material *mat)
+t_hittable			*hittable_mat_create(void *obj, int obj_type,
+		t_material *mat)
 {
 	t_hittable		*result;
 
@@ -32,5 +45,5 @@ t_hittable			*hittable_mat_create(void *obj, int obj_type, t_material *mat)
 	result->mat = material_dup(mat);
 	if (obj_type == OBJ_SPHERE)
 		result->hit = &sphere_hit;
-	return(result);
+	return (result);
 }

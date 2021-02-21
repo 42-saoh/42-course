@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_mlx.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/21 22:04:32 by saoh              #+#    #+#             */
+/*   Updated: 2021/02/21 22:06:19 by saoh             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 void			mlx_draw_by_img_data(t_mlx_data *mlx_data, t_img_data *img_data)
@@ -55,5 +67,3 @@ void			mlx_show(t_img_data *data, char *title)
 	mlx_loop(vars.mlx);
 	free(img);
 }
-
-

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_draw_hittable_material.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/21 22:04:05 by saoh              #+#    #+#             */
+/*   Updated: 2021/02/21 22:10:20 by saoh             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 t_vec				*get_sky_color_t(double t)
@@ -18,13 +30,14 @@ t_hitlst_info		*get_hitlst_by_locate(int w, int h, t_camera *cam)
 	double			v;
 	t_ray			*ray;
 
-	u = ((double)w + random_double()) / (cam->data->width -1);
-	v = ((double)h + random_double()) / (cam->data->height -1);
+	u = ((double)w + random_double()) / (cam->data->width - 1);
+	v = ((double)h + random_double()) / (cam->data->height - 1);
 	ray = camera_get_ray(cam, u, v);
 	return (hitlst_info_new(ray));
 }
 
-t_vec				*get_recur_mat_color(t_list *lst, t_hitlst_info **info, int depth, int *is_free)
+t_vec				*get_recur_mat_color(t_list *lst, t_hitlst_info **info,
+		int depth, int *is_free)
 {
 	t_material		*mat;
 	t_material_info	mat_info;
@@ -81,13 +94,10 @@ void				*render(void *arg)
 		while ((++w) < t_info->cam->data->width)
 		{
 			color = vec_create(0, 0, 0);
-			locate = 0;
-			while (locate < ANTI_SAMPLES)
-			{
+			locate = -1;
+			while ((++locate) < ANTI_SAMPLES)
 				get_hittable_material_color(t_info->lst,
 						get_hitlst_by_locate(w, h, t_info->cam), color);
-				locate++;
-			}
 			t_info->cam->data->img[w][h] = get_color_sample_gamma(color);
 			free(color);
 		}

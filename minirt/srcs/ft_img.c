@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_img.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/21 22:04:22 by saoh              #+#    #+#             */
+/*   Updated: 2021/02/21 22:05:57 by saoh             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 t_img_data		*create_img_data(int width, int height)
@@ -11,7 +23,7 @@ t_img_data		*create_img_data(int width, int height)
 	result->height = height;
 	result->img = (int **)malloc(sizeof(int *) * width);
 	w = 0;
-	while(w < width)
+	while (w < width)
 	{
 		result->img[w] = (int *)malloc(sizeof(int) * height);
 		h = 0;
@@ -22,9 +34,9 @@ t_img_data		*create_img_data(int width, int height)
 	return (result);
 }
 
-void		free_img_data(t_img_data *data)
+void			free_img_data(t_img_data *data)
 {
-	int		w;
+	int			w;
 
 	w = 0;
 	while (w < data->width)

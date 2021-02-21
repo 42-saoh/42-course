@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minirt.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/21 21:47:38 by saoh              #+#    #+#             */
+/*   Updated: 2021/02/21 21:49:09 by saoh             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINIRT_H
 # define MINIRT_H
 # include <mlx.h>
@@ -54,7 +66,7 @@ t_material				*material_dup(t_material *mat);
 void					hitlst_mat_add(t_list *lst, void *obj, int obj_type,
 		t_material *mat);
 t_hittable				*hittable_mat_create(void *obj, int obj_type,
-		t_material  *mat);
+		t_material *mat);
 t_camera				*camera_locate_new(t_vec *lookfrom, t_vec *lookat,
 		double aspect_ratio, double vfov);
 double					clamp(double val, double min, double max);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_camera.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/21 21:52:41 by saoh              #+#    #+#             */
+/*   Updated: 2021/02/21 21:55:15 by saoh             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 void				set_camera_llc(t_camera *cam, t_vec *lookat)
@@ -54,7 +66,7 @@ t_camera			*camera_locate_new(t_vec *lookfrom, t_vec *lookat,
 	double			view_w;
 	t_vec			*vup;
 
-	vec_unit_apply(vec_mul_const_apply(vec_sub_apply(lookat,lookfrom), -1.0));
+	vec_unit_apply(vec_mul_const_apply(vec_sub_apply(lookat, lookfrom), -1.0));
 	vup = vec_create(0, 1, 0);
 	if (vec_is_parallel(vup, lookat))
 	{
