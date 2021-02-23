@@ -6,13 +6,13 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 22:03:43 by saoh              #+#    #+#             */
-/*   Updated: 2021/02/23 20:26:24 by saoh             ###   ########.fr       */
+/*   Updated: 2021/02/23 20:31:45 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double		clamp(double val, double min, double max)
+double				clamp(double val, double min, double max)
 {
 	if (val < min)
 		return (min);
@@ -21,7 +21,7 @@ double		clamp(double val, double min, double max)
 	return (val);
 }
 
-double		get_radian(double degree)
+double				get_radian(double degree)
 {
 	return (degree * MINI_PI / 180.0);
 }
