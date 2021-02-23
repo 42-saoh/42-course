@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:47:38 by saoh              #+#    #+#             */
-/*   Updated: 2021/02/21 21:49:09 by saoh             ###   ########.fr       */
+/*   Updated: 2021/02/23 20:27:49 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int						cal_hittable_color(t_list *lst, t_hitlst_info *info);
 double					random_double(void);
 double					random_double_range(double min, double max);
 int						get_color_sample_gamma(t_vec *color);
+t_hitlst_info			*get_hitlst_by_locate(int w, int h, t_camera *cam);
 t_material				*mat_lambertian_new(t_vec *color);
 int						lambertian_scatter(t_material *mat, t_ray *ray_in,
 		t_hit_record *rec, t_material_info *info);
