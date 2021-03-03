@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_const.h                                     :+:      :+:    :+:   */
+/*   ft_plane.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/21 21:47:52 by saoh              #+#    #+#             */
-/*   Updated: 2021/02/28 15:49:00 by saoh             ###   ########.fr       */
+/*   Created: 2021/02/21 21:56:09 by saoh              #+#    #+#             */
+/*   Updated: 2021/02/28 16:09:48 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_CONST_H
-# define MINIRT_CONST_H
+#include "minirt.h"
 
-# define BMP_HEADER_SIZE 54
-# define OBJ_SPHERE 1
-# define OBJ_PLANE 2
-# define HIT_T_MIN 0.001
-# define ANTI_SAMPLES 50
-# define REFLECT_DEPTH 5
-# define MINI_PI 3.1415926535897932385
-# define MAT_LAMBERTIAN 1
-# define MAT_METAL 2
-# define PTHREAD_CNT 12
+t_plane		*init_plane(t_vec *center, t_vec *normal)
+{
+	t_plane	*result;
 
-#endif
+	result = (t_plane *)malloc(sizeof(t_plane));
+	result->center = center;
+	result->normal = normal;
+	return (result);
+}
+
+void			free_plane(t_plane *p)
+{
+	free(p->center);
+	free(p->normal);
+	free(p);
+}

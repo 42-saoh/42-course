@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:53:36 by saoh              #+#    #+#             */
-/*   Updated: 2021/02/21 21:54:43 by saoh             ###   ########.fr       */
+/*   Updated: 2021/02/28 15:57:50 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_hittable			*hittable_create(void *obj, int obj_type)
 	result->mat = NULL;
 	if (obj_type == OBJ_SPHERE)
 		result->hit = &sphere_hit;
+	if (obj_type == OBJ_PLANE)
+		result->hit = &plane_hit;
 	return (result);
 }
 
@@ -29,6 +31,8 @@ void				free_hittable(t_hittable *h)
 {
 	if (h->obj_type == OBJ_SPHERE)
 		free_sphere(h->obj);
+	if (h->obj_type == OBJ_PLANE)
+		free_plane(h->obj);
 	if (h->mat)
 		free_material(h->mat);
 	free(h);
@@ -45,5 +49,7 @@ t_hittable			*hittable_mat_create(void *obj, int obj_type,
 	result->mat = material_dup(mat);
 	if (obj_type == OBJ_SPHERE)
 		result->hit = &sphere_hit;
+	if (obj_type == OBJ_PLANE)
+		result->hit = &plane_hit;
 	return (result);
 }
