@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:48:06 by saoh              #+#    #+#             */
-/*   Updated: 2021/02/28 16:01:12 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/03 14:23:17 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void					free_img_data(t_img_data *data);
 void					ray_free(t_ray *ray, int is_orig_free);
 void					free_sphere(t_sphere *s);
 void					free_plane(t_plane *p);
+void					free_triangle(t_triangle *tr);
 void					free_camera(t_camera *cam);
 void					free_hit_record(t_hit_record *rec);
 void					free_hitlst(t_list *lst);

@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:48:18 by saoh              #+#    #+#             */
-/*   Updated: 2021/02/28 19:06:21 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/03 15:38:25 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct			s_plane
 {
 	t_vec				*center;
 	t_vec				*normal;
+	double				radius;
 }						t_plane;
 
 typedef struct			s_cylinder
@@ -68,6 +69,14 @@ typedef struct			s_cylinder
 	t_vec				*unit_h;
 	double				radius;
 }						t_cylinder;
+
+typedef struct			s_triangle
+{
+	t_vec				*v0;
+	t_vec				*v1;
+	t_vec				*v2;
+	t_vec				*normal;
+}						t_triangle;
 
 typedef struct			s_hit_record
 {

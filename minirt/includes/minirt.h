@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:47:38 by saoh              #+#    #+#             */
-/*   Updated: 2021/02/28 16:03:22 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/03 15:10:00 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ t_ray					*ray_create(t_vec *origin, t_vec *direction);
 t_vec					*ray_at(t_ray *ray, double t);
 t_sphere				*init_sphere(t_vec *center, double radius);
 t_plane					*init_plane(t_vec *center, t_vec *normal);
+t_plane					*init_circle(t_vec *center, t_vec *normal,
+		double radius);
+t_triangle				*init_triangle(t_vec *v0, t_vec *v1, t_vec *v2);
 t_camera				*camera_new(double aspect_ratio);
 t_ray					*camera_get_ray(t_camera *cam, double u, double v);
 void					set_camera_llc(t_camera *cam, t_vec *lookat);
@@ -52,6 +55,10 @@ int						check_sphere_hitrange(void *s, t_ray *r,
 int						sphere_hit(void *s, t_ray *r, t_hitlst_info *info,
 		t_hit_record *rec);
 int						plane_hit(void *p, t_ray *r, t_hitlst_info *info,
+		t_hit_record *rec);
+int						circle_hit(void *p, t_ray *r, t_hitlst_info *info,
+		t_hit_record *rec);
+int						triangle_hit(void *tr, t_ray *r, t_hitlst_info *info,
 		t_hit_record *rec);
 int						cal_hittable_color(t_list *lst, t_hitlst_info *info);
 double					random_double(void);
