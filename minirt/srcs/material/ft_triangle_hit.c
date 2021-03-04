@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:56:17 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/03 15:55:11 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/04 19:30:10 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ int				triangle_hit(void *tr, t_ray *r, t_hitlst_info *info,
 			reset_hit_record(rec);
 		rec->t = t;
 		rec->p = ray_at(r, t);
+		rec->normal = vec_dup(((t_triangle *)tr)->normal);
 		if (!is_intriangle((t_triangle *)tr, rec))
 			return (0);
-		rec->normal = vec_dup(((t_triangle *)tr)->normal);
 		hit_set_normal(rec, r);
 		rec->mat = info->mat;
 		return (1);

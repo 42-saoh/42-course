@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:58:00 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/03 18:23:10 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/04 19:36:31 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,12 @@ t_list			*put_hitlst_material(void)
 
 t_list			*put_hitlst_plane(void)
 {
-	t_triangle	*tr;
 	t_sphere	*s;
+	t_plane		*p;
 	t_list		*hitlst;
 	t_material	*mat;
 
 	hitlst = hitlst_new();
-	tr = init_triangle(vec_create(-2.0, -2.0, -2.0), vec_create(2.0, -2.0, -2.0), vec_create(0.0, 2.0, -2.0));
-	mat = mat_lambertian_new(vec_create(0, 0, 1));
-	hitlst_mat_add(hitlst, (void *)tr, OBJ_TRIANGLE, mat);
-	free_material(mat);
 	s = init_sphere(vec_create(0, 0, -1), 0.5);
 	mat = mat_lambertian_new(vec_create(0.7, 0.3, 0.3));
 	hitlst_mat_add(hitlst, (void *)s, OBJ_SPHERE, mat);
@@ -58,8 +54,18 @@ t_list			*put_hitlst_plane(void)
 	mat = mat_lambertian_new(vec_create(0.8, 0.8, 0));
 	hitlst_mat_add(hitlst, (void *)s, OBJ_SPHERE, mat);
 	free_material(mat);
+	p = init_circle(vec_create(0, 0, -1), vec_create(0, 0, 1), 1);
+	mat = mat_lambertian_new(vec_create(0.7, 0.8, 0.7));
+	hitlst_mat_add(hitlst, (void *)p, OBJ_CIRCLE, mat);
+	free_material(mat);
+	p = init_plane(vec_create(0, 0, -2), vec_create(0, 0, 1));
+	mat = mat_lambertian_new(vec_create(1.0, 0.0, 0.0));
+	hitlst_mat_add(hitlst, (void *)p, OBJ_PLANE, mat);
+	free_material(mat);
 	return (hitlst);
 }
+
+#include <stdio.h>
 
 void			show_sphere_camera(int is_save)
 {

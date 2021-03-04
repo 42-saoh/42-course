@@ -6,11 +6,12 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 22:04:05 by saoh              #+#    #+#             */
-/*   Updated: 2021/02/23 20:26:41 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/04 18:37:21 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include <stdio.h>
 
 t_vec				*get_sky_color_t(double t)
 {

@@ -6,7 +6,7 @@
 #    By: saoh </var/mail/saoh>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/08 15:14:14 by saoh              #+#    #+#              #
-#    Updated: 2021/03/03 14:23:57 by saoh             ###   ########.fr        #
+#    Updated: 2021/03/04 18:36:49 by saoh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME	= minirt
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
 
-SRC 	= main.c ch10.c ft_bmp.c ft_cal.c ft_color.c ft_draw_hittable_material.c ft_img.c \
-		  ft_mlx.c ft_random_double.c ft_thread.c \
+SRC 	= main.c ch10.c ft_bmp.c ft_cal.c ft_color.c ft_img.c \
+		  ft_mlx.c ft_random_double.c ft_thread.c ft_draw_hittable_material.c \
 		  material/ft_material.c material/ft_simple_material.c material/ft_sphere.c material/ft_sphere_hit.c \
 		  material/ft_plane.c material/ft_plane_hit.c  material/ft_circle.c material/ft_circle_hit.c \
 		  material/ft_triangle.c material/ft_triangle_hit.c \

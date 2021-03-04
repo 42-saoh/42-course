@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:53:36 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/03 14:25:31 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/04 16:32:27 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void				free_hittable(t_hittable *h)
 {
 	if (h->obj_type == OBJ_SPHERE)
 		free_sphere(h->obj);
-	if (h->obj_type == OBJ_PLANE && h->obj_type == OBJ_CIRCLE)
+	if (h->obj_type == OBJ_PLANE || h->obj_type == OBJ_CIRCLE)
 		free_plane(h->obj);
 	if (h->obj_type == OBJ_TRIANGLE)
 		free_triangle(h->obj);
