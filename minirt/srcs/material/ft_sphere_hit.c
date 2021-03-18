@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:56:17 by saoh              #+#    #+#             */
-/*   Updated: 2021/02/21 21:56:19 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/18 14:46:13 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,23 @@
 int				check_sphere_hitrange(void *s, t_ray *r, t_hitlst_info *info,
 		t_hit_record *rec)
 {
-	int			plus_minus;
-	double		t;
+	t_pmt		st;
 
-	plus_minus = 0;
-	while (plus_minus < 2)
+	st.plus_t = (-info->half_b + info->root_d ) / info->a;
+	st.minus_t = (-info->half_b - info->root_d ) / info->a;
+	if (st.minus_t > 0)
+		st.plus_t = st.minus_t;
+	if (info->t_min < st.plus_t && st.plus_t < info->t_max)
 	{
-		t = (-info->half_b + info->root_d *
-				(plus_minus ? (1) : (-1))) / info->a;
-		if (info->t_min < t && t < info->t_max)
-		{
-			if (rec->p)
-				reset_hit_record(rec);
-			rec->t = t;
-			rec->p = ray_at(r, t);
-			rec->normal = vec_sub(rec->p, ((t_sphere *)s)->center);
-			vec_div_const_apply(rec->normal, ((t_sphere *)s)->radius);
-			hit_set_normal(rec, r);
-			rec->mat = info->mat;
-			return (1);
-		}
-		plus_minus++;
+		if (rec->p)
+			reset_hit_record(rec);
+		rec->t = st.plus_t;
+		rec->p = ray_at(r, st.plus_t);
+		rec->normal = vec_sub(rec->p, ((t_sphere *)s)->center);
+		vec_div_const_apply(rec->normal, ((t_sphere *)s)->radius);
+		hit_set_normal(rec, r);
+		rec->mat = info->mat;
+		return (1);
 	}
 	return (0);
 }

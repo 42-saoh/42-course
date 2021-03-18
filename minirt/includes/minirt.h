@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:47:38 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/03 15:10:00 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/18 13:12:33 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ t_ray					*ray_create(t_vec *origin, t_vec *direction);
 t_vec					*ray_at(t_ray *ray, double t);
 t_sphere				*init_sphere(t_vec *center, double radius);
 t_plane					*init_plane(t_vec *center, t_vec *normal);
-t_plane					*init_circle(t_vec *center, t_vec *normal,
-		double radius);
+t_cylinder				*init_cylinder(t_vec *center, t_vec *normal,
+		double radius, double height);
 t_triangle				*init_triangle(t_vec *v0, t_vec *v1, t_vec *v2);
+t_square				*init_square(t_vec *center, t_vec *normal, double h_ss);
 t_camera				*camera_new(double aspect_ratio);
 t_ray					*camera_get_ray(t_camera *cam, double u, double v);
 void					set_camera_llc(t_camera *cam, t_vec *lookat);
@@ -56,9 +57,15 @@ int						sphere_hit(void *s, t_ray *r, t_hitlst_info *info,
 		t_hit_record *rec);
 int						plane_hit(void *p, t_ray *r, t_hitlst_info *info,
 		t_hit_record *rec);
-int						circle_hit(void *p, t_ray *r, t_hitlst_info *info,
+int						circle_hit_top(void *cy, t_ray *r, t_hitlst_info *info,
+		t_hit_record *rec);
+int						circle_hit_base(void *cy, t_ray *r, t_hitlst_info *info,
+		t_hit_record *rec);
+int						cylinder_hit(void *cy, t_ray *r, t_hitlst_info *info,
 		t_hit_record *rec);
 int						triangle_hit(void *tr, t_ray *r, t_hitlst_info *info,
+		t_hit_record *rec);
+int						square_hit(void *sq, t_ray *r, t_hitlst_info *info,
 		t_hit_record *rec);
 int						cal_hittable_color(t_list *lst, t_hitlst_info *info);
 double					random_double(void);
@@ -85,5 +92,12 @@ double					get_radian(double degree);
 t_thread_info			*tinfo_new(t_camera *cam, t_list *lst, int tnum);
 int						tinfo_get_step(t_thread_info *info);
 int						tinfo_get_y_init_value(t_thread_info *info);
+int						is_in(t_vec *v1, t_vec *v0, t_vec *normal,
+		t_hit_record *rec);
+double					is_infinite(double numerator, double denominator);
+int						check_cap_hitrange(void *cy, t_ray *r,
+		t_hitlst_info *info, t_hit_record *rec);
+int						check_cylinder_hitrange(void *cy, t_ray *r,
+		t_hitlst_info *info, t_hit_record *rec);
 
 #endif

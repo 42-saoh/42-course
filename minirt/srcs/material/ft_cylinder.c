@@ -6,31 +6,34 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:56:09 by saoh              #+#    #+#             */
-/*   Updated: 2021/02/28 19:06:51 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/18 13:47:30 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_cylinder		*init_cylinder(t_vec *center, t_vec *normal, double radius,
+t_cylinder		*init_cylinder(t_vec *center, t_vec *normal, double diameter,
 		double height)
 {
 	t_cylinder	*result;
-	t_vec		*h_center;
 
 	result = (t_cylinder *)malloc(sizeof(t_cylinder));
 	result->center = center;
-	result->normal = normal;
-	result->radius = radius;
-	h_center = vec_add_apply(vec_mul_const(normal, height), result->center);
-	result->unit_h = vec_unit_apply(vec_sub_apply(h_center, center));
+	result->normal = vec_unit_apply(normal);
+	result->radius = diameter / 2;
+	result->height = height;
+	result->t_center = vec_add_apply(vec_mul_const(result->normal, height / 2),
+			center);
+	result->b_center = vec_add_apply(vec_mul_const(result->normal, -height / 2),
+			center);
 	return (result);
 }
 
-void			free_cylinder(t_cylinder *c)
+void			free_cylinder(t_cylinder *cy)
 {
-	free(c->center);
-	free(c->unit_h);
-	free(c->normal);
-	free(c);
+	free(cy->center);
+	free(cy->t_center);
+	free(cy->b_center);
+	free(cy->normal);
+	free(cy);
 }

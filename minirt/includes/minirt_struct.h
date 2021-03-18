@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:48:18 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/03 15:38:25 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/18 14:43:41 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,16 @@ typedef struct			s_plane
 {
 	t_vec				*center;
 	t_vec				*normal;
-	double				radius;
 }						t_plane;
 
 typedef struct			s_cylinder
 {
 	t_vec				*center;
+	t_vec				*t_center;
+	t_vec				*b_center;
 	t_vec				*normal;
-	t_vec				*unit_h;
 	double				radius;
+	double				height;
 }						t_cylinder;
 
 typedef struct			s_triangle
@@ -77,6 +78,16 @@ typedef struct			s_triangle
 	t_vec				*v2;
 	t_vec				*normal;
 }						t_triangle;
+
+typedef struct			s_square
+{
+	t_vec				*center;
+	t_vec				*normal;
+	t_vec				*v0;
+	t_vec				*v1;
+	t_vec				*v2;
+	t_vec				*v3;
+}						t_square;
 
 typedef struct			s_hit_record
 {
@@ -105,6 +116,7 @@ typedef struct			s_hitlst_info
 	double				a;
 	double				half_b;
 	double				root_d;
+	double				c;
 	t_hit_record		*rec;
 	struct s_material	*mat;
 }						t_hitlst_info;
@@ -146,5 +158,14 @@ typedef struct			s_thread_info
 	t_list				*lst;
 	int					tnum;
 }						t_thread_info;
+
+typedef struct			s_pmt
+{
+	t_vec				*tmp;
+	t_vec				*tmp2;
+	t_vec				*p;
+	double				plus_t;
+	double				minus_t;
+}						t_pmt;
 
 #endif

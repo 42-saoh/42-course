@@ -6,62 +6,123 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:56:17 by saoh              #+#    #+#             */
-/*   Updated: 2021/02/28 19:28:40 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/18 14:42:45 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int				check_cylinder_hitrange(void *c, t_ray *r, t_hitlst_info *info,
-		t_hit_record *rec)
+int				is_incircle(t_ray *r, double t, t_vec *center, double radius)
 {
-	int			plus_minus;
-	double		t;
+	t_vec		*tmp;
 
-	plus_minus = 0;
-	while (plus_minus < 2)
+	tmp = ray_at(r, t);
+	tmp = vec_sub_apply(tmp, center);
+	if (sqrt(vec_dot(tmp, tmp)) <= radius)
 	{
-		t = (-info->half_b + info->root_d *
-				(plus_minus ? (1) : (-1))) / info->a;
-		if (info->t_min < t && t < info->t_max)
-		{
-			if (rec->p)
-				reset_hit_record(rec);
-			rec->t = t;
-			rec->p = ray_at(r, t);
-			rec->normal = vec_sub(rec->p, ((t_cylinder *)c)->center);
-			vec_div_const_apply(rec->normal, ((t_cylinder *)c)->radius);
-			hit_set_normal(rec, r);
-			rec->mat = info->mat;
-			return (1);
-		}
-		plus_minus++;
+		free(tmp);
+		return (1);
 	}
+	free(tmp);
 	return (0);
 }
 
-int				cylinder_hit(void *c, t_ray *r, t_hitlst_info *info,
-		t_hit_record *rec)
+double			solve_cap_t(t_cylinder *cy, t_ray *r, t_hitlst_info *info)
 {
 	t_vec		*oc;
-	double		a;
-	double		half_b;
+	double		denominator;
+	double		top_t;
+	double		bot_t;
+
+	denominator = vec_dot(r->dir, cy->normal);
+	if (denominator == 0)
+		return (INFINITY);
+	oc = vec_sub(cy->t_center, r->orig);
+	top_t = vec_dot(oc, cy->normal) / denominator;
+	free(oc);
+	if (!is_incircle(r, top_t, cy->t_center, cy->radius))
+		top_t = INFINITY;
+	oc = vec_sub(cy->b_center, r->orig);
+	bot_t = vec_dot(oc, cy->normal) / denominator;
+	free(oc);
+	if (!is_incircle(r, bot_t, cy->b_center, cy->radius))
+		bot_t = INFINITY;
+	if (top_t <= info->t_min || top_t >= info->t_max)
+		top_t = INFINITY;
+	if (bot_t <= info->t_min || bot_t >= info->t_max)
+		bot_t = INFINITY;
+	if (top_t < bot_t)
+		return (top_t);
+	return (bot_t);
+}
+
+double			check_cylinder_t(t_cylinder *cy, t_ray *r, t_hitlst_info *info)
+{
+	t_pmt		ct;
+
+	ct.plus_t = (-info->half_b + info->root_d) / info->a;
+	ct.minus_t = (-info->half_b - info->root_d) / info->a;
+	if (ct.minus_t > 0)
+		ct.plus_t = ct.minus_t;
+	if (info->t_min < ct.plus_t && ct.plus_t < info->t_max)
+	{
+		ct.p = ray_at(r, ct.plus_t);
+		ct.tmp = vec_sub(ct.p, cy->t_center);
+		ct.tmp2 = vec_sub(ct.p, cy->b_center);
+		if (vec_dot(cy->normal, ct.tmp) > 0)
+			ct.plus_t = INFINITY;
+		if (vec_dot(cy->normal, ct.tmp2) < 0)
+			ct.plus_t = INFINITY;
+		free(ct.tmp);
+		free(ct.tmp2);
+		free(ct.p);
+		return (ct.plus_t);
+	}
+	return (INFINITY);
+}
+
+double			solve_cylinder_t(t_cylinder *cy, t_ray *r, t_hitlst_info *info)
+{
+	t_vec		*oc;
+	t_vec		*cr_rcy;
+	t_vec		*cr_occy;
 	double		c;
 	double		discriminant;
 
-	oc = vec_sub(r->orig, ((t_cylinder *)c)->center);
-	a = vec_dot(r->dir, r->dir) - pow(vec_dot(r->dir,
-				((t_cylinder *)c)->unit_h), 2);
-	half_b = vec_dot(oc, r->dir) - (vec_dot(r->dir, ((t_cylinder *)c)->unit_h)
-		* vec_dot(oc, ((t_cylinder *)c)->unit_h));
-	c = vec_dot(oc, oc) - pow(vec_dot(oc, ((t_cylinder *)c)->unit_h), 2)
-		- pow(((t_cylinder *)c)->radius, 2);
-	discriminant = pow(half_b, 2) - (a * c);
+	oc = vec_sub(r->orig, cy->center);
+	cr_rcy = vec_cross(r->dir, cy->normal);
+	cr_occy = vec_cross(oc, cy->normal);
+	info->a = vec_length_squared(cr_rcy);
+	info->half_b = vec_dot(cr_rcy, cr_occy);
+	c = vec_length_squared(cr_occy) - pow(cy->radius, 2.0);
+	discriminant = pow(info->half_b, 2) - (info->a * c);
+	free(cr_rcy);
+	free(cr_occy);
 	free(oc);
 	if (discriminant < 0)
-		return (0);
-	info->a = a;
-	info->half_b = half_b;
+		return (INFINITY);
 	info->root_d = sqrt(discriminant);
-	return (check_cylinder_hitrange(c, r, info, rec));
+	return (check_cylinder_t(cy, r, info));
+}
+
+int				cylinder_hit(void *cy, t_ray *r, t_hitlst_info *info,
+		t_hit_record *rec)
+{
+	double		cy_t;
+	double		cap_t;
+
+	cy_t = solve_cylinder_t((t_cylinder *)cy, r, info);
+	cap_t = solve_cap_t((t_cylinder *)cy, r, info);
+	if (cy_t == INFINITY && cap_t == INFINITY)
+		return (0);
+	if (cy_t < cap_t)
+	{
+		rec->t = cy_t;
+		return (check_cylinder_hitrange(cy, r, info, rec));
+	}
+	else
+	{
+		rec->t = cap_t;
+		return (check_cap_hitrange(cy, r, info, rec));
+	} 
 }

@@ -1,39 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_circle_hit.c                                    :+:      :+:    :+:   */
+/*   ft_square_hit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:56:17 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/04 19:30:46 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/14 17:04:00 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int				is_incircle(t_hit_record *rec, void *p)
-{
-	t_vec		*tmp;
-
-	tmp = vec_sub(rec->p, ((t_plane *)p)->center);
-	if (sqrt(vec_dot(tmp, tmp)) <= ((t_plane *)p)->radius)
-	{
-		free(tmp);
-		return (1);
-	}
-	free(tmp);
-	return (0);
-}
-
 double			is_infinite(double numerator, double denominator)
 {
 	if (denominator == 0)
-		return (0);
+		return (INFINITY);
 	return (numerator / denominator);
 }
 
-int				circle_hit(void *p, t_ray *r, t_hitlst_info *info,
+int				is_square(t_square *sq, t_hit_record *rec)
+{
+	if (!is_in(sq->v1, sq->v0, sq->normal, rec))
+		return (0);
+	if (!is_in(sq->v2, sq->v1, sq->normal, rec))
+		return (0);
+	if (!is_in(sq->v3, sq->v2, sq->normal, rec))
+		return (0);
+	if (!is_in(sq->v0, sq->v3, sq->normal, rec))
+		return (0);
+	return (1);
+}
+
+int				square_hit(void *sq, t_ray *r, t_hitlst_info *info,
 		t_hit_record *rec)
 {
 	t_vec		*oc;
@@ -41,9 +40,9 @@ int				circle_hit(void *p, t_ray *r, t_hitlst_info *info,
 	double		denominator;
 	double		numerator;
 
-	oc = vec_sub(((t_plane *)p)->center, r->orig);
-	numerator = vec_dot(oc, ((t_plane *)p)->normal);
-	denominator = vec_dot(r->dir, ((t_plane *)p)->normal);
+	oc = vec_sub(((t_square *)sq)->center, r->orig);
+	numerator = vec_dot(oc, ((t_square *)sq)->normal);
+	denominator = vec_dot(r->dir, ((t_square *)sq)->normal);
 	free(oc);
 	t = is_infinite(numerator, denominator);
 	if (info->t_min < t && t < info->t_max)
@@ -52,8 +51,8 @@ int				circle_hit(void *p, t_ray *r, t_hitlst_info *info,
 			reset_hit_record(rec);
 		rec->t = t;
 		rec->p = ray_at(r, t);
-		rec->normal = vec_dup(((t_plane *)p)->normal);
-		if (!is_incircle(rec, p))
+		rec->normal = vec_dup(((t_square *)sq)->normal);
+		if (!is_square(sq, rec))
 			return (0);
 		hit_set_normal(rec, r);
 		rec->mat = info->mat;
