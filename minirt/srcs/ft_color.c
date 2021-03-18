@@ -6,11 +6,12 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 22:03:50 by saoh              #+#    #+#             */
-/*   Updated: 2021/02/21 22:05:30 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/18 17:11:34 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include <stdio.h>
 
 int			get_color_val(t_vec *color)
 {
@@ -46,8 +47,8 @@ int			get_color_sample_gamma(t_vec *color)
 	x = sqrt(color->x * scale);
 	y = sqrt(color->y * scale);
 	z = sqrt(color->z * scale);
-	x = clamp(x, 0.0, 0.999) * 256.0;
-	y = clamp(y, 0.0, 0.999) * 256.0;
-	z = clamp(z, 0.0, 0.999) * 256.0;
+	x = clamp(x, 0.0, 0.999) * 256;
+	y = clamp(y, 0.0, 0.999) * 256;
+	z = clamp(z, 0.0, 0.999) * 256;
 	return ((int)x << 16 | (int)y << 8 | (int)z);
 }

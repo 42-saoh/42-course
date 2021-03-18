@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:56:09 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/09 16:49:01 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/18 15:17:28 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_square		*init_square(t_vec *center, t_vec *normal, double h_ss)
 
 	result = (t_square *)malloc(sizeof(t_square));
 	result->center = center;
-	result->normal = normal;
+	result->normal = vec_unit_apply(normal);
 	vup = vec_create(0, 1, 0);
 	if (vec_is_parallel(vup, normal))
 	{

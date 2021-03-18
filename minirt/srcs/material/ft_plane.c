@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:56:09 by saoh              #+#    #+#             */
-/*   Updated: 2021/02/28 16:09:48 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/18 15:17:02 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_plane		*init_plane(t_vec *center, t_vec *normal)
 
 	result = (t_plane *)malloc(sizeof(t_plane));
 	result->center = center;
-	result->normal = normal;
+	result->normal = vec_unit_apply(normal);
 	return (result);
 }
 
