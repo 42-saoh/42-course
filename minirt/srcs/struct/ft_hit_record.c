@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:52:50 by saoh              #+#    #+#             */
-/*   Updated: 2021/02/21 21:52:51 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/19 15:37:42 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_hit_record			*hit_record_new(void)
 	result = (t_hit_record *)malloc(sizeof(t_hit_record));
 	result->normal = NULL;
 	result->p = NULL;
+	result->color = NULL;
 	return (result);
 }
 
@@ -28,6 +29,8 @@ void					reset_hit_record(t_hit_record *rec)
 		free(rec->normal);
 	if (rec->p)
 		free(rec->p);
+	if (rec->color)
+		free(rec->color);
 }
 
 void					free_hit_record(t_hit_record *rec)

@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:48:06 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/12 15:20:37 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/19 18:07:32 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void					free_hitlst(t_list *lst);
 void					free_hitlst_info(t_hitlst_info *info,
 		int is_ray_ori_free);
 void					free_hittable(t_hittable *h);
-void					free_material(t_material *mat);
-void					free_material_info(t_material_info *info,
-		int is_ori_free, int is_scattered_free);
+void					free_light(t_light *l);
+void					free_light_info(t_light_info *l_info);
+void					free_ambient(t_ambient *am);
 
 #endif

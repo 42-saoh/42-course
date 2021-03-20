@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:48:18 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/18 14:43:41 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/20 16:10:20 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct			s_ray
 typedef struct			s_sphere
 {
 	t_vec				*center;
+	t_vec				*color;
 	double				radius;
 }						t_sphere;
 
@@ -59,6 +60,7 @@ typedef struct			s_plane
 {
 	t_vec				*center;
 	t_vec				*normal;
+	t_vec				*color;
 }						t_plane;
 
 typedef struct			s_cylinder
@@ -67,6 +69,7 @@ typedef struct			s_cylinder
 	t_vec				*t_center;
 	t_vec				*b_center;
 	t_vec				*normal;
+	t_vec				*color;
 	double				radius;
 	double				height;
 }						t_cylinder;
@@ -77,12 +80,14 @@ typedef struct			s_triangle
 	t_vec				*v1;
 	t_vec				*v2;
 	t_vec				*normal;
+	t_vec				*color;
 }						t_triangle;
 
 typedef struct			s_square
 {
 	t_vec				*center;
 	t_vec				*normal;
+	t_vec				*color;
 	t_vec				*v0;
 	t_vec				*v1;
 	t_vec				*v2;
@@ -95,7 +100,7 @@ typedef struct			s_hit_record
 	t_vec				*normal;
 	double				t;
 	int					is_front_face;
-	struct s_material	*mat;
+	t_vec				*color;
 }						t_hit_record;
 
 typedef struct			s_camera
@@ -118,7 +123,6 @@ typedef struct			s_hitlst_info
 	double				root_d;
 	double				c;
 	t_hit_record		*rec;
-	struct s_material	*mat;
 }						t_hitlst_info;
 
 typedef struct			s_hittable
@@ -127,23 +131,8 @@ typedef struct			s_hittable
 	int					obj_type;
 	int					(*hit)(void *s, t_ray *r, t_hitlst_info *info,
 			t_hit_record *rec);
-	struct s_material	*mat;
+	int					(*s_hit)(void *s, t_ray *r, t_hitlst_info *info);
 }						t_hittable;
-
-typedef struct			s_material_info
-{
-	t_vec				*attenuation;
-	t_ray				*scattered;
-}						t_material_info;
-
-typedef struct			s_material
-{
-	int					(*scatter)(struct s_material *mat, t_ray *ray_in,
-			t_hit_record *rec, t_material_info *info);
-	int					mat_type;
-	t_vec				*color;
-	double				fuzz;
-}						t_material;
 
 typedef struct			s_var
 {
@@ -156,6 +145,7 @@ typedef struct			s_thread_info
 {
 	t_camera			*cam;
 	t_list				*lst;
+	t_list				*l_lst;
 	int					tnum;
 }						t_thread_info;
 
@@ -167,5 +157,25 @@ typedef struct			s_pmt
 	double				plus_t;
 	double				minus_t;
 }						t_pmt;
+
+typedef struct			s_light
+{
+	t_vec				*ori;
+	t_vec				*color;
+	double				intensity;
+}						t_light;
+
+typedef struct			s_light_info
+{
+	t_vec				*dir;
+	t_vec				*intensity;
+	double				length;
+}						t_light_info;
+
+typedef struct			s_ambient
+{
+	t_vec				*color;
+	double				intensity;
+}						t_ambient;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:53:15 by saoh              #+#    #+#             */
-/*   Updated: 2021/02/21 21:53:18 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/19 15:41:22 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,16 @@ void					free_hitlst_info(t_hitlst_info *info,
 	ray_free(info->ray, is_ray_ori_free);
 	free_hit_record(info->rec);
 	free(info);
+}
+
+t_hitlst_info		*get_hitlst_by_locate(int w, int h, t_camera *cam)
+{
+	double			u;
+	double			v;
+	t_ray			*ray;
+
+	u = ((double)w + random_double()) / (cam->data->width - 1);
+	v = ((double)h + random_double()) / (cam->data->height - 1);
+	ray = camera_get_ray(cam, u, v);
+	return (hitlst_info_new(ray));
 }

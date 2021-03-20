@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 22:03:50 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/18 17:11:34 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/19 16:00:36 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,22 @@ t_vec		*get_color(int rgb)
 	return (result);
 }
 
+void		p_v(t_vec *vec)
+{
+	printf("vec : %f %f %f \n", vec->x, vec->y, vec->z);
+}
+
 int			get_color_sample_gamma(t_vec *color)
 {
-	double	scale;
 	double	x;
 	double	y;
 	double	z;
 
-	scale = 1.0 / ANTI_SAMPLES;
-	x = sqrt(color->x * scale);
-	y = sqrt(color->y * scale);
-	z = sqrt(color->z * scale);
-	x = clamp(x, 0.0, 0.999) * 256;
-	y = clamp(y, 0.0, 0.999) * 256;
-	z = clamp(z, 0.0, 0.999) * 256;
+	x = color->x / ANTI_SAMPLES;
+	y = color->y / ANTI_SAMPLES;
+	z = color->z / ANTI_SAMPLES;
+	x = clamp(x, 0.0, 255);
+	y = clamp(y, 0.0, 255);
+	z = clamp(z, 0.0, 255);
 	return ((int)x << 16 | (int)y << 8 | (int)z);
 }

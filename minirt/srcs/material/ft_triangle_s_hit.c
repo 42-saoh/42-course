@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_triangle_hit.c                                  :+:      :+:    :+:   */
+/*   ft_triangle_s_hit.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:56:17 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/20 17:55:59 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/20 17:33:44 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int				is_in(t_vec *v1, t_vec *v0, t_vec *normal, t_vec *p)
+int				is_s_in(t_vec *v1, t_vec *v0, t_vec *normal, t_vec *p)
 {
 	t_vec		*edge;
 	t_vec		*vp;
@@ -32,53 +32,42 @@ int				is_in(t_vec *v1, t_vec *v0, t_vec *normal, t_vec *p)
 	return (1);
 }
 
-int				is_intriangle(t_triangle *tr, t_vec *p)
+int				is_s_intriangle(t_triangle *tr, t_vec *p)
 {
-	if (!is_in(tr->v1, tr->v0, tr->normal, p))
+	if (!is_s_in(tr->v1, tr->v0, tr->normal, p))
 		return (0);
-	if (!is_in(tr->v2, tr->v1, tr->normal, p))
+	if (!is_s_in(tr->v2, tr->v1, tr->normal, p))
 		return (0);
-	if (!is_in(tr->v0, tr->v2, tr->normal, p))
+	if (!is_s_in(tr->v0, tr->v2, tr->normal, p))
 		return (0);
 	return (1);
 }
 
-int				check_triangle_hitrange(void *tr, t_ray *r,
-		t_hit_record *rec, double t)
-{
-		if (rec->p)
-			reset_hit_record(rec);
-		rec->t = t;
-		rec->p = ray_at(r, t);
-		rec->normal = vec_dup(((t_triangle *)tr)->normal);
-		rec->color = vec_dup(((t_triangle *)tr)->color);
-		hit_set_normal(rec, r);
-		return (1);
-}
-
-int				triangle_hit(void *tr, t_ray *r, t_hitlst_info *info,
-		t_hit_record *rec)
+int				triangle_s_hit(void *tr, t_ray *r, t_hitlst_info *info)
 {
 	t_vec		*oc;
 	t_vec		*p;
 	double		t;
 	double		denominator;
+	double		numerator;
 
+	oc = vec_sub(((t_triangle *)tr)->v0, r->orig);
+	numerator = vec_dot(oc, ((t_triangle *)tr)->normal);
 	denominator = vec_dot(((t_triangle *)tr)->normal, r->dir);
+	free(oc);
 	if (denominator == 0)
 		return (0);
-	oc = vec_sub(((t_triangle *)tr)->v0, r->orig);
-	t = vec_dot(oc, ((t_triangle *)tr)->normal) / denominator;
-	free(oc);
+	t = numerator / denominator;
 	if (info->t_min < t && t < info->t_max)
 	{
 		p = ray_at(r, t);
-		if (is_intriangle((t_triangle *)tr, p))
+		if (!is_s_intriangle((t_triangle *)tr, p))
 		{
 			free(p);
-			return (check_triangle_hitrange(tr, r, rec, t));
+			return (0);
 		}
 		free(p);
+		return (1);
 	}
 	return (0);
 }

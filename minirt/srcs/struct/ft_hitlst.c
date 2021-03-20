@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:53:06 by saoh              #+#    #+#             */
-/*   Updated: 2021/02/21 21:53:07 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/20 16:04:24 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,6 @@ void			hitlst_add(t_list *lst, void *obj, int obj_type)
 	lst->content = hittable_create(obj, obj_type);
 }
 
-void			hitlst_mat_add(t_list *lst, void *obj, int obj_type,
-		t_material *mat)
-{
-	if (lst->content)
-	{
-		while (lst->next)
-			lst = lst->next;
-		lst->next = hitlst_new();
-		lst = lst->next;
-	}
-	lst->content = hittable_mat_create(obj, obj_type, mat);
-}
-
 void			free_hitlst(t_list *lst)
 {
 	if (lst->next)
@@ -64,7 +51,6 @@ int				hitlst_hit(t_list *lst, t_hitlst_info *info)
 	while (lst && lst->content)
 	{
 		hittable = (t_hittable *)(lst->content);
-		info->mat = hittable->mat;
 		if ((*(hittable->hit))(hittable->obj, info->ray, info, info->rec))
 		{
 			hit_anything = 1;
@@ -73,4 +59,20 @@ int				hitlst_hit(t_list *lst, t_hitlst_info *info)
 		lst = lst->next;
 	}
 	return (hit_anything);
+}
+
+int				hitlst_sh_hit(t_list *lst, t_ray *s_ray, t_hitlst_info *info)
+{
+	t_hittable	*hittable;
+
+	while (lst && lst->content)
+	{
+		hittable = (t_hittable *)(lst->content);
+		if ((*(hittable->s_hit))(hittable->obj, s_ray, info))
+		{
+			return (0);
+		}
+		lst = lst->next;
+	}
+	return (1);
 }

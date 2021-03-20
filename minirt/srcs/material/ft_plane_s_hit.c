@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cal.c                                           :+:      :+:    :+:   */
+/*   ft_plane_s_hit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/21 22:03:43 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/20 14:56:50 by saoh             ###   ########.fr       */
+/*   Created: 2021/02/21 21:56:17 by saoh              #+#    #+#             */
+/*   Updated: 2021/03/20 17:36:08 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double				clamp(double val, double min, double max)
+int				plane_s_hit(void *p, t_ray *r, t_hitlst_info *info)
 {
-	if (val < min)
-		return (min);
-	if (val > max)
-		return (max);
-	return (val);
-}
+	t_vec		*oc;
+	double		t;
+	double		denominator;
+	double		numerator;
 
-double				get_radian(double degree)
-{
-	return (degree * M_PI / 180.0);
+	oc = vec_sub(((t_plane *)p)->center, r->orig);
+	numerator = vec_dot(oc, ((t_plane *)p)->normal);
+	denominator = vec_dot(r->dir, ((t_plane *)p)->normal);
+	free(oc);
+	if (denominator == 0)
+		return (0);
+	t = numerator / denominator;
+	if (info->t_min < t && t < info->t_max)
+		return (1);
+	return (0);
 }

@@ -6,64 +6,78 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 22:04:05 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/18 17:10:45 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/20 15:04:06 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_vec				*get_sky_color_t(double t)
+double				cal_color(int vis, double c1, double c2, double c3)
+{
+	return (vis * c1 * 0.18 / M_PI * c2 * 5000 * c3);
+}
+
+t_vec				*get_light_color(t_light *l, t_hit_record *rec,
+		t_list *lst, t_hitlst_info *info)
+{
+	t_vec			*color;
+	t_light_info	*l_info;
+	t_ray			*shadow_ray;
+	double			tmpcolor;
+	int				vis;
+
+	l_info = init_light_info(l, info->rec->p);
+	info->t_max = l_info->length;
+	shadow_ray = ray_create(vec_add_apply(vec_mul_const(rec->normal, 0.0001),
+				rec->p), vec_mul_const(l_info->dir, -1));
+	vis = hitlst_sh_hit(lst, shadow_ray, info);
+	tmpcolor = vec_dot(rec->normal, shadow_ray->dir);
+	if (tmpcolor < 0)
+		tmpcolor = 0;
+	color = vec_create(cal_color(vis, rec->color->x, l_info->intensity->x,
+				tmpcolor), cal_color(vis, rec->color->y, l_info->intensity->y,
+					tmpcolor), cal_color(vis, rec->color->z,
+						l_info->intensity->z, tmpcolor));
+	free_light_info(l_info);
+	ray_free(shadow_ray, 1);
+	return (color);
+}
+
+t_vec				*get_ambient_color(t_vec *color, void *am)
 {
 	t_vec			*target;
-	t_vec			*tmp;
 
-	tmp = vec_mul_const_apply(vec_create(0.5, 0.7, 1), t);
-	target = vec_mul_const_apply(vec_create(1, 1, 1), 1.0 - t);
-	vec_add_apply(target, tmp);
-	free(tmp);
+	target = vec_mul_const_apply(vec_mul_each_apply(color,
+				((t_ambient *)am)->color),
+			0.001 * ((t_ambient *)am)->intensity);
 	return (target);
 }
 
-t_vec				*get_recur_mat_color(t_list *lst, t_hitlst_info **info,
-		int depth, int *is_free)
-{
-	t_material		*mat;
-	t_material_info	mat_info;
-	t_vec			*target;
-	double			t;
-
-	if (depth <= 0)
-		return (vec_create(0, 0, 0));
-	if (hitlst_hit(lst, *info))
-	{
-		mat = (*info)->rec->mat;
-		if ((t = (*(mat->scatter))(mat, (*info)->ray, (*info)->rec, &mat_info)))
-		{
-			free_hitlst_info(*info, (*is_free)++);
-			*info = hitlst_info_new(mat_info.scattered);
-			target = vec_mul_each_apply(get_recur_mat_color(lst,
-						info, depth - 1, is_free), mat_info.attenuation);
-		}
-		else
-			target = vec_create(0, 0, 0);
-		free_material_info(&mat_info, 0, !t);
-		return (target);
-	}
-	t = 0.5 * ((vec_unit_apply((*info)->ray->dir))->y + 1.0);
-	return (get_sky_color_t(t));
-}
-
-void				get_hittable_material_color(t_list *lst,
+void				get_hittable_material_color(t_list *lst, t_list *l_lst,
 		t_hitlst_info *info, t_vec *color)
 {
 	t_vec			*target;
-	int				is_free;
+	t_vec			*t_color;
+	t_hittable		*hittable;
 
-	is_free = 0;
-	target = get_recur_mat_color(lst, &info, REFLECT_DEPTH, &is_free);
+	if (hitlst_hit(lst, info))
+	{
+		hittable = (t_hittable *)(l_lst->content);
+		target = get_ambient_color(vec_dup(info->rec->color), hittable->obj);
+		l_lst = l_lst->next;
+		while (l_lst)
+		{
+			hittable = (t_hittable *)(l_lst->content);
+			t_color = get_light_color(hittable->obj, info->rec, lst, info);
+			l_lst = l_lst->next;
+			target = vec_add_apply(target, t_color);
+		}
+	}
+	else
+		target = vec_create(0, 0, 0);
 	vec_add_apply(color, target);
 	free(target);
-	free_hitlst_info(info, is_free);
+	free_hitlst_info(info, 0);
 }
 
 void				*render(void *arg)
@@ -84,7 +98,7 @@ void				*render(void *arg)
 			color = vec_create(0, 0, 0);
 			locate = -1;
 			while ((++locate) < ANTI_SAMPLES)
-				get_hittable_material_color(t_info->lst,
+				get_hittable_material_color(t_info->lst, t_info->l_lst,
 						get_hitlst_by_locate(w, h, t_info->cam), color);
 			t_info->cam->data->img[w][h] = get_color_sample_gamma(color);
 			free(color);
@@ -94,7 +108,7 @@ void				*render(void *arg)
 	return (NULL);
 }
 
-void				draw_hittable_pthread(t_camera *cam, t_list *lst)
+void				draw_hittable_pthread(t_camera *cam, t_list *lst, t_list *l_lst)
 {
 	pthread_t		*threads;
 	int				pnum;
@@ -104,7 +118,7 @@ void				draw_hittable_pthread(t_camera *cam, t_list *lst)
 	pnum = 1;
 	while (pnum <= PTHREAD_CNT)
 	{
-		info = tinfo_new(cam, lst, pnum);
+		info = tinfo_new(cam, lst, pnum, l_lst);
 		pthread_create(&(threads[pnum - 1]), NULL, render, (void *)info);
 		pnum++;
 	}

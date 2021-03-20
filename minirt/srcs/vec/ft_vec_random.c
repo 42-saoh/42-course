@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:50:47 by saoh              #+#    #+#             */
-/*   Updated: 2021/02/21 21:50:53 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/20 14:57:39 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_vec			*vec_random_unit(void)
 	double		cos_b;
 	double		sin_b;
 
-	a = random_double_range(0, 2 * MINI_PI);
+	a = random_double_range(0, 2 * M_PI);
 	cos_b = random_double_range(-1, 1);
 	sin_b = sqrt(1.0 - cos_b * cos_b);
 	return (vec_create(sin_b * cos(a), sin_b * sin(a), cos_b));

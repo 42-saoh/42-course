@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cal.c                                           :+:      :+:    :+:   */
+/*   ft_cylinder_s_hit.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/21 22:03:43 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/20 14:56:50 by saoh             ###   ########.fr       */
+/*   Created: 2021/02/21 21:56:17 by saoh              #+#    #+#             */
+/*   Updated: 2021/03/20 16:08:42 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double				clamp(double val, double min, double max)
+int				cylinder_s_hit(void *cy, t_ray *r, t_hitlst_info *info)
 {
-	if (val < min)
-		return (min);
-	if (val > max)
-		return (max);
-	return (val);
-}
+	double		cy_t;
+	double		cap_t;
 
-double				get_radian(double degree)
-{
-	return (degree * M_PI / 180.0);
+	cy_t = solve_cylinder_t((t_cylinder *)cy, r, info);
+	cap_t = solve_cap_t((t_cylinder *)cy, r, info);
+	if (cy_t == INFINITY && cap_t == INFINITY)
+		return (0);
+	return (1);
 }
