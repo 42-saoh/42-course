@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:53:36 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/20 16:12:50 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/26 15:22:39 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void				hittable_shadow(t_hittable *result, int obj_type)
 	else if (obj_type == OBJ_LIGHT)
 		result->s_hit = NULL;
 	else if (obj_type == OBJ_AMBIENT)
+		result->s_hit = NULL;
+	else if (obj_type == OBJ_CAMERA)
 		result->s_hit = NULL;
 }
 
@@ -51,6 +53,8 @@ t_hittable			*hittable_create(void *obj, int obj_type)
 		result->hit = NULL;
 	else if (obj_type == OBJ_AMBIENT)
 		result->hit = NULL;
+	else if (obj_type == OBJ_CAMERA)
+		result->hit = NULL;
 	hittable_shadow(result, obj_type);
 	return (result);
 }
@@ -71,5 +75,7 @@ void				free_hittable(t_hittable *h)
 		free_light(h->obj);
 	if (h->obj_type == OBJ_AMBIENT)
 		free_ambient(h->obj);
+	if (h->obj_type == OBJ_CAMERA)
+		free_camera(h->obj);
 	free(h);
 }

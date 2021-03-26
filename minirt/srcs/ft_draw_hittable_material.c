@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 22:04:05 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/26 15:13:00 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/26 15:48:52 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,14 @@ void				*render(void *arg)
 	while ((--h) >= (tinfo_get_step(t_info) * (t_info->tnum - 1)))
 	{
 		w = -1;
-		while ((++w) < t_info->rt->cam->data->width)
+		while ((++w) < t_info->cam->data->width)
 		{
 			color = vec_create(0, 0, 0);
 			locate = -1;
 			while ((++locate) < ANTI_SAMPLES)
 				get_hittable_material_color(t_info->rt, t_info->rt->l_lst,
-						get_hitlst_by_locate(w, h, t_info->rt->cam), color);
-			t_info->rt->cam->data->img[w][h] = get_color_sample_gamma(color);
+						get_hitlst_by_locate(w, h, t_info->cam), color);
+			t_info->cam->data->img[w][h] = get_color_sample_gamma(color);
 			free(color);
 		}
 	}
@@ -98,7 +98,7 @@ void				*render(void *arg)
 	return (NULL);
 }
 
-void				draw_hittable_pthread(t_rt *rt)
+void				draw_hittable_pthread(t_rt *rt, t_camera *cam)
 {
 	pthread_t		*threads;
 	int				pnum;
@@ -108,7 +108,7 @@ void				draw_hittable_pthread(t_rt *rt)
 	pnum = 1;
 	while (pnum <= PTHREAD_CNT)
 	{
-		info = tinfo_new(rt, pnum);
+		info = tinfo_new(rt, cam, pnum);
 		pthread_create(&(threads[pnum - 1]), NULL, render, (void *)info);
 		pnum++;
 	}

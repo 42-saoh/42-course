@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:47:52 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/20 14:56:31 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/26 15:19:57 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define OBJ_SQUARE 5
 # define OBJ_LIGHT 6
 # define OBJ_AMBIENT 7
+# define OBJ_CAMERA 8
 # define HIT_T_MIN 0.001
 # define ANTI_SAMPLES 50
 # define PTHREAD_CNT 12

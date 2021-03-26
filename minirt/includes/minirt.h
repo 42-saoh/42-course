@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:47:38 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/26 15:13:40 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/26 18:57:42 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,19 @@
 
 void					show_sphere(int is_save);
 void					show_sphere_camera(int is_save);
-void					draw_hittable_pthread(t_rt *rt);
+void					draw_hittable_pthread(t_rt *rt, t_camera *cam);
 t_img_data				*create_img_data(int width, int height);
 t_img_data				*dup_img_data(t_img_data *img);
 int						get_color_val(t_vec *color);
 t_vec					*get_color(int rgb);
 void					save_bmp(t_img_data *data, char *filename);
-void					mlx_show(t_img_data *data, char *title);
+void					mlx_show(t_img_data *data, char *title, t_rt *rt);
 t_ray					*ray_create(t_vec *origin, t_vec *direction);
 t_vec					*ray_at(t_ray *ray, double t);
 t_sphere				*init_sphere(t_vec *center, double radius, t_vec *color);
 t_plane					*init_plane(t_vec *center, t_vec *normal, t_vec *color);
 t_cylinder				*init_cylinder(t_vec *center, t_vec *normal,
-		double radius, double height, t_vec *color);
+		t_cyvar cy, t_vec *color);
 t_triangle				*init_triangle(t_vec *v0, t_vec *v1, t_vec *v2, t_vec *color);
 t_square				*init_square(t_vec *center, t_vec *normal, double h_ss, t_vec *color);
 t_light					*init_light(t_vec *ori, double intensity, t_vec *color);
@@ -78,7 +78,7 @@ t_camera				*camera_locate_new(t_vec *lookfrom, t_vec *lookat,
 		double aspect_ratio, double vfov);
 double					clamp(double val, double min, double max);
 double					get_radian(double degree);
-t_thread_info			*tinfo_new(t_rt *rt, int tnum);
+t_thread_info			*tinfo_new(t_rt *rt, t_camera *cam, int tnum);
 int						tinfo_get_step(t_thread_info *info);
 int						tinfo_get_y_init_value(t_thread_info *info);
 int						is_in(t_vec *v1, t_vec *v0, t_vec *normal, t_vec *p);
@@ -100,10 +100,11 @@ int						check_issave(char *s, t_rt *rt);
 int						check_rt(char *f_name, t_rt *rt);
 int						check_rt_lst(t_rt *rt);
 int						parsing_rt(int fd, t_rt *rt);
-char					*get_num(char *line, int *num);
-char					*get_double(char *line, double *num);
-char					*is_comma(char *line);
-char					*cut_space(char *line);
+char					*get_num(char *line, int *num, t_rt *rt);
+char					*get_double(char *line, double *num, t_rt *rt);
+char					*is_comma(char *line, t_rt *rt);
+char					*cut_space(char *line, t_rt *rt);
+char					*cut_space2(char *line);
 void					set_image(char *line, t_rt *rt, t_overlap *ol);
 void					set_ambient(char *line, t_rt *rt, t_overlap *ol);
 void					set_camera(char *line, t_rt *rt);

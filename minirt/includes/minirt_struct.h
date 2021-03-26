@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:48:18 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/26 14:57:59 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/26 18:54:21 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,9 +142,16 @@ typedef struct			s_var
 	double				choose_mat;
 }						t_var;
 
+typedef struct			s_cyvar
+{
+	double				height;
+	double				diameter;
+}						t_cyvar;
+
 typedef struct			s_thread_info
 {
 	struct s_rt			*rt;
+	t_camera			*cam;
 	int					tnum;
 }						t_thread_info;
 
@@ -181,9 +188,12 @@ typedef struct			s_rt
 {
 	t_list				*lst;
 	t_list				*l_lst;
+	t_list				*c_lst;
+	t_list				*t_lst;
 	t_ambient			*am;
-	t_camera			*cam;
 	t_img_data			*img;
+	t_mlx_data			*mlx;
+	t_vars				*vars;
 	int					is_save;
 	int					is_error;
 }						t_rt;

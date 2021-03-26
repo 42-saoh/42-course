@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 12:41:00 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/26 14:25:24 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/26 15:24:32 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void			set_ol_rt_lst(t_overlap *ol, int *is_read, t_rt *rt)
 	rt->is_error = 0;
 	rt->lst = hitlst_new();
 	rt->l_lst = hitlst_new();
+	rt->c_lst = hitlst_new();
 }
 
 void			parsing_line(char *line, t_rt *rt, t_overlap *ol)

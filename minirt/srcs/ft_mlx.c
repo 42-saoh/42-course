@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 22:04:32 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/25 17:24:33 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/26 17:21:49 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,36 @@ void			mlx_draw_by_img_data(t_mlx_data *mlx_data, t_img_data *img_data)
 	}
 }
 
-int				exit_program(void)
+int				exit_program(t_rt *rt)
 {
+	mlx_destroy_image(rt->vars->mlx, rt->mlx->img);
 	exit(0);
 	return (0);
 }
 
-int				mlx_key_handle(int keycode)
+int				mlx_key_handle(int keycode, t_rt *rt)
 {
+	t_hittable	*hittable;
+	t_camera	*t_cam;
+
 	if (keycode == 53)
-		return (exit_program());
+		return (exit_program(rt));
+	if (keycode == 124)
+	{
+		if (rt->c_lst->next)
+			rt->c_lst = rt->c_lst->next;
+		else
+			rt->c_lst = rt->t_lst;
+		hittable = (t_hittable *)rt->c_lst->content;
+		t_cam = (t_camera *)hittable->obj;
+		mlx_draw_by_img_data(rt->mlx, t_cam->data);
+		mlx_put_image_to_window(rt->vars->mlx, rt->vars->win,
+				rt->mlx->img, 0, 0);
+	}
 	return (0);
 }
 
-void			mlx_show(t_img_data *data, char *title)
+void			mlx_show(t_img_data *data, char *title, t_rt *rt)
 {
 	t_vars		vars;
 	t_mlx_data	*img;
@@ -59,11 +75,12 @@ void			mlx_show(t_img_data *data, char *title)
 	img->img = mlx_new_image(vars.mlx, data->width, data->height);
 	img->addr = mlx_get_data_addr(img->img, &(img->bits_per_pixel),
 			&(img->line_length), &(img->endian));
+	rt->mlx = img;
+	rt->vars = &vars;
 	mlx_draw_by_img_data(img, data);
 	mlx_put_image_to_window(vars.mlx, vars.win, img->img, 0, 0);
-	mlx_destroy_image(vars.mlx, img->img);
-	mlx_hook(vars.win, 2, 1L << 0, mlx_key_handle, 0);
-	mlx_hook(vars.win, 17, 1L << 17, exit_program, 0);
+	mlx_hook(vars.win, 2, 1L << 0, mlx_key_handle, rt);
+	mlx_hook(vars.win, 17, 1L << 17, exit_program, rt);
 	mlx_loop(vars.mlx);
 	free(img);
 }
