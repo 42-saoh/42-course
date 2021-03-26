@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:53:06 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/20 16:04:24 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/26 14:47:04 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ void			hitlst_add(t_list *lst, void *obj, int obj_type)
 
 void			free_hitlst(t_list *lst)
 {
-	if (lst->next)
+	if (lst->next != NULL)
 		free_hitlst(lst->next);
-	free_hittable(lst->content);
+	if (lst->content != NULL)
+		free_hittable(lst->content);
 	free(lst);
 }
 

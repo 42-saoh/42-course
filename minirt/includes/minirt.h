@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:47:38 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/26 13:05:11 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/26 15:13:40 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 void					show_sphere(int is_save);
 void					show_sphere_camera(int is_save);
-void					draw_hittable_pthread(t_camera *cam, t_list *lst, t_list *l_lst);
+void					draw_hittable_pthread(t_rt *rt);
 t_img_data				*create_img_data(int width, int height);
 t_img_data				*dup_img_data(t_img_data *img);
 int						get_color_val(t_vec *color);
@@ -78,7 +78,7 @@ t_camera				*camera_locate_new(t_vec *lookfrom, t_vec *lookat,
 		double aspect_ratio, double vfov);
 double					clamp(double val, double min, double max);
 double					get_radian(double degree);
-t_thread_info			*tinfo_new(t_camera *cam, t_list *lst, int tnum, t_list *l_lst);
+t_thread_info			*tinfo_new(t_rt *rt, int tnum);
 int						tinfo_get_step(t_thread_info *info);
 int						tinfo_get_y_init_value(t_thread_info *info);
 int						is_in(t_vec *v1, t_vec *v0, t_vec *normal, t_vec *p);

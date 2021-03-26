@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:58:00 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/26 14:27:20 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/26 15:13:13 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int 		main(int argc, char *argv[])
 		return (error_input());
 	if (!check_rt_lst(&rt))
 		return (error_file());
-	draw_hittable_pthread(rt.cam, rt.lst, rt.l_lst);
+	draw_hittable_pthread(&rt);
 	if (rt.is_save)
 		save_bmp((rt.cam)->data, argv[1]);
 	else

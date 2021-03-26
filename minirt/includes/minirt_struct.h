@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:48:18 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/25 17:18:37 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/26 14:57:59 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,9 +144,7 @@ typedef struct			s_var
 
 typedef struct			s_thread_info
 {
-	t_camera			*cam;
-	t_list				*lst;
-	t_list				*l_lst;
+	struct s_rt			*rt;
 	int					tnum;
 }						t_thread_info;
 
