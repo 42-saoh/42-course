@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:48:06 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/19 18:07:32 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/25 17:16:06 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ void					free_hittable(t_hittable *h);
 void					free_light(t_light *l);
 void					free_light_info(t_light_info *l_info);
 void					free_ambient(t_ambient *am);
+void					free_lsts(t_rt *rt);
 
 #endif

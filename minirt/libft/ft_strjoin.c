@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 20:57:03 by saoh              #+#    #+#             */
-/*   Updated: 2020/11/04 15:50:24 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/26 12:21:31 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ char			*ft_strjoin(char const *s1, char const *s2)
 
 	if (!s1 && !s2)
 		return (NULL);
-	else if (!s1 || !s2)
-		return (!s1 ? ft_strdup(s2) : ft_strdup(s1));
+	else if (!s1)
+		return (ft_strdup(s2));
+	else if (!s2)
+		return (ft_strdup(s1));
 	s1_len = ft_strlen(s1);
 	s2_len = ft_strlen(s2);
 	if (!(str = (char *)malloc(sizeof(char) * (s1_len + s2_len + 1))))

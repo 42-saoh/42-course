@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:47:38 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/20 17:56:57 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/26 13:05:11 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,13 @@
 # include "minirt_const.h"
 # include "minirt_vec.h"
 # include "minirt_free.h"
+# include <stdio.h>
 
 void					show_sphere(int is_save);
 void					show_sphere_camera(int is_save);
 void					draw_hittable_pthread(t_camera *cam, t_list *lst, t_list *l_lst);
 t_img_data				*create_img_data(int width, int height);
+t_img_data				*dup_img_data(t_img_data *img);
 int						get_color_val(t_vec *color);
 t_vec					*get_color(int rgb);
 void					save_bmp(t_img_data *data, char *filename);
@@ -92,5 +94,24 @@ int						plane_s_hit(void *p, t_ray *r, t_hitlst_info *info);
 int						cylinder_s_hit(void *cy, t_ray *r, t_hitlst_info *info);
 int						triangle_s_hit(void *tr, t_ray *r, t_hitlst_info *info);
 int						square_s_hit(void *sq, t_ray *r, t_hitlst_info *info);
+int						error_input(void);
+int						error_file(void);
+int						check_issave(char *s, t_rt *rt);
+int						check_rt(char *f_name, t_rt *rt);
+int						check_rt_lst(t_rt *rt);
+int						parsing_rt(int fd, t_rt *rt);
+char					*get_num(char *line, int *num);
+char					*get_double(char *line, double *num);
+char					*is_comma(char *line);
+char					*cut_space(char *line);
+void					set_image(char *line, t_rt *rt, t_overlap *ol);
+void					set_ambient(char *line, t_rt *rt, t_overlap *ol);
+void					set_camera(char *line, t_rt *rt);
+void					set_light(char *line, t_rt *rt);
+void					set_plane(char *line, t_rt *rt);
+void					set_sphere(char *line, t_rt *rt);
+void					set_square(char *line, t_rt *rt);
+void					set_cylinder(char *line, t_rt *rt);
+void					set_triangle(char *line, t_rt *rt);
 
 #endif

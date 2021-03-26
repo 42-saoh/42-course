@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:52:41 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/18 15:49:17 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/25 17:24:52 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ t_camera			*camera_locate_new(t_vec *lookfrom, t_vec *lookat,
 
 void				free_camera(t_camera *cam)
 {
+	free_img_data(cam->data);
 	free(cam->horizontal);
 	free(cam->vertical);
 	free(cam->lower_left_corner);

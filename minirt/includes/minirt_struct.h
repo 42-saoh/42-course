@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:48:18 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/20 16:10:20 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/25 17:18:37 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct			s_img_data
 	int					**img;
 	int					width;
 	int					height;
+	double				aspect_ratio;
 }						t_img_data;
 
 typedef struct			s_vec
@@ -177,5 +178,38 @@ typedef struct			s_ambient
 	t_vec				*color;
 	double				intensity;
 }						t_ambient;
+
+typedef struct			s_rt
+{
+	t_list				*lst;
+	t_list				*l_lst;
+	t_ambient			*am;
+	t_camera			*cam;
+	t_img_data			*img;
+	int					is_save;
+	int					is_error;
+}						t_rt;
+
+typedef	struct			s_overlap
+{
+	int					r_ol;
+	int					a_ol;
+}						t_overlap;
+
+typedef	struct			s_num
+{
+	double				val1;
+	double				val2;
+	double				val3;
+	double				val4;
+	double				val5;
+	double				val6;
+	double				val7;
+	double				val8;
+	double				val9;
+	double				val10;
+	double				val11;
+	double				val12;
+}						t_num;
 
 #endif

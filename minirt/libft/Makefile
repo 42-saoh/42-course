@@ -6,7 +6,7 @@
 #    By: saoh </var/mail/saoh>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/21 15:14:14 by saoh              #+#    #+#              #
-#    Updated: 2020/10/21 15:20:19 by saoh             ###   ########.fr        #
+#    Updated: 2021/03/26 12:30:05 by saoh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,8 @@ BONUS :=	ft_lstnew.c \
 			ft_lstiter.c \
 			ft_lstmap.c
 
+GNL :=		get_next_line.c
+
 $(NAME) :
 	$(CC) $(CFLAGS) -c $(SRC)
 	ar rc $(NAME) $(OBJECTS)
@@ -68,6 +70,10 @@ all : $(NAME)
 
 bonus : 
 	$(CC) $(CFLAGS) -c $(SRC) $(BONUS)
+	ar rc $(NAME) $(OBJECTS)
+
+gnl : 
+	$(CC) $(CFLAGS) -c $(SRC) $(BONUS) $(GNL)
 	ar rc $(NAME) $(OBJECTS)
 
 clean :
