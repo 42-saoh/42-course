@@ -15,7 +15,7 @@ CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
 
 SRC 	= main.c ft_bmp.c ft_cal.c ft_color.c ft_img.c ft_light.c ft_ambient.c \
-		  ft_mlx.c ft_random_double.c ft_thread.c ft_draw_hittable_material.c ft_error.c \
+		  ft_mlx.c ft_random_double.c ft_thread.c ft_draw.c ft_error.c \
 		  material/ft_sphere.c material/ft_sphere_hit.c material/ft_plane.c material/ft_plane_hit.c \
 		  material/ft_cylinder.c material/ft_cylinder_hit.c material/ft_cylinder_hit2.c \
 		  material/ft_triangle.c material/ft_triangle_hit.c material/ft_square.c material/ft_square_hit.c \
