@@ -37,12 +37,16 @@ void					save_bmp(t_img_data *data, char *filename);
 void					mlx_show(t_img_data *data, char *title, t_rt *rt);
 t_ray					*ray_create(t_vec *origin, t_vec *direction);
 t_vec					*ray_at(t_ray *ray, double t);
-t_sphere				*init_sphere(t_vec *center, double radius, t_vec *color);
-t_plane					*init_plane(t_vec *center, t_vec *normal, t_vec *color);
+t_sphere				*init_sphere(t_vec *center, double radius,
+		t_vec *color);
+t_plane					*init_plane(t_vec *center, t_vec *normal,
+		t_vec *color);
 t_cylinder				*init_cylinder(t_vec *center, t_vec *normal,
 		t_cyvar cy, t_vec *color);
-t_triangle				*init_triangle(t_vec *v0, t_vec *v1, t_vec *v2, t_vec *color);
-t_square				*init_square(t_vec *center, t_vec *normal, double h_ss, t_vec *color);
+t_triangle				*init_triangle(t_vec *v0, t_vec *v1, t_vec *v2,
+		t_vec *color);
+t_square				*init_square(t_vec *center, t_vec *normal,
+		double h_ss, t_vec *color);
 t_light					*init_light(t_vec *ori, double intensity, t_vec *color);
 t_light_info			*init_light_info(t_light *light, t_vec *p);
 t_ambient				*init_ambient(double intensity, t_vec *color);
@@ -88,7 +92,8 @@ double					solve_cylinder_t(t_cylinder *cy, t_ray *r,
 		t_hitlst_info *info);
 double					solve_cap_t(t_cylinder *cy, t_ray *r,
 		t_hitlst_info *info);
-int						hitlst_sh_hit(t_list *lst, t_ray *s_ray, t_hitlst_info *info);
+int						hitlst_sh_hit(t_list *lst, t_ray *s_ray,
+		t_hitlst_info *info);
 int						sphere_s_hit(void *s, t_ray *r, t_hitlst_info *info);
 int						plane_s_hit(void *p, t_ray *r, t_hitlst_info *info);
 int						cylinder_s_hit(void *cy, t_ray *r, t_hitlst_info *info);

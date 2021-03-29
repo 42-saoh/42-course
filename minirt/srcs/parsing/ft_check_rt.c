@@ -54,8 +54,9 @@ int					check_rt(char *f_name, t_rt *rt)
 
 int					check_issave(char *s, t_rt *rt)
 {
-	char			*save = "--save";
+	char			*save;
 
+	save = "--save";
 	while (*s && *save)
 	{
 		if (*s != *save)

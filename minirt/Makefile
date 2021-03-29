@@ -14,7 +14,7 @@ NAME	= minirt
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
 
-SRC 	= tmp_main.c ft_bmp.c ft_cal.c ft_color.c ft_img.c ft_light.c ft_ambient.c \
+SRC 	= main.c ft_bmp.c ft_cal.c ft_color.c ft_img.c ft_light.c ft_ambient.c \
 		  ft_mlx.c ft_random_double.c ft_thread.c ft_draw_hittable_material.c ft_error.c \
 		  material/ft_sphere.c material/ft_sphere_hit.c material/ft_plane.c material/ft_plane_hit.c \
 		  material/ft_cylinder.c material/ft_cylinder_hit.c material/ft_cylinder_hit2.c \

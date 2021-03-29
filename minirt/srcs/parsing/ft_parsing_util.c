@@ -21,7 +21,6 @@ char			*is_comma(char *line, t_rt *rt)
 		rt->is_error = 1;
 		return (line);
 	}
-
 }
 
 char			*get_double2(char *line, double *num, double result, int m)

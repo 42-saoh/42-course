@@ -51,7 +51,7 @@ void			set_triangle(char *line, t_rt *rt)
 {
 	t_num		num;
 
-	line = cut_space(line,rt);
+	line = cut_space(line, rt);
 	line = get_double(line, &(num.val1), rt);
 	line = is_comma(line, rt);
 	line = get_double(line, &(num.val2), rt);

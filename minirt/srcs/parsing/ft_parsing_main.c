@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-void			set_ol_rt_lst(t_overlap *ol, int *is_read, t_rt *rt)
+void				set_ol_rt_lst(t_overlap *ol, int *is_read, t_rt *rt)
 {
 	*is_read = 1;
 	ol->r_ol = 0;
@@ -23,7 +23,7 @@ void			set_ol_rt_lst(t_overlap *ol, int *is_read, t_rt *rt)
 	rt->c_lst = hitlst_new();
 }
 
-void			parsing_line(char *line, t_rt *rt, t_overlap *ol)
+void				parsing_line(char *line, t_rt *rt, t_overlap *ol)
 {
 	if (line == 0 || *line == 0)
 		return ;

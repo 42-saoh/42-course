@@ -12,7 +12,8 @@
 
 #include "minirt.h"
 
-t_square		*init_square(t_vec *center, t_vec *normal, double h_ss, t_vec *color)
+t_square		*init_square(t_vec *center, t_vec *normal,
+		double h_ss, t_vec *color)
 {
 	t_square	*result;
 	t_vec		*vup;

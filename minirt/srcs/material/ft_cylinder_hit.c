@@ -68,5 +68,5 @@ int				cylinder_hit(void *cy, t_ray *r, t_hitlst_info *info,
 	{
 		rec->t = cap_t;
 		return (check_cap_hitrange(cy, r, rec));
-	} 
+	}
 }

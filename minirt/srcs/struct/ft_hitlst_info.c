@@ -32,11 +32,11 @@ void					free_hitlst_info(t_hitlst_info *info,
 	free(info);
 }
 
-t_hitlst_info		*get_hitlst_by_locate(int w, int h, t_camera *cam)
+t_hitlst_info			*get_hitlst_by_locate(int w, int h, t_camera *cam)
 {
-	double			u;
-	double			v;
-	t_ray			*ray;
+	double				u;
+	double				v;
+	t_ray				*ray;
 
 	u = ((double)w + random_double()) / (cam->data->width - 1);
 	v = ((double)h + random_double()) / (cam->data->height - 1);

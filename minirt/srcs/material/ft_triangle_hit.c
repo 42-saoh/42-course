@@ -46,14 +46,14 @@ int				is_intriangle(t_triangle *tr, t_vec *p)
 int				check_triangle_hitrange(void *tr, t_ray *r,
 		t_hit_record *rec, double t)
 {
-		if (rec->p)
-			reset_hit_record(rec);
-		rec->t = t;
-		rec->p = ray_at(r, t);
-		rec->normal = vec_dup(((t_triangle *)tr)->normal);
-		rec->color = vec_dup(((t_triangle *)tr)->color);
-		hit_set_normal(rec, r);
-		return (1);
+	if (rec->p)
+		reset_hit_record(rec);
+	rec->t = t;
+	rec->p = ray_at(r, t);
+	rec->normal = vec_dup(((t_triangle *)tr)->normal);
+	rec->color = vec_dup(((t_triangle *)tr)->color);
+	hit_set_normal(rec, r);
+	return (1);
 }
 
 int				triangle_hit(void *tr, t_ray *r, t_hitlst_info *info,

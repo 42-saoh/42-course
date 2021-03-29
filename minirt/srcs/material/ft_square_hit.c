@@ -35,14 +35,14 @@ int				is_square(t_square *sq, t_vec *p)
 int				check_square_hitrange(void *sq, t_ray *r,
 		t_hit_record *rec, double t)
 {
-		if (rec->p)
-			reset_hit_record(rec);
-		rec->t = t;
-		rec->p = ray_at(r, t);
-		rec->normal = vec_dup(((t_square *)sq)->normal);
-		rec->color = vec_dup(((t_square *)sq)->color);
-		hit_set_normal(rec, r);
-		return (1);
+	if (rec->p)
+		reset_hit_record(rec);
+	rec->t = t;
+	rec->p = ray_at(r, t);
+	rec->normal = vec_dup(((t_square *)sq)->normal);
+	rec->color = vec_dup(((t_square *)sq)->color);
+	hit_set_normal(rec, r);
+	return (1);
 }
 
 int				square_hit(void *sq, t_ray *r, t_hitlst_info *info,

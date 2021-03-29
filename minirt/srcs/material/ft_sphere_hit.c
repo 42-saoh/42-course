@@ -17,8 +17,8 @@ int				check_sphere_hitrange(void *s, t_ray *r, t_hitlst_info *info,
 {
 	t_pmt		st;
 
-	st.plus_t = (-info->half_b + info->root_d ) / info->a;
-	st.minus_t = (-info->half_b - info->root_d ) / info->a;
+	st.plus_t = (-info->half_b + info->root_d) / info->a;
+	st.minus_t = (-info->half_b - info->root_d) / info->a;
 	if (st.minus_t > 0)
 		st.plus_t = st.minus_t;
 	if (info->t_min < st.plus_t && st.plus_t < info->t_max)

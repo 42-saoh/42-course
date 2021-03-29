@@ -12,9 +12,9 @@
 
 #include "minirt.h"
 
-t_plane		*init_plane(t_vec *center, t_vec *normal, t_vec *color)
+t_plane			*init_plane(t_vec *center, t_vec *normal, t_vec *color)
 {
-	t_plane	*result;
+	t_plane		*result;
 
 	result = (t_plane *)malloc(sizeof(t_plane));
 	result->center = center;
