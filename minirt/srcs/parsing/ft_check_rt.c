@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 12:41:00 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/26 17:16:51 by saoh             ###   ########.fr       */
+/*   Updated: 2021/03/31 21:58:06 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 int					check_rt_lst(t_rt *rt)
 {
-	if (rt->img == NULL || rt->c_lst->content == NULL || rt->am == NULL
-			|| rt->lst->content == NULL || rt->l_lst->content == NULL)
+	if (rt->img == NULL || rt->c_lst->content == NULL || rt->am == NULL)
 	{
 		free_lsts(rt);
 		return (0);
