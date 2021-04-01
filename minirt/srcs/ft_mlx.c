@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 22:04:32 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/26 17:21:49 by saoh             ###   ########.fr       */
+/*   Updated: 2021/04/01 17:27:58 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@ void			mlx_show(t_img_data *data, char *title, t_rt *rt)
 	t_mlx_data	*img;
 
 	vars.mlx = mlx_init();
+	mlx_get_screen_size(vars.mlx, &vars.max_w, &vars.max_h);
+	if (data->width > vars.max_w)
+		data->width = vars.max_w;
+	if (data->height > vars.max_h)
+		data->height = vars.max_h;
 	vars.win = mlx_new_window(vars.mlx, data->width, data->height, title);
 	img = (t_mlx_data *)malloc(sizeof(t_mlx_data));
 	img->img = mlx_new_image(vars.mlx, data->width, data->height);

@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 22:04:05 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/26 15:48:52 by saoh             ###   ########.fr       */
+/*   Updated: 2021/04/01 17:18:44 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void				get_hittable_material_color(t_rt *rt, t_list *l_lst,
 		target = vec_mul_const_apply(vec_mul_each_apply(
 					vec_dup(info->rec->color), rt->am->color),
 				0.001 * rt->am->intensity);
-		while (l_lst)
+		while (l_lst && l_lst->content)
 		{
 			hittable = (t_hittable *)(l_lst->content);
 			t_color = get_light_color(hittable->obj, info->rec, rt->lst, info);

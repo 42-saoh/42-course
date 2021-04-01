@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 21:48:18 by saoh              #+#    #+#             */
-/*   Updated: 2021/03/26 18:54:21 by saoh             ###   ########.fr       */
+/*   Updated: 2021/04/01 17:25:34 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef struct			s_vars
 {
 	void				*mlx;
 	void				*win;
+	int					max_w;
+	int					max_h;
 }						t_vars;
 
 typedef struct			s_mlx_data
