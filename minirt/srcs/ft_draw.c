@@ -61,6 +61,7 @@ void				get_hittable_material_color(t_rt *rt, t_list *l_lst,
 			t_color = get_light_color(hittable->obj, info->rec, rt->lst, info);
 			l_lst = l_lst->next;
 			target = vec_add_apply(target, t_color);
+			free(t_color);
 		}
 	}
 	else
