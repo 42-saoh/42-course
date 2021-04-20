@@ -5,8 +5,7 @@ section .text
 _ft_list_remove_if :
 	push rbp
 	push rbx
-	push r9
-	push r8
+	push r12
 	cmp rdi, 0
 	je end
 	cmp rsi, 0
@@ -15,7 +14,7 @@ _ft_list_remove_if :
 	je end
 	cmp rcx, 0
 	je end
-	mov r9, [rdi]
+	mov r12, [rdi]
 	xor rbx, rbx
 	jmp lst_cmp
 
@@ -41,7 +40,7 @@ lst_remove :
 	mov [rdi], rbp
 	cmp rbx, 0
 	jne pre_lst_set
-	mov r9, rbp
+	mov r12, rbp
 	jmp lst_cmp
 
 pre_lst_set :
@@ -81,9 +80,8 @@ lst_cmp2 :
 	jmp next_lst
 
 end :
-	mov [rdi], r9
-	pop r8
-	pop r9
+	mov [rdi], r12
+	pop r12
 	pop rbx
 	pop rbp
 	ret
