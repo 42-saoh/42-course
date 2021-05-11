@@ -91,7 +91,7 @@ get_result :
 get_num :
 	cmp BYTE [rdi + rcx], 0
 	je end
-	mov r8, 0
+	xor r8, r8
 
 get_num2 :
 	cmp BYTE [rsi + r8], 0

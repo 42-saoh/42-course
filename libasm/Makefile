@@ -9,8 +9,7 @@ SRCS = ft_strlen.s \
 
 BONUS = ft_atoi_base_bonus.s \
 		ft_list_push_front_bonus.s \
-		ft_list_size_bonus.s \
-		ft_list_remove_if_bonus.s
+		ft_list_size_bonus.s
 
 OBJECT = $(SRCS:.s=.o)
 BONUS_OBJECT = $(BONUS:.s=.o)
@@ -27,7 +26,7 @@ bonus : $(NAME) $(BONUS_OBJECT)
 	ar rcs $(NAME) $(BONUS_OBJECT)
 
 clean : 
-	rm -r *.o
+	rm -rf *.o
 
 fclean : clean
 	rm -rf $(NAME)

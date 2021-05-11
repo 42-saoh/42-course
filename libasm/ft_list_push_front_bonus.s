@@ -3,7 +3,7 @@ section .text
 	extern _malloc
 
 _ft_list_push_front :
-	push rbp
+	push rsp
 	push rdi
 	push rsi
 	xor rax, rax
@@ -19,5 +19,5 @@ _ft_list_push_front :
 	mov [rdi], rax
 
 end :
-	pop rbp
+	pop rsp
 	ret
