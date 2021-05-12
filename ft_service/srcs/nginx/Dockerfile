@@ -1,7 +1,7 @@
 FROM alpine:3.12.0
 MAINTAINER saoh
 
-COPY nginx /etc/nginx/sites-available/
+COPY default.conf /etc/nginx/
 COPY nginx.sh /etc/nginx/
 
 RUN apk update && apk add nginx openssh-server openssl
