@@ -21,6 +21,7 @@ spec:
       name: ssh
       protocol: TCP
       targetPort: 22
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -43,6 +44,17 @@ spec:
         - name: nginx-container
           image: nginx:latest
           imagePullPolicy: Never
+          env:
+            - name: SSH_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: ssh-secret
+                  key: username
+            - name: SSH_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ssh-secret
+                  key: password
           ports:
             - containerPort: 80
               name: http

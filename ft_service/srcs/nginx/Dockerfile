@@ -4,6 +4,9 @@ MAINTAINER saoh
 COPY default.conf /etc/nginx/
 COPY nginx.sh /etc/nginx/
 
-RUN apk update && apk add nginx openssh-server openssl
-RUN apk add php7 php7-curl php7-fpm php-mbstring php-json php7-session php-mysqli
+RUN apk update && apk --update --no-cache add nginx openssh-server openssl
+RUN chmod +x /etc/nginx/nginx.sh
 
+EXPOSE 80 443 22
+
+ENTRYPOINT ["etc/nginx/nginx.sh"]
