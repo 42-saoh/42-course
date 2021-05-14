@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    metallb.universe.tf/allow-shared-ip: shared
+  name: phpmyadmin
+  labels:
+    app: phpmyadmin
+spec:
+  selector:
+    app: phpmyadmin
+  type: LoadBalancer
+  loadBalancerIP: 192.168.99.100
+  ports:
+  - name: phpmyadmin
+    port: 5000
+    protocol: TCP
+    targetPort: 5000
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phpmyadmin
+  labels:
+    app: phpmyadmin
+spec:
+  selector:
+    matchLabels:
+      app: phpmyadmin
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailables: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: phpmyadmin
+    spec:
+      containers:
+        - name: phpmyadmin
+          image: phpmyadmin:latest
+          imagePullPolicy: Never
