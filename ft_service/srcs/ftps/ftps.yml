@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ftps
+  labels:
+    app: ftps
+  annotations:
+    metallb.universe.ft/allow_shared-ip: shared
+spec:
+  selector:
+    app: ftps
+  type: LoadBalancer
+  localBalancerIP: 192.168.99.100
+  ports:
+    - port: 20
+      name: ftp-data
+    - port: 21
+      name: ftp-connection
+    - port: 20000
+      name: ftps-pasv1
+    - port: 20001
+      name: ftps-pasv2
+    - port: 20002
+      name: ftps-pasv3
+    - port: 20003
+      name: ftps-pasv4
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ftps
+  labels:
+    app: ftps
+spec:
+  selector:
+    matchLabels:
+      app: ftps
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: ftps
+    spec:
+      containers:
+        - name: ftps
+          image: ftps:latest
+          imagePullPolicy: Never
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+          ports:
+            - port: 20
+              name: ftp-data
+            - port: 21
+              name: ftp-connection
+            - port: 20000
+              name: ftps-pasv1
+            - port: 20001
+              name: ftps-pasv2
+            - port: 20002
+              name: ftps-pasv3
+            - port: 20003
+              name: ftps-pasv4
