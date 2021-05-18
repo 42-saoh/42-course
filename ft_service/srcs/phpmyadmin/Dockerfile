@@ -16,4 +16,4 @@ RUN chmod 705 /var/www/phpmyadmin/config.inc.php
 
 EXPOSE 5000
 
-ENTRYPOINT php-fpm7 && nginx -g "daemon off;"
+CMD php-fpm7 && nginx -g "daemon off;"

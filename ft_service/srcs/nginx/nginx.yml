@@ -8,6 +8,7 @@ spec:
   selector:
     app: nginx
   type: LoadBalancer
+  loadBalancerIP: LB_IP
   ports:
     - port: 80
       name: http

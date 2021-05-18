@@ -9,7 +9,6 @@
  *
  * @package PhpMyAdmin
  */
-declare(strict_types=1);
 
 /**
  * This is needed for cookie based authentication to encrypt password in
@@ -32,8 +31,7 @@ $cfg['Servers'][$i]['auth_type'] = 'cookie';
 $cfg['Servers'][$i]['host'] = 'mysql';
 $cfg['Servers'][$i]['compress'] = false;
 $cfg['Servers'][$i]['AllowNoPassword'] = false;
-$cfg['PmaAbsoluteUri'] = '192.168.99.100:5000';
-
+$cfg['PmaAbsoluteUri'] = 'LB_IP:5000';
 /**
  * phpMyAdmin configuration storage settings.
  */
