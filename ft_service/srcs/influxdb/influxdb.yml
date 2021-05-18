@@ -35,13 +35,13 @@ metadata:
   name: influxdb-secret
   labels:
     app: influxdb
-  type: Opaque
-  stringData:
-    INFLUXDB_DB: telegraf
-    INFLUXDB_ADMIN_USER: admin
-    INFLUXDB_ADMIN_PASSWORD: password
-    INFLUXDB_USER: user
-    INFLUXDB_USER_ASSWORD: userpassword
+type: Opaque
+stringData:
+  INFLUXDB_DB: telegraf
+  INFLUXDB_ADMIN_USER: admin
+  INFLUXDB_ADMIN_PASSWORD: password
+  INFLUXDB_USER: user
+  INFLUXDB_USER_ASSWORD: userpassword
 
 ---
 apiVersion: apps/v1
@@ -56,11 +56,11 @@ spec:
       app: influxdb
   strategy:
     type: Recreate
-  tempalte:
+  template:
     metadata:
       labels:
         app: influxdb
-    sepc:
+    spec:
       containers:
         - name: influxdb
           image: influxdb:latest

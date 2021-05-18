@@ -72,11 +72,11 @@ spec:
       app: grafana
   strategy:
     type: Recreate
-  tempalte:
+  template:
     metadata:
       labels:
         app: grafana
-    sepc:
+    spec:
       containers:
         - name: grafana
           image: grafana:latest

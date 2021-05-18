@@ -31,7 +31,7 @@ spec:
   strategy:
     rollingUpdate:
       maxSurge: 25%
-      maxUnavailables: 25%
+      maxUnavailable: 25%
     type: RollingUpdate
   template:
     metadata:

@@ -41,11 +41,11 @@ spec:
       app: mysql
   strategy:
     type: Recreate
-  tempalte:
+  template:
     metadata:
       labels:
         app: mysql
-    sepc:
+    spec:
       restartPolicy: Always
       containers:
         - name: mysql

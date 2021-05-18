@@ -27,7 +27,7 @@ spec:
   selector:
     matchLabels:
       app: wordpress
-    tempalte:
+    template:
       metadata:
         name: wordpress
         labels:
