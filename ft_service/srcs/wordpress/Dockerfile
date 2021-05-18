@@ -18,4 +18,4 @@ RUN chmod +x /etc/nginx/wordpress.sh
 
 EXPOSE 5050
 
-CMD /bin/sh "/usr/sbin/wordpress_setup.sh" && php-fpm7 && nginx -g "daemon off;"
+CMD /bin/sh "/etc/nginx/wordpress.sh" && php-fpm7 && nginx -g "daemon off;"
