@@ -1,6 +1,6 @@
 #!/bin/sh
 
-mydir -p /run/mysqld
+mkdir -p /run/mysqld
 
 mysql_install_db --user=root > /dev/null
 
