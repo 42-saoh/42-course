@@ -8,7 +8,6 @@ metadata:
     metallb.universe.tf/allow-shared-ip: shared
 spec:
   type: LoadBalancer
-  loadBalancerIP: LB_IP
   selector:
     app: grafana
   ports:

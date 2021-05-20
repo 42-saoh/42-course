@@ -10,7 +10,6 @@ spec:
   selector:
     app: ftps
   type: LoadBalancer
-  loadBalancerIP: LB_IP
   ports:
     - port: 20
       name: ftp-data
