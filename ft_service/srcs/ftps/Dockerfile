@@ -2,7 +2,6 @@ FROM alpine:3.12.0
 MAINTAINER saoh
 
 RUN apk update && apk --update --no-cache add bash openssl vsftpd
-RUN rm -f /etc/vsftpd/vsftpd.conf
 
 ARG PASV=${pasv_address}
 
