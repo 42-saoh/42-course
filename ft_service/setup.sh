@@ -28,5 +28,5 @@ kubectl apply -f srcs/grafana/grafana.yml
 kubectl apply -f srcs/wordpress/wordpress.yml
 kubectl apply -f srcs/phpmyadmin/phpmyadmin.yml
 
-kubectl create -f service-account.yml
-kubectl create -f cluster-role-binding.yml
+kubectl create -f srcs/service-account.yml
+kubectl create -f srcs/cluster-role-binding.yml
