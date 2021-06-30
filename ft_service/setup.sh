@@ -16,6 +16,7 @@ docker build -t influxdb srcs/influxdb
 docker build -t telegraf srcs/telegraf
 docker build -t grafana srcs/grafana
 
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
 kubectl apply -f srcs/metallb-cm.yml
 kubectl apply -f srcs/nginx/nginx-secret.yml
 kubectl apply -f srcs/nginx/nginx.yml
@@ -26,3 +27,6 @@ kubectl apply -f srcs/telegraf/telegraf.yml
 kubectl apply -f srcs/grafana/grafana.yml
 kubectl apply -f srcs/wordpress/wordpress.yml
 kubectl apply -f srcs/phpmyadmin/phpmyadmin.yml
+
+kubectl create -f srcs/service-account.yml
+kubectl create -f srcs/cluster-role-binding.yml
