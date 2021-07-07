@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:15:47 by saoh              #+#    #+#             */
-/*   Updated: 2021/07/01 17:38:44 by saoh             ###   ########.fr       */
+/*   Updated: 2021/07/06 18:05:12 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,33 +19,33 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-typedef struct		s_arg
+typedef struct		s_p_data
 {
+	pthread_mutex_t	end_mutex;
+	pthread_mutex_t	msg_mutex;
 	int				n_o_p;
 	int				t_t_d;
 	int				t_t_e;
 	int				t_t_s;
 	int				n_o_t;
-}					t_arg;
-
-typedef struct		s_p_data
-{
-	struct timeval	f_tv;
-	struct s_arg	*arg;
-	int				*forks;
+	long			first_time;
 	pthread_mutex_t	*mutexes;
-	pthread_t		*t;
-	int				p_d_f;
 }					t_p_data;
 
 typedef struct		s_ph
 {
-	struct s_p_data	*p_d;
 	int				p_n;
-	struct timeval	tv;
+	int				eat_c;
+	long			eat_time;
+	struct s_p_data	*p_d;
+	int				eat_flag;
 }					t_ph;
 
-int					ft_atoi(char *str);
-void				philo(t_ph *ph, pthread_t *t, pthread_mutex_t *mutexes);
+void				philo(t_ph *ph);
+void				evenphilo(t_ph *ph);
+void				oddphilo(t_ph *ph);
+long				get_time(void);
+void				write_state(int time, t_ph *ph, char *s, int len);
+void				*philoso_moniter(void *arg);
 
 #endif

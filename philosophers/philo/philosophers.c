@@ -6,74 +6,72 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:16:22 by saoh              #+#    #+#             */
-/*   Updated: 2021/07/01 18:48:45 by saoh             ###   ########.fr       */
+/*   Updated: 2021/07/06 18:06:01 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-/*
-void		pickup_forks(int p_n, t_ph *ph)
+
+static void			init_mutexes(t_p_data *p_d)
 {
-	while (ph->forks[p_n % ph->n_o_p] == 0)
-		usleep(50);
-	pthread_mutex_lock(&ph->mutexes[p_n % ph->n_o_p]);
-	ph->forks[p_n % ph->n_o_p] = 0;
-	pthread_mutex_unlock(&ph->mutexes[p_n % ph->n_o_p]);
+	int				n_o_p;
+	int				i;
+
+	i = 0;
+	n_o_p = p_d->n_o_p;
+	pthread_mutex_init(&p_d->msg_mutex, NULL);
+	pthread_mutex_init(&p_d->end_mutex, NULL);
+	while (i < n_o_p)
+		pthread_mutex_init(&p_d->mutexes[i++], NULL);
+	pthread_mutex_lock(&p_d->end_mutex);
 }
 
-void		return_forks(int p_n, t_ph *ph)
+static void			destroy_mutexes(t_p_data *p_d)
 {
-	pthread_mutex_lock(&ph->mutexes[p_n % ph->n_o_p]);
-	ph->forks[p_n % ph->n_o_p] = 1;
-	pthread_mutex_unlock(&ph->mutexes[p_n % ph->n_o_p]);
-}
-*/
-void		oddphilo(t_ph *ph)
-{
-	while (1)
-	{
-		if (ph->p_d->p_d_f == 1)
-			break ;
-	}
-	printf("end %d philo\n", ph->p_n);
+	int				n_o_p;
+	int				i;
+
+	i = 0;
+	n_o_p = p_d->n_o_p;
+	pthread_mutex_destroy(&p_d->end_mutex);
+	pthread_mutex_destroy(&p_d->msg_mutex);
+	while (i < n_o_p)
+		pthread_mutex_destroy(&p_d->mutexes[i++]);
 }
 
-void		*philoso(void *arg)
+static void			*philoso(void *arg)
 {
-	t_ph	*ph;
+	t_ph			*ph;
+	pthread_t		t;
 
 	ph = (t_ph *)arg;
-	if (ph->p_d->p_d_f == 1)
-		return (NULL);
-	gettimeofday(&ph->tv, NULL);
-	if (ph->tv.tv_usec - ph->p_d->f_tv.tv_usec > ph->p_d->arg->t_t_d)
-	{
-		ph->p_d->p_d_f = 1;
-		printf("%dms %d philo died\n", ph->tv.tv_usec, ph->p_n);
-		return (NULL);
-	}
-	oddphilo(ph);
+	ph->eat_time = ph->p_d->first_time;
+	pthread_create(&t, NULL, philoso_moniter, (void *)ph);
+	pthread_detach(t);
+	if (ph->p_n % 2)
+		oddphilo(ph);
+	else
+		evenphilo(ph);
 	return (NULL);
 }
 
-void		philo(t_ph *ph, pthread_t *t, pthread_mutex_t *mutexes)
+void				philo(t_ph *ph)
 {
-	int		i;
+	int				i;
+	int				n_o_p;
+	pthread_t		t;
 
-	i = -1;
-	while (++i < ph[0].p_d->arg->n_o_p)
+	i = 0;
+	n_o_p = ph[0].p_d->n_o_p;
+	init_mutexes(ph->p_d);
+	ph[0].p_d->first_time = get_time();
+	while (i < n_o_p)
 	{
-		pthread_mutex_init(&mutexes[i], NULL);
-		ph[0].p_d->forks[i] = 1;
+		pthread_create(&t, NULL, philoso, (void *)&ph[i]);
+		pthread_detach(t);
+		i++;
 	}
-	i = -1;
-	gettimeofday(&ph[0].p_d->f_tv, NULL);
-	while (++i < ph[0].p_d->arg->n_o_p)
-		pthread_create(&t[i], NULL, philoso, (void *)&ph[i]);
-	i = -1;
-	while (++i < ph[0].p_d->arg->n_o_p)
-		pthread_join(t[i], NULL);
-	i = -1;
-	while (++i < ph[0].p_d->arg->n_o_p)
-		pthread_mutex_destroy(&mutexes[i]);
+	pthread_mutex_lock(&ph->p_d->end_mutex);
+	pthread_mutex_unlock(&ph->p_d->end_mutex);
+	destroy_mutexes(ph->p_d);
 }

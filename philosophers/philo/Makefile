@@ -6,7 +6,7 @@
 #    By: saoh </var/mail/saoh>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/08 15:14:14 by saoh              #+#    #+#              #
-#    Updated: 2021/06/29 14:52:54 by saoh             ###   ########.fr        #
+#    Updated: 2021/07/06 16:41:58 by saoh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME	= philo
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
 
-SRC 	= main.c utils.c philosophers.c
+SRC 	= main.c utils.c philosophers.c philosophers_run.c \
+		  philosophers_moniter.c
 
 SRCDIR	= ./
 SRCS	= $(addprefix $(SRCDIR), $(SRC))
