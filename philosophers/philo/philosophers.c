@@ -6,16 +6,16 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:16:22 by saoh              #+#    #+#             */
-/*   Updated: 2021/07/06 18:06:01 by saoh             ###   ########.fr       */
+/*   Updated: 2021/07/07 14:06:00 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static void			init_mutexes(t_p_data *p_d)
+static void	init_mutexes(t_p_data *p_d)
 {
-	int				n_o_p;
-	int				i;
+	int			n_o_p;
+	int			i;
 
 	i = 0;
 	n_o_p = p_d->n_o_p;
@@ -26,10 +26,10 @@ static void			init_mutexes(t_p_data *p_d)
 	pthread_mutex_lock(&p_d->end_mutex);
 }
 
-static void			destroy_mutexes(t_p_data *p_d)
+static void	destroy_mutexes(t_p_data *p_d)
 {
-	int				n_o_p;
-	int				i;
+	int			n_o_p;
+	int			i;
 
 	i = 0;
 	n_o_p = p_d->n_o_p;
@@ -39,13 +39,14 @@ static void			destroy_mutexes(t_p_data *p_d)
 		pthread_mutex_destroy(&p_d->mutexes[i++]);
 }
 
-static void			*philoso(void *arg)
+static void	*philoso(void *arg)
 {
-	t_ph			*ph;
-	pthread_t		t;
+	t_ph		*ph;
+	pthread_t	t;
 
 	ph = (t_ph *)arg;
-	ph->eat_time = ph->p_d->first_time;
+	ph->first_time = get_time();
+	ph->eat_time = ph->first_time;
 	pthread_create(&t, NULL, philoso_moniter, (void *)ph);
 	pthread_detach(t);
 	if (ph->p_n % 2)
@@ -55,16 +56,15 @@ static void			*philoso(void *arg)
 	return (NULL);
 }
 
-void				philo(t_ph *ph)
+void	philo(t_ph *ph)
 {
-	int				i;
-	int				n_o_p;
-	pthread_t		t;
+	int			i;
+	int			n_o_p;
+	pthread_t	t;
 
 	i = 0;
 	n_o_p = ph[0].p_d->n_o_p;
 	init_mutexes(ph->p_d);
-	ph[0].p_d->first_time = get_time();
 	while (i < n_o_p)
 	{
 		pthread_create(&t, NULL, philoso, (void *)&ph[i]);

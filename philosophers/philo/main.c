@@ -12,7 +12,7 @@
 
 #include "philosophers.h"
 
-static int		print_error(int i)
+static int	print_error(int i)
 {
 	if (i == 1)
 		printf("Memory allocation error\n");
@@ -21,10 +21,10 @@ static int		print_error(int i)
 	return (1);
 }
 
-static int		ft_atoi(char *str)
+static int	ft_atoi(char *str)
 {
-	int			i;
-	int			result;
+	int	i;
+	int	result;
 
 	if (str == NULL)
 		return (0);
@@ -40,7 +40,7 @@ static int		ft_atoi(char *str)
 	return (result);
 }
 
-static int		set_p_data(t_p_data *p_d, char **argv, int argc)
+static int	set_p_data(t_p_data *p_d, char **argv, int argc)
 {
 	p_d->n_o_p = ft_atoi(argv[1]);
 	p_d->t_t_d = ft_atoi(argv[2]) * 1000;
@@ -59,7 +59,7 @@ static int		set_p_data(t_p_data *p_d, char **argv, int argc)
 	return (0);
 }
 
-int				main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_p_data	p_d;
 	t_ph		*ph;

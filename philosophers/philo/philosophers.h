@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:15:47 by saoh              #+#    #+#             */
-/*   Updated: 2021/07/06 18:05:12 by saoh             ###   ########.fr       */
+/*   Updated: 2021/07/07 14:09:13 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-typedef struct		s_p_data
+typedef struct s_p_data
 {
 	pthread_mutex_t	end_mutex;
 	pthread_mutex_t	msg_mutex;
@@ -28,18 +28,18 @@ typedef struct		s_p_data
 	int				t_t_e;
 	int				t_t_s;
 	int				n_o_t;
-	long			first_time;
 	pthread_mutex_t	*mutexes;
-}					t_p_data;
+}t_p_data;
 
-typedef struct		s_ph
+typedef struct s_ph
 {
 	int				p_n;
 	int				eat_c;
+	long			first_time;
 	long			eat_time;
 	struct s_p_data	*p_d;
 	int				eat_flag;
-}					t_ph;
+}t_ph;
 
 void				philo(t_ph *ph);
 void				evenphilo(t_ph *ph);
