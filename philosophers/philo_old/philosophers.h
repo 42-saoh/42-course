@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:15:47 by saoh              #+#    #+#             */
-/*   Updated: 2021/07/07 18:05:25 by saoh             ###   ########.fr       */
+/*   Updated: 2021/07/07 14:09:13 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void				philo(t_ph *ph);
 void				evenphilo(t_ph *ph);
 void				oddphilo(t_ph *ph);
 long				get_time(void);
-void				write_state(int time, t_ph *ph, char *s);
+void				write_state(int time, t_ph *ph, char *s, int len);
 void				*philoso_moniter(void *arg);
 
 #endif

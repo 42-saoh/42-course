@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 15:36:55 by saoh              #+#    #+#             */
-/*   Updated: 2021/07/07 18:13:00 by saoh             ###   ########.fr       */
+/*   Updated: 2021/07/07 14:12:11 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ static void	pickup_forks(t_ph *ph, int p_n)
 
 	pthread_mutex_lock(&ph->p_d->mutexes[p_n % ph->p_d->n_o_p]);
 	c_time = get_time();
-	pthread_mutex_lock(&ph->p_d->msg_mutex);
-	printf("%ldms %d has taken fork\n", c_time - ph->first_time, ph->p_n);
-	pthread_mutex_unlock(&ph->p_d->msg_mutex);
+	write_state((int)(c_time - ph->first_time), ph, " has taken fork\n", 16);
 }
 
 static void	eating_philo(t_ph *ph)
@@ -29,9 +27,7 @@ static void	eating_philo(t_ph *ph)
 
 	ph->eat_time = get_time();
 	ph->eat_flag = 1;
-	pthread_mutex_lock(&ph->p_d->msg_mutex);
-	printf("%ldms %d is eating\n", ph->eat_time - ph->first_time, ph->p_n);
-	pthread_mutex_unlock(&ph->p_d->msg_mutex);
+	write_state(ph->eat_time - ph->first_time, ph, " is eating\n", 11);
 	eat_end_time = ph->eat_time + ph->p_d->t_t_e;
 	while (ph->eat_time < eat_end_time)
 	{
@@ -49,9 +45,7 @@ static void	sleeping_philo(t_ph *ph)
 	long	sleep_time;
 
 	c_time = get_time();
-	pthread_mutex_lock(&ph->p_d->msg_mutex);
-	printf("%ldms %d is sleeping\n", c_time - ph->first_time, ph->p_n);
-	pthread_mutex_unlock(&ph->p_d->msg_mutex);
+	write_state(c_time - ph->first_time, ph, " is sleeping\n", 13);
 	sleep_time = c_time + ph->p_d->t_t_s;
 	while (c_time < sleep_time)
 	{
@@ -59,9 +53,7 @@ static void	sleeping_philo(t_ph *ph)
 		c_time = get_time();
 	}
 	c_time = get_time();
-	pthread_mutex_lock(&ph->p_d->msg_mutex);
-	printf("%ldms %d is thinking\n", c_time - ph->first_time, ph->p_n);
-	pthread_mutex_unlock(&ph->p_d->msg_mutex);
+	write_state(c_time - ph->first_time, ph, " is thinking\n", 13);
 }
 
 void	evenphilo(t_ph *ph)

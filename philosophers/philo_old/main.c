@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 14:28:46 by saoh              #+#    #+#             */
-/*   Updated: 2021/07/07 18:03:55 by saoh             ###   ########.fr       */
+/*   Updated: 2021/07/06 18:04:50 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ static int	set_p_data(t_p_data *p_d, char **argv, int argc)
 	p_d->mutexes = (pthread_mutex_t *)malloc(
 			sizeof(pthread_mutex_t) * p_d->n_o_p);
 	if (!p_d->mutexes)
+	{
+		free(p_d->mutexes);
 		return (print_error(1));
+	}
 	return (0);
 }
 

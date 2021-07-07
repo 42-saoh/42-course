@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 15:59:12 by saoh              #+#    #+#             */
-/*   Updated: 2021/07/07 18:11:39 by saoh             ###   ########.fr       */
+/*   Updated: 2021/07/07 14:09:38 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ void	*philoso_moniter(void *arg)
 		c_time = get_time();
 		usleep(5);
 	}
-	pthread_mutex_lock(&ph->p_d->msg_mutex);
-	printf("%ldms %d is died\n", c_time - ph->first_time, ph->p_n);
-	pthread_mutex_unlock(&ph->p_d->msg_mutex);
+	write_state(c_time - ph->first_time, ph, " is died\n", 9);
 	pthread_mutex_unlock(&ph->p_d->end_mutex);
 	return (NULL);
 }
