@@ -6,11 +6,38 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 15:59:12 by saoh              #+#    #+#             */
-/*   Updated: 2021/07/07 18:11:39 by saoh             ###   ########.fr       */
+/*   Updated: 2021/07/09 16:26:04 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	*eat_moniter(void *arg)
+{
+	t_ph	*ph;
+	int		i;
+	int		cnt;
+
+	ph = (t_ph *)arg;
+	if (!ph->p_d->n_o_t)
+		return (NULL);
+	while (1)
+	{
+		i = 0;
+		cnt = 0;
+		while (i < ph->p_d->n_o_p)
+		{
+			if (ph[i].eat_c >= ph[0].p_d->n_o_t)
+				cnt++;
+			i++;
+		}
+		if (cnt == i)
+			break ;
+	}
+	ph->p_d->die_flag = 1;
+	pthread_mutex_unlock(&ph->p_d->end_mutex);
+	return (NULL);
+}
 
 void	*philoso_moniter(void *arg)
 {
@@ -19,14 +46,15 @@ void	*philoso_moniter(void *arg)
 
 	ph = (t_ph *)arg;
 	c_time = 0;
-	while (c_time <= ph->eat_time + ph->p_d->t_t_d || ph->eat_flag)
+	while (c_time < ph->eat_time + ph->p_d->t_t_d || ph->eat_flag)
 	{
 		c_time = get_time();
 		usleep(5);
+		if (ph->p_d->die_flag)
+			return (NULL);
 	}
-	pthread_mutex_lock(&ph->p_d->msg_mutex);
-	printf("%ldms %d is died\n", c_time - ph->first_time, ph->p_n);
-	pthread_mutex_unlock(&ph->p_d->msg_mutex);
+	ph->p_d->die_flag = 1;
+	print_state(c_time - ph->p_d->first_time, ph, "is died");
 	pthread_mutex_unlock(&ph->p_d->end_mutex);
 	return (NULL);
 }

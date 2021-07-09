@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 14:28:46 by saoh              #+#    #+#             */
-/*   Updated: 2021/07/07 18:03:55 by saoh             ###   ########.fr       */
+/*   Updated: 2021/07/09 16:21:20 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,19 @@ static int	set_p_data(t_p_data *p_d, char **argv, int argc)
 	p_d->t_t_e = ft_atoi(argv[3]) * 1000;
 	p_d->t_t_s = ft_atoi(argv[4]) * 1000;
 	p_d->n_o_t = ft_atoi(argv[5]);
-	if (!p_d->n_o_p || !p_d->t_t_d || !p_d->t_t_e || !p_d->t_t_s || argc > 5)
+	p_d->die_flag = 0;
+	if (!p_d->n_o_p || !p_d->t_t_d || !p_d->t_t_e || !p_d->t_t_s || argc > 6)
 		return (print_error(2));
 	p_d->mutexes = (pthread_mutex_t *)malloc(
 			sizeof(pthread_mutex_t) * p_d->n_o_p);
 	if (!p_d->mutexes)
 		return (print_error(1));
+	p_d->forks = (int *)malloc(sizeof(int) * p_d->n_o_p);
+	if (!p_d->forks)
+	{
+		free(p_d->mutexes);
+		return (print_error(1));
+	}
 	return (0);
 }
 
@@ -67,6 +74,7 @@ int	main(int argc, char **argv)
 	ph = (t_ph *)malloc(sizeof(t_ph) * p_d.n_o_p);
 	if (!ph)
 	{
+		free(p_d.forks);
 		free(p_d.mutexes);
 		return (print_error(1));
 	}
@@ -76,9 +84,12 @@ int	main(int argc, char **argv)
 		ph[i].p_n = i;
 		ph[i].p_d = &p_d;
 		ph[i].eat_flag = 0;
+		ph[i].eat_c = 0;
 		i++;
 	}
 	philo(ph);
-	free(p_d.mutexes);
+	free(ph->p_d->forks);
+	free(ph->p_d->mutexes);
 	free(ph);
+	return (0);
 }

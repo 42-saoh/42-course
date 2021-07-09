@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:16:22 by saoh              #+#    #+#             */
-/*   Updated: 2021/07/07 14:06:00 by saoh             ###   ########.fr       */
+/*   Updated: 2021/07/09 16:14:10 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ static void	init_mutexes(t_p_data *p_d)
 	pthread_mutex_init(&p_d->msg_mutex, NULL);
 	pthread_mutex_init(&p_d->end_mutex, NULL);
 	while (i < n_o_p)
-		pthread_mutex_init(&p_d->mutexes[i++], NULL);
+	{
+		p_d->forks[i] = 1;
+		pthread_mutex_init(&p_d->mutexes[i], NULL);
+		i++;
+	}
 	pthread_mutex_lock(&p_d->end_mutex);
 }
 
@@ -34,9 +38,10 @@ static void	destroy_mutexes(t_p_data *p_d)
 	i = 0;
 	n_o_p = p_d->n_o_p;
 	pthread_mutex_destroy(&p_d->end_mutex);
-	pthread_mutex_destroy(&p_d->msg_mutex);
 	while (i < n_o_p)
 		pthread_mutex_destroy(&p_d->mutexes[i++]);
+	pthread_mutex_unlock(&p_d->msg_mutex);
+	pthread_mutex_destroy(&p_d->msg_mutex);
 }
 
 static void	*philoso(void *arg)
@@ -45,14 +50,10 @@ static void	*philoso(void *arg)
 	pthread_t	t;
 
 	ph = (t_ph *)arg;
-	ph->first_time = get_time();
-	ph->eat_time = ph->first_time;
+	ph->eat_time = ph->p_d->first_time;
 	pthread_create(&t, NULL, philoso_moniter, (void *)ph);
 	pthread_detach(t);
-	if (ph->p_n % 2)
-		oddphilo(ph);
-	else
-		evenphilo(ph);
+	oddphilo(ph);
 	return (NULL);
 }
 
@@ -65,10 +66,14 @@ void	philo(t_ph *ph)
 	i = 0;
 	n_o_p = ph[0].p_d->n_o_p;
 	init_mutexes(ph->p_d);
+	pthread_create(&t, NULL, eat_moniter, (void *)ph);
+	pthread_detach(t);
+	ph[0].p_d->first_time = get_time();
 	while (i < n_o_p)
 	{
 		pthread_create(&t, NULL, philoso, (void *)&ph[i]);
 		pthread_detach(t);
+		usleep(100);
 		i++;
 	}
 	pthread_mutex_lock(&ph->p_d->end_mutex);

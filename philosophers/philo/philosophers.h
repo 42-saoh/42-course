@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:15:47 by saoh              #+#    #+#             */
-/*   Updated: 2021/07/07 18:05:25 by saoh             ###   ########.fr       */
+/*   Updated: 2021/07/09 16:20:05 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ typedef struct s_p_data
 	int				t_t_e;
 	int				t_t_s;
 	int				n_o_t;
+	int				die_flag;
+	long			first_time;
+	int				*forks;
 	pthread_mutex_t	*mutexes;
 }t_p_data;
 
@@ -35,17 +38,16 @@ typedef struct s_ph
 {
 	int				p_n;
 	int				eat_c;
-	long			first_time;
 	long			eat_time;
 	struct s_p_data	*p_d;
 	int				eat_flag;
 }t_ph;
 
 void				philo(t_ph *ph);
-void				evenphilo(t_ph *ph);
 void				oddphilo(t_ph *ph);
 long				get_time(void);
-void				write_state(int time, t_ph *ph, char *s);
+void				print_state(long time, t_ph *ph, char *s);
 void				*philoso_moniter(void *arg);
+void				*eat_moniter(void *arg);
 
 #endif
