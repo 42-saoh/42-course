@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:16:22 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/11 15:22:24 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/11 16:13:41 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ static void	*philoso(void *arg)
 	}
 	pthread_mutex_lock(&ph->p_d->start_mutex);
 	pthread_mutex_unlock(&ph->p_d->start_mutex);
-	ph->eat_time = ph->p_d->first_time;
-	pthread_create(&t, NULL, philoso_moniter, (void *)ph);
+	pthread_create(&t, NULL, philoso_moniter, ph);
 	pthread_detach(t);
+	ph->eat_time = ph->p_d->first_time;
 	if (ph->p_n % 2 == 0)
 		oddphilo(ph);
 	else
