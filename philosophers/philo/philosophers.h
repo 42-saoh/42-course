@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:15:47 by saoh              #+#    #+#             */
-/*   Updated: 2021/07/09 16:20:05 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/11 15:12:51 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_p_data
 {
 	pthread_mutex_t	end_mutex;
 	pthread_mutex_t	msg_mutex;
+	pthread_mutex_t	start_mutex;
 	int				n_o_p;
 	int				t_t_d;
 	int				t_t_e;
@@ -39,6 +40,7 @@ typedef struct s_ph
 	int				p_n;
 	int				eat_c;
 	long			eat_time;
+	long			start_sec;
 	struct s_p_data	*p_d;
 	int				eat_flag;
 }t_ph;
