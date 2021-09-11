@@ -31,7 +31,6 @@ typedef struct s_p_data
 	int				n_o_t;
 	int				die_flag;
 	long			first_time;
-	int				*forks;
 	pthread_mutex_t	*mutexes;
 }t_p_data;
 

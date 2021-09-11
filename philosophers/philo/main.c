@@ -54,12 +54,6 @@ static int	set_p_data(t_p_data *p_d, char **argv, int argc)
 			sizeof(pthread_mutex_t) * p_d->n_o_p);
 	if (!p_d->mutexes)
 		return (print_error(1));
-	p_d->forks = (int *)malloc(sizeof(int) * p_d->n_o_p);
-	if (!p_d->forks)
-	{
-		free(p_d->mutexes);
-		return (print_error(1));
-	}
 	return (0);
 }
 
@@ -74,7 +68,6 @@ int	main(int argc, char **argv)
 	ph = (t_ph *)malloc(sizeof(t_ph) * p_d.n_o_p);
 	if (!ph)
 	{
-		free(p_d.forks);
 		free(p_d.mutexes);
 		return (print_error(1));
 	}
@@ -88,7 +81,6 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	philo(ph);
-	free(ph->p_d->forks);
 	free(ph->p_d->mutexes);
 	free(ph);
 	return (0);

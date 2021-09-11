@@ -24,7 +24,6 @@ static void	init_mutexes(t_p_data *p_d)
 	pthread_mutex_init(&p_d->start_mutex, NULL);
 	while (i < n_o_p)
 	{
-		p_d->forks[i] = 1;
 		pthread_mutex_init(&p_d->mutexes[i], NULL);
 		i++;
 	}
