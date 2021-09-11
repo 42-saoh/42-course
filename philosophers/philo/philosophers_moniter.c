@@ -49,7 +49,7 @@ void	*philoso_moniter(void *arg)
 	while (ph->eat_flag || c_time < ph->eat_time + ph->p_d->t_t_d)
 	{
 		c_time = get_time();
-		usleep(5);
+		usleep(50);
 		if (ph->p_d->die_flag)
 			return (NULL);
 	}

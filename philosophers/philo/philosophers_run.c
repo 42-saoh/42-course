@@ -35,7 +35,7 @@ static void	eating_philo(t_ph *ph)
 	while (c_time < eat_end_time)
 	{
 		c_time = get_time();
-		usleep(20);
+		usleep(50);
 	}
 	ph->eat_flag = 0;
 	pthread_mutex_unlock(&ph->p_d->mutexes[ph->p_n % ph->p_d->n_o_p]);
@@ -52,7 +52,7 @@ static void	sleeping_philo(t_ph *ph)
 	sleep_time = c_time + ph->p_d->t_t_s;
 	while (c_time < sleep_time)
 	{
-		usleep(20);
+		usleep(50);
 		c_time = get_time();
 	}
 	print_state(c_time - ph->p_d->first_time, ph, "is tkinking");
