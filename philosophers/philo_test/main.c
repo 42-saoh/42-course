@@ -12,7 +12,7 @@
 
 #include "philosophers.h"
 
-static void ft_free(t_p_data *p_d)
+static void	ft_free(t_p_data *p_d)
 {
 	if (p_d->forks)
 		free(p_d->forks);
