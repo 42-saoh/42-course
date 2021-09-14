@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 15:59:12 by saoh              #+#    #+#             */
-/*   Updated: 2021/07/17 15:54:15 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/14 18:47:11 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	*eat_moniter(void *arg)
 		sem_wait(ph[i].eat_end);
 		i++;
 	}
+	sem_wait(ph->p_d->msg);
 	kill(ph[0].p_pid, SIGKILL);
 	return (NULL);
 }
@@ -40,8 +41,9 @@ void	*philoso_moniter(void *arg)
 	while (c_time < ph->eat_time + ph->p_d->t_t_d || ph->eat_flag)
 	{
 		c_time = get_time();
-		usleep(5);
+		usleep(100);
 	}
+	ph->p_d->die_flag = 1;
 	print_state(c_time - ph->p_d->first_time, ph, "is died");
 	exit(0);
 }

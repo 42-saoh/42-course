@@ -7,6 +7,8 @@ void	sema_exit(t_ph *ph, t_p_data *p_d, int num)
 
 	sem_close(p_d->forks);
 	sem_unlink("forks");
+	sem_close(p_d->msg);
+	sem_unlink("msg");
 	if (ph)
 	{
 		i = 0;
@@ -33,4 +35,22 @@ char	*get_name(int n)
 	result[3] = (n % 10) + '0';
 	result[4] = 0;
 	return (result);
+}
+
+void	sema_error(void)
+{
+	char	*name;
+	int		i;
+
+	sem_unlink("forks");
+	sem_unlink("msg");
+	i = 0;
+	while (i < 201)
+	{
+		name = get_name(i);
+		sem_unlink(name);
+		free(name);
+		name = 0;
+		i++;
+	}
 }

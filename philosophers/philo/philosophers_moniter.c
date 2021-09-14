@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 15:59:12 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/11 16:15:18 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/14 16:47:19 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	*eat_moniter(void *arg)
 				cnt++;
 			i++;
 		}
+		if (ph->p_d->die_flag)
+			return (NULL);
 		if (cnt == i)
 			break ;
 	}
@@ -46,15 +48,15 @@ void	*philoso_moniter(void *arg)
 
 	ph = (t_ph *)arg;
 	c_time = 0;
-	while (ph->eat_flag || c_time < ph->eat_time + ph->p_d->t_t_d)
+	while (c_time < ph->eat_time + ph->p_d->t_t_d || ph->eat_flag)
 	{
+		usleep(100);
 		c_time = get_time();
-		usleep(50);
 		if (ph->p_d->die_flag)
 			return (NULL);
 	}
 	ph->p_d->die_flag = 1;
-	print_state(c_time - ph->p_d->first_time, ph, "is died");
+	printf("%ldms %d is died\n", c_time - ph->p_d->first_time, ph->p_n);
 	pthread_mutex_unlock(&ph->p_d->end_mutex);
 	return (NULL);
 }

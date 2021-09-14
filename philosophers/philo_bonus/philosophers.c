@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:16:22 by saoh              #+#    #+#             */
-/*   Updated: 2021/07/17 15:01:43 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/14 18:59:49 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	philo2(t_ph *ph)
 			kill(ph[i].p_pid, SIGKILL);
 		i++;
 	}
+	sem_post(ph->p_d->msg);
 }
 
 void	philo(t_ph *ph)
@@ -45,7 +46,6 @@ void	philo(t_ph *ph)
 			each_philo(&ph[i]);
 			exit(0);
 		}
-		usleep(20);
 		i++;
 	}
 	philo2(ph);

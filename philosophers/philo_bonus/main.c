@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 14:28:46 by saoh              #+#    #+#             */
-/*   Updated: 2021/07/17 15:51:31 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/14 18:58:48 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ static void	print_error(int i)
 	else if (i == 2)
 		printf("Arguments error\nplz check arguments and retry\n");
 	else if (i == 3)
-		printf("Semaphore error\nplz Semaphore was previously created\nplz check and retry\n");
+	{
+		printf("Semaphore error\nSemaphore was previously created or any ");
+		printf("other problem occur\nSemaphore was reset\nplz retry\n");
+		sema_error();
+	}
 	exit(0);
 }
 
@@ -49,15 +53,14 @@ static void	set_p_data(t_p_data *p_d, char **argv, int argc)
 	p_d->t_t_e = ft_atoi(argv[3]) * 1000;
 	p_d->t_t_s = ft_atoi(argv[4]) * 1000;
 	p_d->n_o_t = ft_atoi(argv[5]);
-	p_d->die_flag = 0;
 	if (!p_d->n_o_p || !p_d->t_t_d || !p_d->t_t_e || !p_d->t_t_s || argc > 6)
 		print_error(2);
 	p_d->forks = sem_open("forks", O_EXCL | O_CREAT, 0644, p_d->n_o_p);
 	if (p_d->forks == SEM_FAILED)
-	{
-		sema_exit(NULL, p_d, 0);
 		print_error(3);
-	}
+	p_d->msg = sem_open("msg", O_EXCL | O_CREAT, 0644, 1);
+	if (p_d->msg == SEM_FAILED)
+		print_error(3);
 }
 
 static void	get_ph(t_ph *ph, t_p_data *p_d)
@@ -77,7 +80,6 @@ static void	get_ph(t_ph *ph, t_p_data *p_d)
 		if (ph[i].eat_end == SEM_FAILED)
 		{
 			free(name);
-			sema_exit(ph, p_d, i + 1);
 			free(ph);
 			print_error(3);
 		}
