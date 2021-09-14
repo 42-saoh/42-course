@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:15:47 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/14 16:08:46 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/14 16:38:55 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_ph
 	int				p_n;
 	int				eat_c;
 	long			eat_time;
-	long			start_sec;
 	struct s_p_data	*p_d;
 	int				eat_flag;
 }t_ph;
