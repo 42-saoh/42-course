@@ -23,7 +23,9 @@ long	get_time(void)
 void	print_state(long time, t_ph *ph, char *s)
 {
 	sem_wait(ph->p_d->msg);
-	printf("%ldms %d %s\n", time, ph->p_n, s);
+	printf("%ld", time);
+	printf("%ms %d", ph->p_n);
+	printf(" %s\n", s);
 	if (ph->p_d->die_flag)
 		return ;
 	sem_post(ph->p_d->msg);

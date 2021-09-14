@@ -46,6 +46,7 @@ void	philo(t_ph *ph)
 			each_philo(&ph[i]);
 			exit(0);
 		}
+		usleep(50);
 		i++;
 	}
 	philo2(ph);
