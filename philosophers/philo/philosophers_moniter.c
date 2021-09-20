@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 15:59:12 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/20 17:17:03 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/20 17:23:06 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	*philoso_moniter(void *arg)
 				break ;
 			i++;
 		}
+		if (ph->p_d->die_flag)
+			return (NULL);
 		if (i != ph_all->p_d->n_o_p)
 			break ;
 		usleep(100);

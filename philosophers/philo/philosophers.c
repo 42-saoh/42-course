@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:16:22 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/20 16:57:28 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/20 17:25:44 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,11 @@ static void	destroy_mutexes(t_p_data *p_d)
 
 static void	philoso_2(t_ph *ph)
 {
-	long			start_sec;
+	long	i;
 
-	start_sec = 0;
-	while (start_sec < 20000)
-	{
-		start_sec += 50;
+	i = 0;
+	while (i++ < 500)
 		usleep(50);
-	}
 	oddphilo(ph);
 }
 
