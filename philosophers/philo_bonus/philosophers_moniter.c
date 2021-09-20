@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 15:59:12 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/14 18:47:11 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/14 19:20:36 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,5 @@ void	*philoso_moniter(void *arg)
 	}
 	ph->p_d->die_flag = 1;
 	print_state(c_time - ph->p_d->first_time, ph, "is died");
-	exit(0);
+	return (NULL);
 }

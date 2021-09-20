@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 14:35:41 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/14 18:33:58 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/14 19:20:50 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ void	print_state(long time, t_ph *ph, char *s)
 	printf("%ms %d", ph->p_n);
 	printf(" %s\n", s);
 	if (ph->p_d->die_flag)
-		return ;
+		exit(0);
 	sem_post(ph->p_d->msg);
 }
