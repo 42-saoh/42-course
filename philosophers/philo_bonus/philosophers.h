@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:15:47 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/20 14:05:32 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/20 17:34:16 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,14 @@ typedef struct s_p_data
 	pid_t			p_moniter;
 	sem_t			*forks;
 	sem_t			*end;
+	sem_t			*msg;
 }t_p_data;
 
 typedef struct s_ph
 {
 	int				p_n;
-	int				eat_flag;
 	int				eat_c;
+	int				die_flag;
 	pid_t			p_pid;
 	sem_t			*eat_end;
 	long			eat_time;

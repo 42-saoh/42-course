@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 14:22:45 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/20 14:22:49 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/20 17:31:37 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	sema_exit(t_ph *ph, t_p_data *p_d, int num)
 	sem_unlink("forks");
 	sem_close(p_d->end);
 	sem_unlink("end");
+	sem_close(p_d->msg);
+	sem_unlink("msg");
 	if (ph)
 	{
 		i = 0;
@@ -56,6 +58,7 @@ void	sema_error(void)
 
 	sem_unlink("forks");
 	sem_unlink("end");
+	sem_unlink("msg");
 	i = 0;
 	while (i < 201)
 	{

@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 14:28:46 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/20 14:07:01 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/20 17:36:19 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ static void	set_p_data(t_p_data *p_d, char **argv, int argc)
 	p_d->end = sem_open("end", O_EXCL | O_CREAT, 0644, 1);
 	if (p_d->end == SEM_FAILED)
 		print_error(3);
+	p_d->msg = sem_open("msg", O_EXCL | O_CREAT, 0644, 1);
+	if (p_d->msg == SEM_FAILED)
+		print_error(3);
 	sem_wait(p_d->end);
 }
 
@@ -75,7 +78,7 @@ static void	get_ph(t_ph *ph, t_p_data *p_d)
 		ph[i].p_n = i;
 		ph[i].p_d = p_d;
 		ph[i].eat_c = 0;
-		ph[i].eat_flag = 0;
+		ph[i].die_flag = 0;
 		name = get_name(i);
 		ph[i].eat_end = sem_open(name, O_EXCL | O_CREAT, 0644, 1);
 		if (ph[i].eat_end == SEM_FAILED)

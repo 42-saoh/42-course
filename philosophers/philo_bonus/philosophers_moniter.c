@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 15:59:12 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/20 14:06:04 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/20 17:37:25 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@ void	*philoso_moniter(void *arg)
 
 	ph = (t_ph *)arg;
 	c_time = 0;
-	while (c_time < ph->eat_time + ph->p_d->t_t_d || ph->eat_flag)
+	while (c_time < ph->eat_time + ph->p_d->t_t_d)
 	{
 		c_time = get_time();
-		usleep(100);
+		usleep(500);
 	}
+	ph->die_flag = 1;
 	print_state(c_time - ph->p_d->first_time, ph, "is died");
 	sem_post(ph->p_d->end);
 	return (NULL);
