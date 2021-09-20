@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 15:59:12 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/20 17:23:06 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/20 17:50:11 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,15 @@ void	*eat_moniter(void *arg)
 	return (NULL);
 }
 
+static void	*philoso_moniter_2(long time, t_ph *ph)
+{
+	printf("%ldms %d is died\n", time, ph->p_n);
+	if (ph->p_d->n_o_p == 1)
+		pthread_mutex_unlock(&ph->p_d->mutexes[0]);
+	return (NULL);
+
+}
+
 void	*philoso_moniter(void *arg)
 {
 	t_ph	*ph;
@@ -66,8 +75,5 @@ void	*philoso_moniter(void *arg)
 		usleep(100);
 	}
 	ph->p_d->die_flag = 1;
-	printf("%ldms %d is died\n", c_time - ph->p_d->first_time, ph->p_n);
-	if (ph->p_d->n_o_p == 1)
-		pthread_mutex_unlock(&ph->p_d->mutexes[0]);
-	return (NULL);
+	return (philoso_moniter_2(c_time - ph->p_d->first_time, ph));
 }
