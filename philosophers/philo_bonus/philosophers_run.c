@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 15:36:55 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/20 17:33:19 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/20 17:41:16 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	eating_philo(t_ph *ph)
 	eat_end_time = c_time + ph->p_d->t_t_e;
 	while (c_time < eat_end_time)
 	{
-		usleep(500);
+		usleep(50);
 		c_time = get_time();
 	}
 	sem_post(ph->p_d->forks);
@@ -55,7 +55,7 @@ static void	sleeping_philo(t_ph *ph)
 	sleep_time = c_time + ph->p_d->t_t_s;
 	while (c_time < sleep_time)
 	{
-		usleep(500);
+		usleep(50);
 		c_time = get_time();
 	}
 	print_state(c_time - ph->p_d->first_time, ph, "is tkinking");

@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 14:28:46 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/20 17:36:19 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/20 17:44:28 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ static int	ft_atoi(char *str)
 static void	set_p_data(t_p_data *p_d, char **argv, int argc)
 {
 	p_d->n_o_p = ft_atoi(argv[1]);
-	p_d->t_t_d = ft_atoi(argv[2]) * 1000;
-	p_d->t_t_e = ft_atoi(argv[3]) * 1000;
-	p_d->t_t_s = ft_atoi(argv[4]) * 1000;
+	p_d->t_t_d = ft_atoi(argv[2]);
+	p_d->t_t_e = ft_atoi(argv[3]);
+	p_d->t_t_s = ft_atoi(argv[4]);
 	p_d->n_o_t = ft_atoi(argv[5]);
 	if (!p_d->n_o_p || !p_d->t_t_d || !p_d->t_t_e || !p_d->t_t_s || argc > 6)
 		print_error(2);
