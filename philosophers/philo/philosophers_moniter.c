@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 15:59:12 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/14 16:47:19 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/20 14:35:13 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,7 @@ void	*philoso_moniter(void *arg)
 	ph->p_d->die_flag = 1;
 	printf("%ldms %d is died\n", c_time - ph->p_d->first_time, ph->p_n);
 	pthread_mutex_unlock(&ph->p_d->end_mutex);
+	if (ph->p_d->n_o_p == 1)
+		pthread_mutex_unlock(&ph->p_d->mutexes[0]);
 	return (NULL);
 }
