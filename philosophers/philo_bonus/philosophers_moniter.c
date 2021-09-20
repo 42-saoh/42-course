@@ -6,20 +6,18 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 15:59:12 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/20 13:45:20 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/20 14:06:04 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	*eat_moniter(void *arg)
+void	eat_moniter(t_ph *ph)
 {
-	t_ph	*ph;
 	int		i;
 
-	ph = (t_ph *)arg;
 	if (!ph->p_d->n_o_t)
-		return (NULL);
+		return ;
 	i = 0;
 	while (i < ph->p_d->n_o_p)
 	{
@@ -27,7 +25,6 @@ void	*eat_moniter(void *arg)
 		i++;
 	}
 	sem_post(ph->p_d->end);
-	return (NULL);
 }
 
 void	*philoso_moniter(void *arg)

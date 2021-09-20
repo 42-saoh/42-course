@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:15:47 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/20 13:43:56 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/20 14:05:32 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_p_data
 	int				n_o_t;
 	int				die_flag;
 	long			first_time;
+	pid_t			p_moniter;
 	sem_t			*forks;
 	sem_t			*end;
 }t_p_data;
@@ -52,7 +53,7 @@ void				print_state(long time, t_ph *ph, char *s);
 void				sema_exit(t_ph *ph, t_p_data *p_d, int num);
 void				sema_error(void);
 void				*philoso_moniter(void *arg);
-void				*eat_moniter(void *arg);
+void				eat_moniter(t_ph *ph);
 char				*get_name(int n);
 
 #endif

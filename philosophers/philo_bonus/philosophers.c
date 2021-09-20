@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:16:22 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/20 13:41:29 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/20 14:06:13 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 void	philo(t_ph *ph)
 {
 	int			i;
-	pthread_t	t;
 
 	i = 0;
-	pthread_create(&t, NULL, eat_moniter, (void *)ph);
-	pthread_detach(t);
+	ph->p_d->p_moniter = fork();
+	if (ph->p_d->p_moniter == 0)
+	{
+		eat_moniter(ph);
+		exit(0);
+	}
 	ph[0].p_d->first_time = get_time();
 	while (i < ph[0].p_d->n_o_p)
 	{

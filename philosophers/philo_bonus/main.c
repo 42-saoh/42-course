@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 14:28:46 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/20 13:47:50 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/20 14:07:01 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int	main(int argc, char **argv)
 	sem_wait(p_d.end);
 	while (i < ph[0].p_d->n_o_p)
 		kill(ph[i++].p_pid, SIGKILL);
+	kill(p_d.p_moniter, SIGKILL);
 	sem_post(p_d.end);
 	sema_exit(ph, &p_d, p_d.n_o_p);
 	free(ph);
