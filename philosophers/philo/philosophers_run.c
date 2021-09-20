@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 15:36:55 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/14 15:40:20 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/20 16:59:11 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	sleeping_philo(t_ph *ph)
 		usleep(50);
 		c_time = get_time();
 	}
-	print_state(c_time - ph->p_d->first_time, ph, "is tkinking");
+	print_state(c_time - ph->p_d->first_time, ph, "is thinking");
 }
 
 void	oddphilo(t_ph *ph)

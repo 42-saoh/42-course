@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:16:22 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/14 16:47:48 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/20 16:57:28 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	init_mutexes(t_p_data *p_d)
 
 	i = 0;
 	n_o_p = p_d->n_o_p;
-	pthread_mutex_init(&p_d->end_mutex, NULL);
 	pthread_mutex_init(&p_d->start_mutex, NULL);
 	while (i < n_o_p)
 	{
@@ -27,7 +26,6 @@ static void	init_mutexes(t_p_data *p_d)
 		pthread_mutex_init(&p_d->mutexes[i], NULL);
 		i++;
 	}
-	pthread_mutex_lock(&p_d->end_mutex);
 	pthread_mutex_lock(&p_d->start_mutex);
 }
 
@@ -38,7 +36,6 @@ static void	destroy_mutexes(t_p_data *p_d)
 
 	i = 0;
 	n_o_p = p_d->n_o_p;
-	pthread_mutex_destroy(&p_d->end_mutex);
 	pthread_mutex_destroy(&p_d->start_mutex);
 	while (i < n_o_p)
 		pthread_mutex_destroy(&p_d->mutexes[i++]);
@@ -63,16 +60,17 @@ static void	*philoso(void *arg)
 	pthread_t	t;
 
 	ph = (t_ph *)arg;
+	ph->eat_time = get_time();
 	if (ph->p_n == ph->p_d->n_o_p - 1)
 	{
 		ph->p_d->first_time = get_time();
+		pthread_create(&t, NULL, philoso_moniter, ph - (ph->p_d->n_o_p - 1));
+		pthread_detach(t);
 		pthread_mutex_unlock(&ph->p_d->start_mutex);
 	}
 	pthread_mutex_lock(&ph->p_d->start_mutex);
 	pthread_mutex_unlock(&ph->p_d->start_mutex);
 	ph->eat_time = ph->p_d->first_time;
-	pthread_create(&t, NULL, philoso_moniter, ph);
-	pthread_detach(t);
 	if (ph->p_n % 2 == 0)
 		oddphilo(ph);
 	else
@@ -99,6 +97,5 @@ void	philo(t_ph *ph)
 	pthread_mutex_lock(&ph->p_d->end_mutex);
 	while (i--)
 		pthread_join(ph->p_d->pt[i], NULL);
-	pthread_mutex_unlock(&ph->p_d->end_mutex);
 	destroy_mutexes(ph->p_d);
 }
