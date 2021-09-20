@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 14:35:41 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/14 19:20:50 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/20 13:42:49 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,5 @@ long	get_time(void)
 
 void	print_state(long time, t_ph *ph, char *s)
 {
-	sem_wait(ph->p_d->msg);
-	printf("%ld", time);
-	printf("%ms %d", ph->p_n);
-	printf(" %s\n", s);
-	if (ph->p_d->die_flag)
-		exit(0);
-	sem_post(ph->p_d->msg);
+	printf("%ldms %d %s\n", time, ph->p_n, s);
 }

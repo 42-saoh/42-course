@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:15:47 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/14 18:58:22 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/20 13:43:56 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_p_data
 	int				die_flag;
 	long			first_time;
 	sem_t			*forks;
-	sem_t			*msg;
+	sem_t			*end;
 }t_p_data;
 
 typedef struct s_ph

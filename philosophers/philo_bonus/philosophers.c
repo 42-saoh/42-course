@@ -6,28 +6,11 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:16:22 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/14 18:59:49 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/20 13:41:29 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-
-static void	philo2(t_ph *ph)
-{
-	int		i;
-	pid_t	p;
-
-	i = 0;
-	p = waitpid(-1, NULL, 0);
-	while (i < ph[0].p_d->n_o_p)
-	{
-		if (p != ph[i].p_pid)
-			kill(ph[i].p_pid, SIGKILL);
-		i++;
-	}
-	sem_post(ph->p_d->msg);
-}
 
 void	philo(t_ph *ph)
 {
@@ -49,5 +32,4 @@ void	philo(t_ph *ph)
 		usleep(50);
 		i++;
 	}
-	philo2(ph);
 }

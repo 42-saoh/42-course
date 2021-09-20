@@ -7,8 +7,8 @@ void	sema_exit(t_ph *ph, t_p_data *p_d, int num)
 
 	sem_close(p_d->forks);
 	sem_unlink("forks");
-	sem_close(p_d->msg);
-	sem_unlink("msg");
+	sem_close(p_d->end);
+	sem_unlink("end");
 	if (ph)
 	{
 		i = 0;
@@ -43,7 +43,7 @@ void	sema_error(void)
 	int		i;
 
 	sem_unlink("forks");
-	sem_unlink("msg");
+	sem_unlink("end");
 	i = 0;
 	while (i < 201)
 	{
