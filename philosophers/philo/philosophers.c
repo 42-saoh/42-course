@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:16:22 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/20 17:25:44 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/25 18:13:36 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ void	philo(t_ph *ph)
 		pthread_create(&ph->p_d->pt[i], NULL, philoso, (void *)&ph[i]);
 		i++;
 	}
-	pthread_mutex_lock(&ph->p_d->end_mutex);
 	while (i--)
 		pthread_join(ph->p_d->pt[i], NULL);
 	destroy_mutexes(ph->p_d);

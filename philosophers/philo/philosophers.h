@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:15:47 by saoh              #+#    #+#             */
-/*   Updated: 2021/09/20 17:14:13 by saoh             ###   ########.fr       */
+/*   Updated: 2021/09/25 18:13:21 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 
 typedef struct s_p_data
 {
-	pthread_mutex_t	end_mutex;
 	pthread_mutex_t	start_mutex;
 	int				n_o_p;
 	int				t_t_d;
