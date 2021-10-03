@@ -6,20 +6,26 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 15:55:16 by saoh              #+#    #+#             */
-/*   Updated: 2021/10/03 15:59:13 by saoh             ###   ########.fr       */
+/*   Updated: 2021/10/03 16:40:13 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	error_occur(int i)
+int	error_occur(int i, char *str)
 {
 	char	*error;
 
 	if (i == 1)
 	{
+		write(2, "zsh : ", 6);
 		error = strerror(errno);
 		write(2, error, ft_strlen(error));
+		if (str)
+		{
+			write(2, ": ", 2);
+			write(2, str, ft_strlen(str));
+		}
 		write(2, "\n", 1);
 	}
 	else if (i == 2)

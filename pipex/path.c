@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 15:55:32 by saoh              #+#    #+#             */
-/*   Updated: 2021/10/03 15:59:47 by saoh             ###   ########.fr       */
+/*   Updated: 2021/10/03 16:39:38 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,12 @@ int	init_path(t_pipe *tp, char **envp)
 
 	path = get_path(envp);
 	if (!path)
-		return (error_occur(2));
+		return (error_occur(2, NULL));
 	tp->paths = ft_split(path, ':');
 	if (!tp->paths)
 	{
 		free(path);
-		return (error_occur(2));
+		return (error_occur(2, NULL));
 	}
 	free(path);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 13:15:47 by saoh              #+#    #+#             */
-/*   Updated: 2021/10/03 15:57:22 by saoh             ###   ########.fr       */
+/*   Updated: 2021/10/03 16:37:58 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_memset(void *address, int size);
 int		ft_strlen(char *str);
 char	*ft_strdup(char *str);
 int		init_path(t_pipe *tp, char **envp);
-int		error_occur(int i);
+int		error_occur(int i, char *str);
 int		error_print(int i);
 char	**split_error(char **paths);
 char	*ft_substr(char *path, int s, int e);
