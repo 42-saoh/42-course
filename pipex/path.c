@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   path.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/03 15:55:32 by saoh              #+#    #+#             */
+/*   Updated: 2021/10/03 15:59:47 by saoh             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
 char	*get_path(char **envp)
@@ -29,7 +41,7 @@ char	*get_path(char **envp)
 	return (ft_strdup(&(*envp)[5]));
 }
 
-int		get_cnt(char *path, char symbol)
+int	get_cnt(char *path, char symbol)
 {
 	int	cnt;
 
@@ -51,8 +63,8 @@ int		get_cnt(char *path, char symbol)
 char	**ft_split_2(char **paths, char *path, char symbol)
 {
 	int	s;
-	int e;
-	int i;
+	int	e;
+	int	i;
 
 	s = 0;
 	e = 0;
@@ -73,7 +85,7 @@ char	**ft_split_2(char **paths, char *path, char symbol)
 
 char	**ft_split(char *path, char symbol)
 {
-	int	cnt;
+	int		cnt;
 	char	**paths;
 
 	cnt = get_cnt(path, symbol);
@@ -92,7 +104,7 @@ char	**ft_split(char *path, char symbol)
 int	init_path(t_pipe *tp, char **envp)
 {
 	char	*path;
-	
+
 	path = get_path(envp);
 	if (!path)
 		return (error_occur(2));

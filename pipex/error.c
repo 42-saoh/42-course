@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/03 15:55:16 by saoh              #+#    #+#             */
+/*   Updated: 2021/10/03 15:59:13 by saoh             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
 int	error_occur(int i)
 {
-	char *error;
+	char	*error;
 
 	if (i == 1)
 	{
@@ -20,7 +32,7 @@ char	**split_error(char **paths)
 	int	i;
 
 	i = 0;
-	while(paths[i])
+	while (paths[i])
 	{
 		free(paths[i]);
 		i++;
@@ -43,7 +55,7 @@ int	error_print(int i)
 
 void	fail_execve(t_pipe *tp)
 {
-	char *str;
+	char	*str;
 
 	str = tp->cmd[0];
 	write(2, "zsh : command not found: ", 25);

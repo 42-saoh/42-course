@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 14:28:46 by saoh              #+#    #+#             */
-/*   Updated: 2021/10/03 14:47:16 by saoh             ###   ########.fr       */
+/*   Updated: 2021/10/03 15:58:48 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	init_tp(t_pipe *tp, int argc, char **argv)
 {
 	ft_memset(tp, sizeof(t_pipe));
-	tp->in_fd  = open(argv[1], O_RDONLY | O_EXCL);
+	tp->in_fd = open(argv[1], O_RDONLY | O_EXCL);
 	if (tp->in_fd < 0)
 		return (error_occur(1));
 	tp->out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT, 00644);
@@ -31,8 +31,8 @@ int	init_tp(t_pipe *tp, int argc, char **argv)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_pipe tp;
-	int	cnt;
+	t_pipe	tp;
+	int		cnt;
 
 	if (init_tp(&tp, argc, argv))
 		return (0);

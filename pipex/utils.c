@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/03 15:55:57 by saoh              #+#    #+#             */
+/*   Updated: 2021/10/03 15:58:29 by saoh             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
 void	ft_memset(void *address, int size)
 {
-	int i;
-	char *clone;
+	int		i;
+	char	*clone;
 
 	i = 0;
 	clone = (char *)address;
@@ -46,8 +58,8 @@ char	*ft_strdup(char *str)
 
 char	*ft_substr(char *path, int s, int e)
 {
-	int len;
-	int	i;
+	int		len;
+	int		i;
 	char	*result;
 
 	len = e - s;
@@ -55,7 +67,7 @@ char	*ft_substr(char *path, int s, int e)
 	if (!result)
 		return (NULL);
 	i = 0;
-	while(i < len)
+	while (i < len)
 	{
 		result[i] = path[s];
 		i++;
@@ -67,9 +79,9 @@ char	*ft_substr(char *path, int s, int e)
 
 char	*ft_strjoin(char *str1, char *str2)
 {
-	int	str1_len;
-	int	str2_len;
-	int	i;
+	int		str1_len;
+	int		str2_len;
+	int		i;
 	char	*result;
 
 	str1_len = ft_strlen(str1);
