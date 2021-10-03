@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 13:15:47 by saoh              #+#    #+#             */
-/*   Updated: 2021/10/03 16:37:58 by saoh             ###   ########.fr       */
+/*   Updated: 2021/10/03 17:13:36 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_pipe
 	int		in_fd;
 	int		out_fd;
 	int		cnt_cut;
+	int		exec_result;
 	char	**paths;
 	char	**cmd;
 	pid_t	pid;

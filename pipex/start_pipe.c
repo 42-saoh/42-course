@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 15:55:50 by saoh              #+#    #+#             */
-/*   Updated: 2021/10/03 15:55:51 by saoh             ###   ########.fr       */
+/*   Updated: 2021/10/03 17:30:30 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,15 @@ int	reset_pipe(t_pipe *tp, int cnt)
 	return (0);
 }
 
+void	get_status(t_pipe *tp, int status)
+{
+	int	tmp;
+
+	tmp = status & 0x00ff;
+	if (tmp == 0)
+		tp->exec_result = (status >> 8) & 0xff;
+}
+
 int	start_pipe(t_pipe *tp, char **argv, char **envp, int cnt)
 {
 	int	status;
@@ -110,6 +119,7 @@ int	start_pipe(t_pipe *tp, char **argv, char **envp, int cnt)
 		wait(&status);
 		if (reset_pipe(tp, cnt))
 			return (error_print(4));
+		get_status(tp, status);
 	}
 	return (0);
 }

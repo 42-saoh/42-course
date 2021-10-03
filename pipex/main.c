@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 14:28:46 by saoh              #+#    #+#             */
-/*   Updated: 2021/10/03 16:41:06 by saoh             ###   ########.fr       */
+/*   Updated: 2021/10/03 17:31:13 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,17 @@ int	main(int argc, char **argv, char **envp)
 	int		cnt;
 
 	if (init_tp(&tp, argc, argv))
-		return (0);
+		return (1);
 	if (init_path(&tp, envp))
-		return (0);
+		return (1);
 	cnt = 0;
 	while (cnt <= tp.cnt_cut)
 	{
 		if (start_pipe(&tp, argv, envp, cnt))
-			return (0);
+			return (1);
 		cnt++;
 	}
+	cnt = tp.exec_result;
 	end_tp(&tp);
+	return (cnt);
 }
