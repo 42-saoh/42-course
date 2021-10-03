@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 14:28:46 by saoh              #+#    #+#             */
-/*   Updated: 2021/10/03 15:58:48 by saoh             ###   ########.fr       */
+/*   Updated: 2021/10/03 16:17:07 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,34 @@ int	init_tp(t_pipe *tp, int argc, char **argv)
 	return (0);
 }
 
+void	end_tp(t_pipe *tp)
+{
+	int	i;
+
+	close(in_fd);
+	close(out_fd);
+	i = 0;
+	if (tp->cmd)
+	{
+		while (tp->cmd[i])
+		{
+			free(tp->cmd[i]);
+			i++;
+		}
+		free(tp->cmd);
+		i = 0;
+	}
+	if (tp->paths)
+	{
+		while (tp->paths[i])
+		{
+			free(tp->paths[i]);
+			i++;
+		}
+		free(tp->paths);
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipe	tp;
@@ -45,4 +73,5 @@ int	main(int argc, char **argv, char **envp)
 			return (0);
 		cnt++;
 	}
+	end_tp(&tp);
 }
