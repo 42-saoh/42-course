@@ -2,7 +2,6 @@
 
 int	apply_fd(t_pipe *tp, int cnt)
 {
-	return (0);
 	if (cnt == 0)
 	{
 		if (dup2(tp->in_fd, 0) == -1)
@@ -90,8 +89,8 @@ int	start_pipe(t_pipe *tp, char **argv, char **envp, int cnt)
 			return (error_print(2));
 		if (parsing_and_check_cmd(tp, argv[cnt + 2]))
 			return (error_print(3));
-		if (execve(tp->cmd[0], tp->cmd, envp) == -1)
-			fail_execve();
+		execve(tp->cmd[0], tp->cmd, envp);
+		fail_execve(tp);
 		exit(127);
 	}
 	else

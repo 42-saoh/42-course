@@ -41,10 +41,12 @@ int	error_print(int i)
 	return (1);
 }
 
-void	fail_execve(void)
+void	fail_execve(t_pipe *tp)
 {
 	char *str;
 
-	str = strerror(errno);
+	str = tp->cmd[0];
+	write(2, "zsh : command not found: ", 25);
 	write(2, str, ft_strlen(str));
+	write(2, "\n", 1);
 }

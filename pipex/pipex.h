@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 13:15:47 by saoh              #+#    #+#             */
-/*   Updated: 2021/10/03 15:06:20 by saoh             ###   ########.fr       */
+/*   Updated: 2021/10/03 15:18:44 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ char	*ft_substr(char *path, int s, int e);
 int		start_pipe(t_pipe *tp, char **argv, char **envp, int cnt);
 char	*ft_strjoin(char *str1, char *str2);
 char	**ft_split(char *path, char symbol);
-void	fail_execve(void);
+void	fail_execve(t_pipe *tp);
 
 #endif
