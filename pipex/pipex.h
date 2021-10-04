@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 13:15:47 by saoh              #+#    #+#             */
-/*   Updated: 2021/10/03 17:13:36 by saoh             ###   ########.fr       */
+/*   Updated: 2021/10/04 19:36:45 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,17 @@ void	ft_memset(void *address, int size);
 int		ft_strlen(char *str);
 char	*ft_strdup(char *str);
 int		init_path(t_pipe *tp, char **envp);
-int		error_occur(int i, char *str);
-int		error_print(int i);
+void	error_occur(int i, char *str);
+void	error_print(int i);
 char	**split_error(char **paths);
 char	*ft_substr(char *path, int s, int e);
-int		start_pipe(t_pipe *tp, char **argv, char **envp, int cnt);
+void	start_pipe(t_pipe *tp, char **argv, char **envp, int cnt);
 char	*ft_strjoin(char *str1, char *str2);
 char	**ft_split(char *path, char symbol);
 void	fail_execve(t_pipe *tp);
+int		wait_status(int status);
+int		wait_exit_status(int status);
+void	argument_error(void);
+void	heredoc_write(int tmp_fd, char *limiter);
 
 #endif

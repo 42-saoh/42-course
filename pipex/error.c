@@ -6,13 +6,13 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 15:55:16 by saoh              #+#    #+#             */
-/*   Updated: 2021/10/03 16:40:13 by saoh             ###   ########.fr       */
+/*   Updated: 2021/10/04 18:53:39 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	error_occur(int i, char *str)
+void	error_occur(int i, char *str)
 {
 	char	*error;
 
@@ -30,7 +30,7 @@ int	error_occur(int i, char *str)
 	}
 	else if (i == 2)
 		write(2, "path or memory error\n", 21);
-	return (1);
+	exit(1);
 }
 
 char	**split_error(char **paths)
@@ -46,17 +46,19 @@ char	**split_error(char **paths)
 	return (NULL);
 }
 
-int	error_print(int i)
+void	error_print(int i)
 {
 	if (i == 1)
-		write(1, "fork error\n", 11);
+		write(2, "fork error\n", 11);
 	else if (i == 2)
-		write(1, "fd error\n", 9);
+		write(2, "fd error\n", 9);
 	else if (i == 3)
-		write(1, "parsing error\n", 14);
+		write(2, "parsing error\n", 14);
 	else if (i == 4)
-		write(1, "pipe error\n", 11);
-	return (1);
+		write(2, "pipe error\n", 11);
+	else if (i == 5)
+		write(2, "wait func return Error [-1] \n", 29);
+	exit(1);
 }
 
 void	fail_execve(t_pipe *tp)
@@ -67,4 +69,10 @@ void	fail_execve(t_pipe *tp)
 	write(2, "zsh : command not found: ", 25);
 	write(2, str, ft_strlen(str));
 	write(2, "\n", 1);
+}
+
+void	argument_error(void)
+{
+	write(2, "argument error\nplz check and retry\n", 35);
+	exit(1);
 }

@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 15:55:32 by saoh              #+#    #+#             */
-/*   Updated: 2021/10/03 16:39:38 by saoh             ###   ########.fr       */
+/*   Updated: 2021/10/04 18:34:48 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,10 @@
 
 char	*get_path(char **envp)
 {
-	char	path[6];
+	char	*path;
 	int		i;
 
-	path[0] = 'P';
-	path[1] = 'A';
-	path[2] = 'T';
-	path[3] = 'H';
-	path[4] = '=';
-	path[5] = 0;
+	path = "PATH=";
 	while (*envp)
 	{
 		i = 0;
@@ -107,12 +102,12 @@ int	init_path(t_pipe *tp, char **envp)
 
 	path = get_path(envp);
 	if (!path)
-		return (error_occur(2, NULL));
+		error_occur(2, NULL);
 	tp->paths = ft_split(path, ':');
 	if (!tp->paths)
 	{
 		free(path);
-		return (error_occur(2, NULL));
+		error_occur(2, NULL);
 	}
 	free(path);
 	return (0);

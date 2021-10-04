@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 15:55:50 by saoh              #+#    #+#             */
-/*   Updated: 2021/10/03 17:30:30 by saoh             ###   ########.fr       */
+/*   Updated: 2021/10/04 18:32:59 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,38 +88,39 @@ int	reset_pipe(t_pipe *tp, int cnt)
 	return (0);
 }
 
-void	get_status(t_pipe *tp, int status)
-{
-	int	tmp;
-
-	tmp = status & 0x00ff;
-	if (tmp == 0)
-		tp->exec_result = (status >> 8) & 0xff;
-}
-
-int	start_pipe(t_pipe *tp, char **argv, char **envp, int cnt)
+void	parent_get_status(t_pipe *tp, int cnt)
 {
 	int	status;
+	int tmp;
 
+	tmp = wait(&status);
+	while (tmp == -1 && errno == EINTR)
+		tmp = wait(&status);
+	if (tmp == -1)
+		error_print(5);
+	tp->exec_result = wait_exit_status(status);
+	tmp = wait_status(status);
+	if (tmp)
+		tp->exec_result = 128 + tmp;
+	if (reset_pipe(tp, cnt))
+		error_print(4);
+}
+
+void	start_pipe(t_pipe *tp, char **argv, char **envp, int cnt)
+{
 	tp->pid = fork();
 	if (tp->pid < 0)
-		return (error_print(1));
+		error_print(1);
 	if (tp->pid == 0)
 	{
 		if (apply_fd(tp, cnt))
-			return (error_print(2));
+			error_print(2);
 		if (parsing_and_check_cmd(tp, argv[cnt + 2]))
-			return (error_print(3));
+			error_print(3);
 		execve(tp->cmd[0], tp->cmd, envp);
 		fail_execve(tp);
 		exit(127);
 	}
 	else
-	{
-		wait(&status);
-		if (reset_pipe(tp, cnt))
-			return (error_print(4));
-		get_status(tp, status);
-	}
-	return (0);
+		parent_get_status(tp, cnt);
 }
