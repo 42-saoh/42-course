@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 13:15:47 by saoh              #+#    #+#             */
-/*   Updated: 2021/10/04 19:36:45 by saoh             ###   ########.fr       */
+/*   Updated: 2021/10/07 15:46:38 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_pipe
 	int		out_fd;
 	int		cnt_cut;
 	int		exec_result;
+	int		heredoc_flag;
 	char	**paths;
 	char	**cmd;
 	pid_t	pid;
@@ -34,7 +35,7 @@ typedef struct s_pipe
 void	ft_memset(void *address, int size);
 int		ft_strlen(char *str);
 char	*ft_strdup(char *str);
-int		init_path(t_pipe *tp, char **envp);
+void	init_path(t_pipe *tp, char **envp);
 void	error_occur(int i, char *str);
 void	error_print(int i);
 char	**split_error(char **paths);

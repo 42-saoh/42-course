@@ -21,7 +21,11 @@ void	heredoc_write(int tmp_fd, char *limiter)
 				break ;
 		}
 		if (limiter[i] || buf[i])
+		{
+			buf[ret - 1] = '\n';
+			buf[ret] = 0;
 			write(tmp_fd, buf, ret);
+		}
 		else
 			ret = 0;
 	}

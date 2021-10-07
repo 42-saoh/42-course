@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 15:55:32 by saoh              #+#    #+#             */
-/*   Updated: 2021/10/04 18:34:48 by saoh             ###   ########.fr       */
+/*   Updated: 2021/10/07 15:19:42 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char	**ft_split(char *path, char symbol)
 	return (ft_split_2(paths, path, symbol));
 }
 
-int	init_path(t_pipe *tp, char **envp)
+void	init_path(t_pipe *tp, char **envp)
 {
 	char	*path;
 
@@ -110,5 +110,4 @@ int	init_path(t_pipe *tp, char **envp)
 		error_occur(2, NULL);
 	}
 	free(path);
-	return (0);
 }

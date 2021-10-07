@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 15:55:50 by saoh              #+#    #+#             */
-/*   Updated: 2021/10/04 18:32:59 by saoh             ###   ########.fr       */
+/*   Updated: 2021/10/07 15:51:47 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ int	apply_fd(t_pipe *tp, int cnt)
 	return (0);
 }
 
-int	parsing_and_check_cmd(t_pipe *tp, char *line)
+void	parsing_and_check_cmd(t_pipe *tp, char *line)
 {
 	char	*full_path;
 	int		i;
 
 	tp->cmd = ft_split(line, ' ');
 	if (!tp->cmd)
-		return (1);
+		error_print(3);
 	i = 0;
 	while (tp->paths[i])
 	{
@@ -57,10 +57,9 @@ int	parsing_and_check_cmd(t_pipe *tp, char *line)
 		i++;
 	}
 	if (!tp->paths[i])
-		return (0);
+		return ;
 	free(tp->cmd[0]);
 	tp->cmd[0] = full_path;
-	return (0);
 }
 
 int	reset_pipe(t_pipe *tp, int cnt)
@@ -115,8 +114,10 @@ void	start_pipe(t_pipe *tp, char **argv, char **envp, int cnt)
 	{
 		if (apply_fd(tp, cnt))
 			error_print(2);
-		if (parsing_and_check_cmd(tp, argv[cnt + 2]))
-			error_print(3);
+		if (tp->heredoc_flag)
+			parsing_and_check_cmd(tp, argv[cnt + 3]);
+		else
+			parsing_and_check_cmd(tp, argv[cnt + 2]);
 		execve(tp->cmd[0], tp->cmd, envp);
 		fail_execve(tp);
 		exit(127);
