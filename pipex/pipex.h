@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 13:15:47 by saoh              #+#    #+#             */
-/*   Updated: 2021/10/07 15:46:38 by saoh             ###   ########.fr       */
+/*   Updated: 2021/10/07 16:11:46 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ void	fail_execve(t_pipe *tp);
 int		wait_status(int status);
 int		wait_exit_status(int status);
 void	argument_error(void);
-void	heredoc_write(int tmp_fd, char *limiter);
+void	heredoc_write(int tmp_fd, char *limiter, int ret);
 
 #endif

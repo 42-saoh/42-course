@@ -1,13 +1,11 @@
 #include "pipex.h"
 #include <stdio.h>
 
-void	heredoc_write(int tmp_fd, char *limiter)
+void	heredoc_write(int tmp_fd, char *limiter, int ret)
 {
-	char buf[1000];
-	int	ret;
-	int	i;
+	char	buf[1000];
+	int		i;
 
-	ret = 1;
 	while (ret)
 	{
 		ret = read(0, buf, 1000);

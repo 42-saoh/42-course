@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 14:28:46 by saoh              #+#    #+#             */
-/*   Updated: 2021/10/07 16:07:08 by saoh             ###   ########.fr       */
+/*   Updated: 2021/10/07 16:11:56 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	init_mandatory_tp(t_pipe *tp, int argc, char **argv)
 
 int	check_heredoc(char *str)
 {
-	char *here_doc;
-	int	i;
+	char	*here_doc;
+	int		i;
 
 	here_doc = "here_doc";
 	i = 0;
@@ -46,16 +46,16 @@ int	check_heredoc(char *str)
 	return (1);
 }
 
-void init_heredoc_tp(t_pipe *tp, int argc, char **argv)
+void	init_heredoc_tp(t_pipe *tp, int argc, char **argv)
 {
-	int tmp_fd;
+	int	tmp_fd;
 
 	if (argc != 6)
 		argument_error();
 	tmp_fd = open("tmp_heredoc", O_WRONLY | O_CREAT | O_TRUNC, 00644);
 	if (tmp_fd < 0)
 		error_occur(1, argv[1]);
-	heredoc_write(tmp_fd, argv[2]);
+	heredoc_write(tmp_fd, argv[2], 1);
 	close(tmp_fd);
 	tp->in_fd = open("tmp_heredoc", O_RDONLY, 00644);
 	if (tp->in_fd < 0)

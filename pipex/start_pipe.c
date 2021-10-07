@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 15:55:50 by saoh              #+#    #+#             */
-/*   Updated: 2021/10/07 15:51:47 by saoh             ###   ########.fr       */
+/*   Updated: 2021/10/07 16:10:16 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	reset_pipe(t_pipe *tp, int cnt)
 void	parent_get_status(t_pipe *tp, int cnt)
 {
 	int	status;
-	int tmp;
+	int	tmp;
 
 	tmp = wait(&status);
 	while (tmp == -1 && errno == EINTR)
