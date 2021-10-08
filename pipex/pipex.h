@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 13:15:47 by saoh              #+#    #+#             */
-/*   Updated: 2021/10/08 17:30:24 by saoh             ###   ########.fr       */
+/*   Updated: 2021/10/08 18:29:36 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ int		wait_exit_status(int status);
 void	argument_error(void);
 void	heredoc_write(int tmp_fd, char *limiter, int ret);
 void	wait_process_block(t_pipe *tp);
+void	close_fd(t_pipe *tp, int cnt);
 
 #endif

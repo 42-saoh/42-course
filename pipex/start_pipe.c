@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 15:55:50 by saoh              #+#    #+#             */
-/*   Updated: 2021/10/08 17:33:46 by saoh             ###   ########.fr       */
+/*   Updated: 2021/10/08 18:29:39 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void	start_pipe(t_pipe *tp, char **argv, char **envp, int cnt)
 	{
 		if (apply_fd(tp, cnt))
 			error_print(2);
+		close_fd(tp, cnt);
 		if (tp->heredoc_flag)
 			parsing_and_check_cmd(tp, argv[cnt + 3]);
 		else

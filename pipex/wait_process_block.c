@@ -19,3 +19,24 @@ void	wait_process_block(t_pipe *tp)
 		}
 	}
 }
+
+void	close_fd(t_pipe *tp, int cnt)
+{
+	if (cnt == 0)
+	{
+		close(tp->pipe_fd[0]);
+		close(tp->pipe_tmp_fd[0]);
+		close(tp->pipe_tmp_fd[1]);
+	}
+	else if (cnt == tp->cnt_cut)
+	{
+		close(tp->pipe_fd[0]);
+		close(tp->pipe_tmp_fd[0]);
+	}
+	else
+	{
+		close(tp->pipe_fd[0]);
+		close(tp->pipe_tmp_fd[0]);
+	}
+}
+
