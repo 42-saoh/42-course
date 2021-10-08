@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 13:15:47 by saoh              #+#    #+#             */
-/*   Updated: 2021/10/07 16:11:46 by saoh             ###   ########.fr       */
+/*   Updated: 2021/10/08 17:30:24 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <errno.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <stdio.h>
 
 typedef struct s_pipe
 {
@@ -29,7 +30,7 @@ typedef struct s_pipe
 	int		heredoc_flag;
 	char	**paths;
 	char	**cmd;
-	pid_t	pid;
+	pid_t	*pid;
 }	t_pipe;
 
 void	ft_memset(void *address, int size);
@@ -48,5 +49,6 @@ int		wait_status(int status);
 int		wait_exit_status(int status);
 void	argument_error(void);
 void	heredoc_write(int tmp_fd, char *limiter, int ret);
+void	wait_process_block(t_pipe *tp);
 
 #endif

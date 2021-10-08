@@ -6,7 +6,7 @@
 /*   By: saoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 14:28:46 by saoh              #+#    #+#             */
-/*   Updated: 2021/10/07 16:11:56 by saoh             ###   ########.fr       */
+/*   Updated: 2021/10/08 17:32:43 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ void	init_mandatory_tp(t_pipe *tp, int argc, char **argv)
 	if (pipe(tp->pipe_tmp_fd) < 0)
 		error_occur(1, NULL);
 	tp->cnt_cut = argc - 4;
+	tp->pid = (pid_t *)malloc(sizeof(pid_t) * (argc - 3));
+	if (!tp->pid)
+		error_occur(2, NULL);
 }
 
 int	check_heredoc(char *str)
@@ -68,6 +71,9 @@ void	init_heredoc_tp(t_pipe *tp, int argc, char **argv)
 	if (pipe(tp->pipe_tmp_fd) < 0)
 		error_occur(1, NULL);
 	tp->cnt_cut = argc - 5;
+	tp->pid = (pid_t *)malloc(sizeof(pid_t) * (argc - 4));
+	if (!tp->pid)
+		error_occur(2, NULL);
 	tp->heredoc_flag = 1;
 }
 
@@ -77,6 +83,7 @@ void	end_tp(t_pipe *tp)
 
 	close(tp->in_fd);
 	close(tp->out_fd);
+	free(tp->pid);
 	i = 0;
 	if (tp->cmd)
 	{
@@ -118,6 +125,7 @@ int	main(int argc, char **argv, char **envp)
 		start_pipe(&tp, argv, envp, cnt);
 		cnt++;
 	}
+	wait_process_block(&tp);
 	cnt = tp.exec_result;
 	end_tp(&tp);
 	if (tp.heredoc_flag)

@@ -6,7 +6,7 @@
 /*   By: saoh <saoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 15:55:50 by saoh              #+#    #+#             */
-/*   Updated: 2021/10/07 16:10:16 by saoh             ###   ########.fr       */
+/*   Updated: 2021/10/08 17:33:46 by saoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,11 @@ void	parent_get_status(t_pipe *tp, int cnt)
 	int	status;
 	int	tmp;
 
-	tmp = wait(&status);
+	tmp = waitpid(-1 , &status, WNOHANG);
 	while (tmp == -1 && errno == EINTR)
 		tmp = wait(&status);
 	if (tmp == -1)
-		error_print(5);
+		error_print(5);	
 	tp->exec_result = wait_exit_status(status);
 	tmp = wait_status(status);
 	if (tmp)
@@ -107,10 +107,10 @@ void	parent_get_status(t_pipe *tp, int cnt)
 
 void	start_pipe(t_pipe *tp, char **argv, char **envp, int cnt)
 {
-	tp->pid = fork();
-	if (tp->pid < 0)
+	tp->pid[cnt] = fork();
+	if (tp->pid[cnt] < 0)
 		error_print(1);
-	if (tp->pid == 0)
+	if (tp->pid[cnt] == 0)
 	{
 		if (apply_fd(tp, cnt))
 			error_print(2);
