@@ -7,11 +7,13 @@ int main(int argc, char *argv[])
     else
     {
         int i = 1;
-        while (i < argc)
+        while (i < argc - 1)
         {
             mystring str(argv[i]);
+            std::cout << " ";
             i++;
         }
+        mystring str(argv[i]);
     }
     std::cout << std::endl;
 }

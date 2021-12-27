@@ -1,7 +1,7 @@
-NAME	= megaphone
+NAME	= HI_THIS_IS_BRAIN
 CPPFLAGS	= -Wall -Wextra -Werror
 
-SRC 	= megaphone.cpp mystring.cpp
+SRC 	= main.cpp
 
 SRCDIR	= ./
 SRCS	= $(addprefix $(SRCDIR), $(SRC))

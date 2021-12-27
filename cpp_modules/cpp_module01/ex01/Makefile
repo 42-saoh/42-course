@@ -1,7 +1,8 @@
-NAME	= megaphone
+NAME	= Moar_brainz
 CPPFLAGS	= -Wall -Wextra -Werror
 
-SRC 	= megaphone.cpp mystring.cpp
+SRC 	= main.cpp Zombie.cpp newZombie.cpp randomChump.cpp \
+			ZombieHorde.cpp
 
 SRCDIR	= ./
 SRCS	= $(addprefix $(SRCDIR), $(SRC))

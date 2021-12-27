@@ -1,7 +1,7 @@
 NAME	= phonebook
 CPPFLAGS	= -Wall -Wextra -Werror
 
-SRC 	= phonebook.cpp
+SRC 	= main.cpp phonebook.cpp Contact.cpp
 
 SRCDIR	= ./
 SRCS	= $(addprefix $(SRCDIR), $(SRC))

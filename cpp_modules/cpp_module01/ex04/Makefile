@@ -1,7 +1,7 @@
-NAME	= megaphone
+NAME	=  replace
 CPPFLAGS	= -Wall -Wextra -Werror
 
-SRC 	= megaphone.cpp mystring.cpp
+SRC 	= main.cpp replace.cpp
 
 SRCDIR	= ./
 SRCS	= $(addprefix $(SRCDIR), $(SRC))

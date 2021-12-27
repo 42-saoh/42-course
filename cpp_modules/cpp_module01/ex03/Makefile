@@ -1,7 +1,7 @@
-NAME	= megaphone
+NAME	=  Unnecessary_violence
 CPPFLAGS	= -Wall -Wextra -Werror
 
-SRC 	= megaphone.cpp mystring.cpp
+SRC 	= main.cpp Weapon.cpp HumanA.cpp HumanB.cpp 
 
 SRCDIR	= ./
 SRCS	= $(addprefix $(SRCDIR), $(SRC))
