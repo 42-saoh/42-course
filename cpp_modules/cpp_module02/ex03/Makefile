@@ -1,7 +1,7 @@
-NAME	=  Karen
+NAME	= bsp
 CPPFLAGS	= -Wall -Wextra -Werror
 
-SRC 	= main.cpp Karen.cpp
+SRC 	= main.cpp Fixed.cpp Point.cpp Triangle.cpp bsp.cpp
 
 SRCDIR	= ./
 SRCS	= $(addprefix $(SRCDIR), $(SRC))

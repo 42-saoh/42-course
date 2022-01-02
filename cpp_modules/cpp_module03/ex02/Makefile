@@ -1,7 +1,7 @@
-NAME	=  Karen
+NAME	= ScavTrap
 CPPFLAGS	= -Wall -Wextra -Werror
 
-SRC 	= main.cpp Karen.cpp
+SRC 	= main.cpp ClapTrap.cpp ScavTrap.cpp
 
 SRCDIR	= ./
 SRCS	= $(addprefix $(SRCDIR), $(SRC))

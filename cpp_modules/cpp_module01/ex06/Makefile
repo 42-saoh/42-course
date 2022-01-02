@@ -1,4 +1,4 @@
-NAME	=  Karen
+NAME	=  karenFilter
 CPPFLAGS	= -Wall -Wextra -Werror
 
 SRC 	= main.cpp Karen.cpp

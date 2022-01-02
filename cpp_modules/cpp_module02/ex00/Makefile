@@ -1,7 +1,7 @@
-NAME	=  Karen
+NAME	= Fixed
 CPPFLAGS	= -Wall -Wextra -Werror
 
-SRC 	= main.cpp Karen.cpp
+SRC 	= main.cpp Fixed.cpp
 
 SRCDIR	= ./
 SRCS	= $(addprefix $(SRCDIR), $(SRC))
