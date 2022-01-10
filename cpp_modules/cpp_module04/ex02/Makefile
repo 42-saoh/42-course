@@ -1,7 +1,7 @@
-NAME	= FragTrap
+NAME	= Animal
 CPPFLAGS	= -Wall -Wextra -Werror
 
-SRC 	= main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp
+SRC 	= main.cpp Animal.cpp Dog.cpp Cat.cpp Brain.cpp
 
 SRCDIR	= ./
 SRCS	= $(addprefix $(SRCDIR), $(SRC))

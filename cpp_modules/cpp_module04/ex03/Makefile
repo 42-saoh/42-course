@@ -1,7 +1,7 @@
-NAME	= FragTrap
+NAME	=  interface_recap
 CPPFLAGS	= -Wall -Wextra -Werror
 
-SRC 	= main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp
+SRC 	= main.cpp AMateria.cpp Cure.cpp Ice.cpp Character.cpp MateriaSource.cpp
 
 SRCDIR	= ./
 SRCS	= $(addprefix $(SRCDIR), $(SRC))

@@ -1,21 +1,21 @@
-#include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 
 int main()
 {
     std::string clap("clap");
-    std::string scav("scav");
+    std::string frag("frag");
     ClapTrap c1(clap);
-    ScavTrap s2(scav);
+    FragTrap f1(frag);
 
     c1.showStatus();
-    s2.showStatus();
+    f1.showStatus();
 
     c1.attack("scav");
-    s2.takeDamege(20);
-    s2.showStatus();
-    s2.beRepaired(5);
-    s2.showStatus();
-    s2.attack("crap");
-    c1.takeDamege(20);
+    f1.takeDamege(20);
+    f1.showStatus();
+    f1.beRepaired(5);
+    f1.showStatus();
+    f1.attack("crap");
+    c1.takeDamege(30);
     c1.showStatus();
 }

@@ -1,5 +1,12 @@
 #include "ScavTrap.hpp"
 
+ScavTrap::ScavTrap() : ClapTrap()
+{
+    Hit_points = 100;
+    Energy_point = 50;
+    Attack_damage = 20;
+}
+
 ScavTrap::ScavTrap(std::string &name) : ClapTrap(name)
 {
     Hit_points = 100;
@@ -28,11 +35,6 @@ ScavTrap &ScavTrap::operator=(const ScavTrap &st)
     return (*this);
 }
 
-void ScavTrap::guardGate(void)
-{
-    std::cout << "ScavTrap " << Name << " have enterred in Gate keeper mode." << std::endl;
-}
-
 void ScavTrap::attack(std::string const &target)
 {
     std::cout << "ScavTrap " << Name << " attack " << target << ", causing " << Attack_damage << " points of damage!" << std::endl;
@@ -58,4 +60,9 @@ void ScavTrap::showStatus(void) const
     std::cout << "ScavTrap " << Name << "'s status" << std::endl;
     std::cout << "Hit points : " << Hit_points << std::endl;
     std::cout << "Energy point : " << Energy_point << std::endl;
+}
+
+void ScavTrap::guardGate(void)
+{
+    std::cout << "ScavTrap " << Name << " have enterred in Gate keeper mode." << std::endl;
 }

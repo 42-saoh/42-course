@@ -1,7 +1,7 @@
-NAME	= FragTrap
+NAME	= DiamondTrap
 CPPFLAGS	= -Wall -Wextra -Werror
 
-SRC 	= main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp
+SRC 	= main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp DiamondTrap.cpp
 
 SRCDIR	= ./
 SRCS	= $(addprefix $(SRCDIR), $(SRC))

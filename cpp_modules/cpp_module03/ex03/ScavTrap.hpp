@@ -2,12 +2,13 @@
 # define SCAVTRAP_HPP
 # include "ClapTrap.hpp"
 
-class ScavTrap : public ClapTrap
+class ScavTrap : public virtual ClapTrap
 {
     public:
+        ScavTrap();
         ScavTrap(std::string &name);
         ScavTrap(const ScavTrap &st);
-        ~ScavTrap();
+        virtual ~ScavTrap();
         ScavTrap &operator=(const ScavTrap &st);
         void attack(std::string const &target);
         void takeDamege(unsigned int amount);

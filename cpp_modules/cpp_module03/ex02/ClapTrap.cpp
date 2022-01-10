@@ -1,9 +1,6 @@
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap()
-{
-    std::cout << "ScavTrap create with ClapTrap" << std::endl;
-}
+ClapTrap::ClapTrap() {}
 
 ClapTrap::ClapTrap(std::string &_name) : Name(_name), Hit_points(10), Energy_point(10), Attack_damage(0)
 {
@@ -32,7 +29,7 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &ct)
 
 void ClapTrap::attack(std::string const &target)
 {
-    std::cout << "ClapTrap " << Name << " attack" << target << ", causing " << Attack_damage << " points of damage!" << std::endl;
+    std::cout << "ClapTrap " << Name << " attack " << target << ", causing " << Attack_damage << " points of damage!" << std::endl;
 }
 
 void ClapTrap::takeDamege(unsigned int amount)
