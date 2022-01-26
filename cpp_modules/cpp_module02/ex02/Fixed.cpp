@@ -107,7 +107,13 @@ Fixed Fixed::operator/(const Fixed &f1) const
 {
     Fixed tmp;
 
-    tmp.setRawBits(256 * fixed_point_value / f1.fixed_point_value);
+    if (f1.getRawBits() == 0)
+    {
+        std::cout << "You tried to divide by zero. Don't do that. I set the result to 0." << std::endl;
+        tmp.setRawBits(0);
+    }
+    else
+        tmp.setRawBits(256 * fixed_point_value / f1.fixed_point_value);
     return (tmp);
 }
 
@@ -194,7 +200,6 @@ bool Fixed::bitmask(int fixed_value) const
 
 int Fixed::getRawBits(void) const
 {
-    std::cout << "getRawBits member function called" << std::endl;
     return (fixed_point_value);
 }
 

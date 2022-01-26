@@ -107,7 +107,10 @@ Fixed Fixed::operator/(const Fixed &f1) const
 {
     Fixed tmp;
 
-    tmp.setRawBits(256 * fixed_point_value / f1.fixed_point_value);
+    if (f1.getRawBits() == 0)
+        tmp.setRawBits(0);
+    else
+        tmp.setRawBits(256 * fixed_point_value / f1.fixed_point_value);
     return (tmp);
 }
 

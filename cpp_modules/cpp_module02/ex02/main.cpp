@@ -4,6 +4,8 @@ int main()
 {
    Fixed a;
    Fixed const b( Fixed( 5.05f ) * Fixed( 2 ) );
+   Fixed q(5.5f);
+   std::cout << (q / a) << std::endl;
 
    std::cout << a << std::endl;
    std::cout << ++a << std::endl;
