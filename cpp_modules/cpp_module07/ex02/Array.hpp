@@ -21,6 +21,10 @@ class Array
         {
             (*this) = a;
         }
+        ~Array()
+        {
+            delete[] content;
+        }
         unsigned int size(void) const
         {
             return (_size);
