@@ -8,7 +8,7 @@ Bureaucrat::Bureaucrat(const std::string name, int grade) : _name(name), _grade(
         throw (GradeTooHighException());
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat &b) : _grade(b.getGrade())
+Bureaucrat::Bureaucrat(const Bureaucrat &b)
 {
     (*this) = b;
 }
@@ -18,6 +18,7 @@ Bureaucrat::~Bureaucrat() {}
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &b)
 {
     const_cast<std::string &>(_name) = b.getName();
+    _grade = b.getGrade();
     return (*this);
 }
 

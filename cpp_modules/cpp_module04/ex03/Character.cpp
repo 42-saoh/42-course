@@ -6,7 +6,7 @@ Character::Character(const std::string &name) : _name(name)
     memset(inventory, 0, sizeof(AMateria *) * 4);
 }
 
-Character::Character(const Character &clone) : _name(clone.getName())
+Character::Character(const Character &clone)
 {
     (*this) = clone;
 }
@@ -16,6 +16,7 @@ Character &Character::operator=(const Character &clone)
     MateriaSource matsrc;
     int i;
 
+    _name = clone.getName();
     for (i = 0; i < 4; i++)
     {
         if (!clone.inventory[i])
