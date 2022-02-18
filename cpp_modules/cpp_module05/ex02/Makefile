@@ -8,7 +8,7 @@ SRCS	= $(addprefix $(SRCDIR), $(SRC))
 OBJS	= $(SRCS:.cpp=.o)
 INCDIR	= ./
 
-%.o:	%.c
+%.o:	%.cpp
 			c++ $(CPPFLAGS) -I$(INCDIR) -c $< -o $@
 
 $(NAME): $(OBJS)
