@@ -12,4 +12,5 @@ int main()
             a[i].announce();
         i++;
     }
+    delete[] a;
 }
