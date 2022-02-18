@@ -1,5 +1,5 @@
 NAME	=  interface_recap
-CPPFLAGS	= -Wall -Wextra -Werror
+CXXFLAGS	= -Wall -Wextra -Werror
 
 SRC 	= main.cpp AMateria.cpp Cure.cpp Ice.cpp Character.cpp MateriaSource.cpp
 
@@ -9,10 +9,10 @@ OBJS	= $(SRCS:.cpp=.o)
 INCDIR	= ./
 
 %.o:	%.cpp
-			c++ $(CPPFLAGS) -I$(INCDIR) -c $< -o $@
+			c++ $(CXXFLAGS) -I$(INCDIR) -c $< -o $@
 
 $(NAME): $(OBJS)
-	c++ $(CPPFLAGS) -I$(INCDIR) -o $(NAME) $(OBJS)
+	c++ $(CXXFLAGS) -I$(INCDIR) -o $(NAME) $(OBJS)
 
 all: $(NAME)
 
