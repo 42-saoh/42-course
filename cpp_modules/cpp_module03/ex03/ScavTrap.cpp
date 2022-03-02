@@ -1,12 +1,5 @@
 #include "ScavTrap.hpp"
 
-ScavTrap::ScavTrap() : ClapTrap()
-{
-    Hit_points = 100;
-    Energy_point = 50;
-    Attack_damage = 20;
-}
-
 ScavTrap::ScavTrap(std::string &name) : ClapTrap(name)
 {
     Hit_points = 100;
@@ -15,10 +8,10 @@ ScavTrap::ScavTrap(std::string &name) : ClapTrap(name)
     std::cout << "ScavTrap " << Name << " create" << std::endl;   
 }
 
-ScavTrap::ScavTrap(const ScavTrap &st)
+ScavTrap::ScavTrap(const ScavTrap &st) : ClapTrap(st)
 {
-    std::cout << "ScavTrap " << Name << " copy create" << std::endl;
     (*this) = st;
+    std::cout << "ScavTrap " << Name << " copy create" << std::endl;
 }
 
 ScavTrap::~ScavTrap()
@@ -28,10 +21,7 @@ ScavTrap::~ScavTrap()
 
 ScavTrap &ScavTrap::operator=(const ScavTrap &st)
 {
-    Name = st.Name;
-    Hit_points = st.Hit_points;
-    Energy_point = st.Energy_point;
-    Attack_damage = st.Attack_damage;
+    (ClapTrap &)(*this) = (ClapTrap &)st;
     return (*this);
 }
 

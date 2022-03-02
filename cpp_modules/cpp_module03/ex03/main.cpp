@@ -11,11 +11,11 @@ int main()
     d2.showStatus();
 
     d1.attack("ohsa");
-    d2.takeDamege(30);
+    d2.takeDamege(20);
     d2.showStatus();
     d2.beRepaired(5);
     d2.showStatus();
     d2.attack("saoh");
-    d1.takeDamege(30);
+    d1.takeDamege(20);
     d1.showStatus();
 }

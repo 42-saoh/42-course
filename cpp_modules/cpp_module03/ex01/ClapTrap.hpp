@@ -12,7 +12,6 @@ class ClapTrap
         int Attack_damage;
 
     public:
-        ClapTrap();
         ClapTrap(std::string &_name);
         ClapTrap(const ClapTrap &ct);
         virtual ~ClapTrap();

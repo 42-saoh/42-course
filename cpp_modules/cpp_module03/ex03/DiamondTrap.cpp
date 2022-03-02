@@ -1,16 +1,15 @@
 #include "DiamondTrap.hpp"
 
-DiamondTrap::DiamondTrap(std::string &name) : ClapTrap(), FragTrap(), ScavTrap()
+DiamondTrap::DiamondTrap(std::string &name) : ClapTrap(name, "_clap_name"), FragTrap(name), ScavTrap(name)
 {
-    ClapTrap::Name = name + "_clap_name";
     Name = name;
     std::cout << "DiamondTrap " << Name << " create" << std::endl;   
 }
 
-DiamondTrap::DiamondTrap(const DiamondTrap &ft)
+DiamondTrap::DiamondTrap(const DiamondTrap &ft) : ClapTrap(ft), FragTrap(ft), ScavTrap(ft)
 {
-    std::cout << "DiamondTrap " << Name << " copy create" << std::endl;
     (*this) = ft;
+    std::cout << "DiamondTrap " << Name << " copy create" << std::endl;
 }
 
 DiamondTrap::~DiamondTrap()
@@ -20,10 +19,10 @@ DiamondTrap::~DiamondTrap()
 
 DiamondTrap &DiamondTrap::operator=(const DiamondTrap &ft)
 {
+    (ClapTrap &)(*this) = (ClapTrap &)ft;
+    (FragTrap &)(*this) = (FragTrap &)ft; 
+    (ScavTrap &)(*this) = (ScavTrap &)ft;
     Name = ft.Name;
-    Hit_points = ft.Hit_points;
-    Energy_point = ft.Energy_point;
-    Attack_damage = ft.Attack_damage;
     return (*this);
 }
 

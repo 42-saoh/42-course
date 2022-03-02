@@ -4,7 +4,7 @@ int main()
 {
     std::string clap("clap");
     std::string scav("scav");
-    ClapTrap c1(clap);
+    ScavTrap c1(clap);
     ScavTrap s2(scav);
 
     c1.showStatus();
