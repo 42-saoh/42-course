@@ -47,7 +47,10 @@ void ClapTrap::takeDamege(unsigned int amount)
 void ClapTrap::beRepaired(unsigned int amount)
 {
     std::cout << "ClapTrap " << Name << " be repaired " << amount << " Hit points!" << std::endl;
-    Hit_points += amount;
+    if (amount + Hit_points <= 2147483647)
+        Hit_points += amount;
+    else
+        std::cout << "check the amount(range : 0 ~ 2147483647 - Hit_points)" << std::endl;
 }
 
 void ClapTrap::showStatus(void) const

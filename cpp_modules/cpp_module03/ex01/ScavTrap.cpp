@@ -46,7 +46,10 @@ void ScavTrap::takeDamege(unsigned int amount)
 void ScavTrap::beRepaired(unsigned int amount)
 {
     std::cout << "ScavTrap " << Name << " be repaired " << amount << " Hit points!" << std::endl;
-    Hit_points += amount;
+    if (amount + Hit_points <= 2147483647)
+        Hit_points += amount;
+    else
+        std::cout << "check the amount(range : 0 ~ 2147483647 - Hit_points)" << std::endl;
 }
 
 void ScavTrap::showStatus(void) const

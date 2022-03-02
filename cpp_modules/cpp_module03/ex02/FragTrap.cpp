@@ -42,7 +42,10 @@ void FragTrap::takeDamege(unsigned int amount)
 void FragTrap::beRepaired(unsigned int amount)
 {
     std::cout << "FragTrap " << Name << " be repaired " << amount << " Hit points!" << std::endl;
-    Hit_points += amount;
+    if (amount + Hit_points <= 2147483647)
+        Hit_points += amount;
+    else
+        std::cout << "check the amount(range : 0 ~ 2147483647 - Hit_points)" << std::endl;
 }
 
 void FragTrap::showStatus(void) const
