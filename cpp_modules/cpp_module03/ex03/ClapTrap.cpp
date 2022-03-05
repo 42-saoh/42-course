@@ -1,11 +1,16 @@
 #include "ClapTrap.hpp"
 
+ClapTrap::ClapTrap() : Name("default"), Hit_points(10), Energy_point(10), Attack_damage(0)
+{
+    std::cout << "ClapTrap " << Name << " create" << std::endl;
+}
+
 ClapTrap::ClapTrap(std::string &_name) : Name(_name), Hit_points(10), Energy_point(10), Attack_damage(0)
 {
     std::cout << "ClapTrap " << Name << " create" << std::endl;
 }
 
-ClapTrap::ClapTrap(std::string &_name, const char *_plus) : Name(_name + _plus), Hit_points(10), Energy_point(10), Attack_damage(0)
+ClapTrap::ClapTrap(const std::string &_name, const char *_plus) : Name(_name + _plus), Hit_points(10), Energy_point(10), Attack_damage(0)
 {
     std::cout << "ClapTrap " << Name << " create" << std::endl;
 }

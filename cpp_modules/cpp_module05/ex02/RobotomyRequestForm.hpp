@@ -2,6 +2,7 @@
 # define ROBOTOMYREQUESTFORM_HPP
 # include "Form.hpp"
 # include <ctime>
+# include <cstdlib>
 
 class RobotomyRequestForm : public Form
 {
@@ -11,7 +12,7 @@ class RobotomyRequestForm : public Form
     public:
         RobotomyRequestForm(const std::string &target);
         RobotomyRequestForm(const RobotomyRequestForm &r);
-        ~RobotomyRequestForm();
+        ~RobotomyRequestForm() throw();
         RobotomyRequestForm &operator=(const RobotomyRequestForm &r);
         void action(void) const;
         void execute(const Bureaucrat &executor) const;

@@ -1,8 +1,18 @@
 #include "DiamondTrap.hpp"
 
-DiamondTrap::DiamondTrap(std::string &name) : ClapTrap(name, "_clap_name"), FragTrap(name), ScavTrap(name)
+DiamondTrap::DiamondTrap() : ClapTrap("default", "_clap_name"), FragTrap(), ScavTrap(), Name("default")
 {
-    Name = name;
+    Hit_points = get_frag_hitpoint();
+    Energy_point = get_scav_energe_point();
+    Attack_damage = get_frag_attack_damage();
+    std::cout << "DiamondTrap " << Name << " create" << std::endl;   
+}
+
+DiamondTrap::DiamondTrap(std::string &name) : ClapTrap(name, "_clap_name"), FragTrap(), ScavTrap(), Name(name)
+{
+    Hit_points = get_frag_hitpoint();
+    Energy_point = get_scav_energe_point();
+    Attack_damage = get_frag_attack_damage();
     std::cout << "DiamondTrap " << Name << " create" << std::endl;   
 }
 
@@ -54,6 +64,7 @@ void DiamondTrap::showStatus(void) const
     std::cout << "DiamondTrap " << Name << "'s status" << std::endl;
     std::cout << "Hit points : " << Hit_points << std::endl;
     std::cout << "Energy point : " << Energy_point << std::endl;
+    std::cout << "Attact damage : " << Attack_damage << std::endl;
 }
 
  void DiamondTrap::whoami(void)

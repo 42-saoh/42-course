@@ -1,5 +1,18 @@
 #include "Intern.hpp"
 
+Intern::Intern() {}
+Intern::Intern(const Intern &i)
+{
+    (*this) = i;
+}
+Intern &Intern::operator=(const Intern &i)
+{
+    i.nothing();
+    return (*this);
+}
+
+Intern::~Intern() {}
+
 Form *Intern::RoboF(void)
 {
     Form *result = new RobotomyRequestForm();
@@ -18,14 +31,16 @@ Form *Intern::ShruF(void)
     return (result);
 }
 
+void Intern::nothing(void) const {}
+
 Form *Intern::makeForm(const std::string &f_name, const std::string &target)
 {
     Form *(Intern::*make_form[])() = {&Intern::RoboF, &Intern::PresF, &Intern::ShruF};
-    std::string form_name[3] = {"robotomy request", "presidential pardon", "shrubbery creation"};
+    std::string form_name[3] = {"robotomy", "presidential", "shrubbery"};
 
     for (int i = 0; i < 3; i++)
     {
-        if (form_name[i] == f_name)
+        if (f_name.find(form_name[i], 0) < form_name[i].size())
         {
             Form *result = ((this)->*make_form[i])();
             result->get_target(target);

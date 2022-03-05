@@ -1,19 +1,18 @@
 #include "WrongCat.hpp"
 
-WrongCat::WrongCat()
+WrongCat::WrongCat() : WrongAnimal("WrongCat")
 {
-    type = "WrongCat";
     std::cout << "WrongCat" << std::endl;
 }
 
-WrongCat::WrongCat(const WrongCat &Wrongcat)
+WrongCat::WrongCat(const WrongCat &Wrongcat) : WrongAnimal(Wrongcat)
 {
-    (*this) = Wrongcat;
+    std::cout << "Copy WrongCat" << std::endl;
 }
 
 WrongCat::~WrongCat()
 {
-    std::cout << "End WrongAnimal" << type << std::endl;
+    std::cout << "End WrongCat" << type << std::endl;
 }
 
 WrongCat &WrongCat::operator=(const WrongCat &Wrongcat)
@@ -24,5 +23,5 @@ WrongCat &WrongCat::operator=(const WrongCat &Wrongcat)
 
 void WrongCat::makeSound(void) const
 {
-    std::cout << "miew! miew!" << std::endl;
+    std::cout << "wal! wal!" << std::endl;
 }

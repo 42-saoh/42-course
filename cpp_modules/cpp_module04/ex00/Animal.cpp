@@ -1,12 +1,14 @@
 #include "Animal.hpp"
 
-Animal::Animal()
+Animal::Animal() : type("default")
 {
     std::cout << "Animal" << std::endl;
-    type = "default";
 }
 
-Animal::Animal(const std::string &type) : type(type) {}
+Animal::Animal(const std::string &type) : type(type)
+{
+    std::cout << "Animal " << type << std::endl;
+}
 
 Animal::Animal(const Animal &animal)
 {

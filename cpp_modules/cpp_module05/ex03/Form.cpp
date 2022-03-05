@@ -3,9 +3,9 @@
 Form::Form(const std::string name, int grade) : _name(name), _grade(grade), is_signed(false)
 {
     if (_grade < 1)
-        throw (GradeTooLowException());
+        GradeTooLowException();
     else if (_grade > 150)
-        throw (GradeTooHighException());
+        GradeTooHighException();
 }
 
 Form::Form(const Form &f) : _name(""), _grade(0), is_signed(false)
@@ -13,22 +13,22 @@ Form::Form(const Form &f) : _name(""), _grade(0), is_signed(false)
     (*this) = f;
 }
 
-Form::~Form() {}
+Form::~Form() throw() {}
 
 Form &Form::operator=(const Form &f)
 {
-    const_cast<bool &>(is_signed) = f.is_signed;
+    is_signed = f.is_signed;
     const_cast<int &>(_grade) = f._grade;
     const_cast<std::string &>(_name) = f._name;
     return (*this);
 }
 
-void Form::beSigned(const Bureaucrat &b) const
+void Form::beSigned(const Bureaucrat &b)
 {
     if (b.getGrade() < get_grade())
-        const_cast<bool &>(is_signed) = true;
+        is_signed = true;
     else
-        throw (GradeTooLowException());
+        GradeTooLowException();
 }
 
 std::string Form::get_name(void) const
@@ -48,12 +48,12 @@ int Form::get_grade(void) const
 
 int Form::GradeTooHighException(void)
 {
-    return (TOO_HIGH);
+    throw std::out_of_range("Too large number");
 }
 
 int Form::GradeTooLowException(void)
 {
-    return (TOO_LOW);
+    throw std::out_of_range("Too small number");
 }
 
 std::ostream &operator<<(std::ostream &os, const Form &f)

@@ -1,12 +1,14 @@
 #include "WrongAnimal.hpp"
 
-WrongAnimal::WrongAnimal()
+WrongAnimal::WrongAnimal() : type("default")
 {
     std::cout << "WrongAnimal" << std::endl;
-    type = "default";
 }
 
-WrongAnimal::WrongAnimal(const std::string &type) : type(type) {}
+WrongAnimal::WrongAnimal(const std::string &type) : type(type)
+{
+    std::cout << "WrongAnimal " << type << std::endl;
+}
 
 WrongAnimal::WrongAnimal(const WrongAnimal &Wronganimal)
 {

@@ -5,6 +5,7 @@
 class ScavTrap : public virtual ClapTrap
 {
     public:
+        ScavTrap();
         ScavTrap(std::string &name);
         ScavTrap(const ScavTrap &st);
         virtual ~ScavTrap();
@@ -12,6 +13,7 @@ class ScavTrap : public virtual ClapTrap
         void attack(std::string const &target);
         void takeDamege(unsigned int amount);
         void beRepaired(unsigned int amount);
+        int get_scav_energe_point(void) const;
         void showStatus(void) const;
         void guardGate(void);
 };

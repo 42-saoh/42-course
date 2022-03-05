@@ -11,7 +11,7 @@ class PresidentialPardonForm : public Form
         PresidentialPardonForm();
         PresidentialPardonForm(const std::string &target);
         PresidentialPardonForm(const PresidentialPardonForm &p);
-        ~PresidentialPardonForm();
+        ~PresidentialPardonForm() throw();
         PresidentialPardonForm &operator=(const PresidentialPardonForm &p);
         void get_target(const std::string &target);
         void execute(const Bureaucrat &executor) const;

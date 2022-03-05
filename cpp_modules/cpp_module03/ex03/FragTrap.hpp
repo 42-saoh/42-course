@@ -5,6 +5,7 @@
 class FragTrap : public virtual ClapTrap
 {
     public:
+        FragTrap();
         FragTrap(std::string &name);
         FragTrap(const FragTrap &ht);
         virtual ~FragTrap();
@@ -13,6 +14,8 @@ class FragTrap : public virtual ClapTrap
         void takeDamege(unsigned int amount);
         void beRepaired(unsigned int amount);
         void showStatus(void) const;
+        int get_frag_hitpoint(void) const;
+        int get_frag_attack_damage(void) const;
         void highFivesGuys(void);
 };
 

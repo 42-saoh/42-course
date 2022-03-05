@@ -6,21 +6,21 @@
 
 class Bureaucrat;
 
-class Form
+class Form : std::exception
 {
     private:
         const std::string _name;
         const int _grade;
-        const bool is_signed;
+        bool is_signed;
 
     public:
         static int GradeTooHighException(void);
         static int GradeTooLowException(void);
         Form(const std::string name, int _grade);
         Form(const Form &f);
-        virtual ~Form();
+        virtual ~Form() throw();
         Form &operator=(const Form &f);
-        void beSigned(const Bureaucrat &b) const;
+        void beSigned(const Bureaucrat &b);
         std::string get_name(void) const;
         bool get_is_signed(void) const;
         int get_grade(void) const;

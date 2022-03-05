@@ -1,24 +1,23 @@
 #include "Dog.hpp"
 
-Dog::Dog()
+Dog::Dog() : Animal("Dog")
 {
-    type = "Dog";
     std::cout << "Dog" << std::endl;
 }
 
-Dog::Dog(const Dog &dog)
+Dog::Dog(const Dog &dog) : Animal(dog)
 {
-    (*this) = dog;
+    std::cout << "Copy Dog" << std::endl;
 }
 
 Dog::~Dog()
 {
-    std::cout << "End Animal" << type << std::endl;
+    std::cout << "End Dog" << type << std::endl;
 }
 
-Dog &Dog::operator=(const Dog &Dog)
+Dog &Dog::operator=(const Dog &dog)
 {
-    type = Dog.getType();
+    type = dog.getType();
     return (*this);
 }
 

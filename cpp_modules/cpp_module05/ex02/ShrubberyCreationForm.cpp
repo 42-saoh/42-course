@@ -23,10 +23,10 @@ void ShrubberyCreationForm::execute(const Bureaucrat &executor) const
     if (executor.getGrade() <= get_grade())
         action();
     else
-        throw (GradeTooLowException());
+        GradeTooLowException();
 }
 
-ShrubberyCreationForm::~ShrubberyCreationForm() {}
+ShrubberyCreationForm::~ShrubberyCreationForm() throw() {}
 
 ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationForm &p)
 {

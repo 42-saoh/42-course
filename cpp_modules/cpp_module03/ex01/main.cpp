@@ -18,4 +18,5 @@ int main()
     s2.attack("crap");
     c1.takeDamege(20);
     c1.showStatus();
+    s2.guardGate();
 }

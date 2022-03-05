@@ -1,19 +1,18 @@
 #include "Cat.hpp"
 
-Cat::Cat()
+Cat::Cat() : Animal("Cat")
 {
-    type = "Cat";
     std::cout << "Cat" << std::endl;
 }
 
-Cat::Cat(const Cat &cat)
+Cat::Cat(const Cat &cat) : Animal(cat) 
 {
-    (*this) = cat;
+    std::cout << "Copy Cat" << std::endl;
 }
 
 Cat::~Cat()
 {
-    std::cout << "End Animal" << type << std::endl;
+    std::cout << "End Cat" << type << std::endl;
 }
 
 Cat &Cat::operator=(const Cat &cat)

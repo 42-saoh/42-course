@@ -1,5 +1,7 @@
 #include "AMateria.hpp"
 
+AMateria::AMateria() : _type("default") {}
+
 AMateria::AMateria(const std::string &type)
 {
     for (size_t i = 0; i < type.size(); i++)

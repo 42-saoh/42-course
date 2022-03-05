@@ -7,7 +7,7 @@ PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &p) 
     (*this) = p;
 }
 
-PresidentialPardonForm::~PresidentialPardonForm() {}
+PresidentialPardonForm::~PresidentialPardonForm() throw() {}
 
 void PresidentialPardonForm::action(void) const
 {
@@ -19,7 +19,7 @@ void PresidentialPardonForm::execute(const Bureaucrat &executor) const
     if (executor.getGrade() <= get_grade())
         action();
     else
-        throw (GradeTooLowException());
+        GradeTooLowException();
 }
 
 PresidentialPardonForm &PresidentialPardonForm::operator=(const PresidentialPardonForm &p)

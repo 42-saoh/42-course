@@ -12,8 +12,9 @@ class ClapTrap
         int Attack_damage;
 
     public:
+        ClapTrap();
         ClapTrap(std::string &_name);
-        ClapTrap(std::string &_name, const char *_plus);
+        ClapTrap(const std::string &_name, const char *_plus);
         ClapTrap(const ClapTrap &ct);
         virtual ~ClapTrap();
         ClapTrap &operator=(const ClapTrap &ct);

@@ -2,6 +2,16 @@
 
 Ice::Ice() : AMateria("Ice") {}
 
+Ice::Ice(const Ice &i) : AMateria(i) {}
+
+Ice &Ice::operator=(const Ice &i)
+{
+    _type = i.getType();
+    return (*this);
+}
+
+Ice::~Ice() {}
+
 AMateria *Ice::clone() const
 {
     AMateria *result = new Ice();

@@ -1,30 +1,32 @@
 #include "Cat.hpp"
 
-Cat::Cat()
+Cat::Cat() : Animal("Cat")
 {
-    type = "Cat";
     brain = new Brain();
     std::cout << "Cat" << std::endl;
 }
 
-Cat::Cat(const Cat &cat)
+Cat::Cat(const Cat &cat) : Animal(cat) 
 {
     (*this) = cat;
+    std::cout << "Copy Cat" << std::endl;
 }
 
 Cat::~Cat()
 {
-    std::cout << "End Animal " << type << std::endl;
     delete brain;
+    std::cout << "End Cat " << type << std::endl;
 }
 
 Cat &Cat::operator=(const Cat &cat)
 {
     type = cat.getType();
-    if (!brain)
-        brain = new Brain();
     if (cat.brain)
+    {
+        if (!brain)
+            brain = new Brain();
         *brain = *cat.brain;
+    }
     return (*this);
 }
 

@@ -18,4 +18,5 @@ int main()
     f1.attack("crap");
     c1.takeDamege(30);
     c1.showStatus();
+    f1.highFivesGuys();
 }

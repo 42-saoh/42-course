@@ -7,18 +7,18 @@ RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &p) : Form("R
     (*this) = p;
 }
 
-RobotomyRequestForm::~RobotomyRequestForm() {}
+RobotomyRequestForm::~RobotomyRequestForm() throw() {}
 
 void RobotomyRequestForm::action(void) const
 {
     time_t time_now;
 
     time(&time_now);
-    int i = time_now % 2;
+    int i = (rand() + static_cast<int>(time_now)) % 2;
     if (i)
-        std::cout << _target << " : drrrrrrrrrrrrrrrrrrr\ndrrrrrrrrrrrrrrrrrrr\ndrrrrrrrrrrrrrrrrrrr\ndrrrrrrrrrrrrrrrrrrr\ndrrrrrrrrrrrrrrrrrrr\ndrrrrrrrrrrrrrrrrrrr\ndrrrrrrrrrrrrrrrrrrr\ndrrrrrrrrrrrrrrrrrrr\ndrrrrrrrrrrrrrrrrrrr\ndrrrrrrrrrrrrrrrrrrr\ndrrrrrrrrrrrrrrrrrrr\ndrrrrrrrrrrrrrrrrrrr\ndrrrrrrrrrrrrrrrrrrr\n success" << std::endl;
+        std::cout << _target << " : drrrrrrrrrrrrrrrrrrr\nsuccess" << std::endl;
     else
-        std::cout << _target << " : drrrrrrrrrrrrrrrrrrr\ndrrrrrrrrrrrrrrrrrrr\ndrrrrrrrrrrrrrrrrrrr\ndrrrrrrrrrrrrrrrrrrr\ndrrrrrrrrrrrrrrrrrrr\ndrrrrrrrrrrrrrrrrrrr\ndrrrrrrrrrrrrrrrrrrr\ndrrrrrrrrrrrrrrrrrrr\ndrrrrrrrrrrrrrrrrrrr\ndrrrrrrrrrrrrrrrrrrr\ndrrrrrrrrrrrrrrrrrrr\ndrrrrrrrrrrrrrrrrrrr\ndrrrrrrrrrrrrrrrrrrr\n fail" << std::endl;
+        std::cout << _target << " : drrrrrrrrrrrrrrrrrrr\nfail" << std::endl;
 }
 
 void RobotomyRequestForm::execute(const Bureaucrat &executor) const
@@ -26,7 +26,7 @@ void RobotomyRequestForm::execute(const Bureaucrat &executor) const
     if (executor.getGrade() <= get_grade())
         action();
     else
-        throw (GradeTooLowException());
+        GradeTooLowException();
 }
 
 RobotomyRequestForm &RobotomyRequestForm::operator=(const RobotomyRequestForm &p)

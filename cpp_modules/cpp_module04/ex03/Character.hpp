@@ -11,6 +11,7 @@ class Character : public ICharacter
         AMateria *inventory[4];
 
     public:
+        Character();
         Character(const std::string &name);
         Character(const Character &clone);
         ~Character();

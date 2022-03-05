@@ -12,6 +12,11 @@ class Intern
         Form *ShruF(void);
 
     public:
+        Intern();
+        Intern(const Intern &i);
+        ~Intern();
+        Intern &operator=(const Intern &i);
+        void nothing(void) const;
         Form *makeForm(const std::string &f_name, const std::string &target);
         
 };

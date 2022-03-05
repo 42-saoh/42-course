@@ -6,6 +6,22 @@ MateriaSource::MateriaSource()
     memset(Source, 0, sizeof(AMateria *) * 4);
 }
 
+MateriaSource::MateriaSource(const MateriaSource &m)
+{
+    memset(Source, 0, sizeof(AMateria *) * 4);
+    (*this) = m;
+}
+
+MateriaSource &MateriaSource::operator=(const MateriaSource &m)
+{
+    for (int i = 0; i < 4 && m.Source[i]; i++)
+    {
+        Source[i] = m.Source[i]->clone();
+    }
+    return (*this);
+}
+
+
 MateriaSource::~MateriaSource()
 {
     for (int i = 0; i < 4; i++)

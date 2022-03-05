@@ -10,46 +10,24 @@ int main()
         {
             Form a("f4", 0);
         }
-        catch (int ex)
+        catch (std::exception &e)
         {
-            switch (ex)
-            {
-                case TOO_HIGH:
-                    std::cout << "Too High Grade, Grade range 1 ~ 150" << std::endl;
-                    break ;
-
-                case TOO_LOW:
-                    std::cout << "Too Low Grade, Grade range 1 ~ 150" << std::endl;
-                    break ;
-                
-                default:
-                    std::cout << "Something wrong" << std::endl;
-                    return (0);
-            }
+            std::cout << e.what() << std::endl;
         }
+        std::cout << "------------------" << std::endl;
         try
         {
             Form a("f4", 151);
         }
-        catch (int ex)
+        catch (std::exception &e)
         {
-            switch (ex)
-            {
-                case TOO_HIGH:
-                    std::cout << "Too High Grade, Grade range 1 ~ 150" << std::endl;
-                    break ;
-
-                case TOO_LOW:
-                    std::cout << "Too Low Grade, Grade range 1 ~ 150" << std::endl;
-                    break ;
-                
-                default:
-                    std::cout << "Something wrong" << std::endl;
-                    return (0);
-            }
+            std::cout << e.what() << std::endl;
         }
+        std::cout << "--------------------" << std::endl;
         std::cout << b << std::endl;
         std::cout << f << std::endl;
+        std::cout << "--------------------" << std::endl;
         b.signForm(f);
+        std::cout << "--------------------" << std::endl;
         b.signForm(s);
 }

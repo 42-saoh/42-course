@@ -1,6 +1,11 @@
 #include "Character.hpp"
 #include <iostream>
 
+Character::Character() : _name("default")
+{
+    memset(inventory, 0, sizeof(AMateria *) * 4);
+}
+
 Character::Character(const std::string &name) : _name(name)
 {
     memset(inventory, 0, sizeof(AMateria *) * 4);

@@ -4,10 +4,7 @@
 # include <iostream>
 # include <exception>
 
-# define TOO_HIGH 0
-# define TOO_LOW 1
-
-class Bureaucrat
+class Bureaucrat : public std::exception
 {
     private:
         const std::string _name;
@@ -19,7 +16,7 @@ class Bureaucrat
         Bureaucrat();
         Bureaucrat(const std::string name, int grade);
         Bureaucrat(const Bureaucrat &b);
-        ~Bureaucrat();
+        ~Bureaucrat() throw();
         Bureaucrat &operator=(const Bureaucrat &b);
         void  increaseGrade(int inc);
         void  decreaseGrade(int dec);
