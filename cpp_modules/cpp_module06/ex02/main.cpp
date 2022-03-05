@@ -2,14 +2,14 @@
 #include "B.hpp"
 #include "C.hpp"
 # include <ctime>
-
+# include <cstdlib>
 
 Base *generate(void)
 {
     time_t time_now;
 
     time(&time_now);
-    int i = time_now % 3;
+    int i = (time_now + rand()) % 3;
     switch (i)
     {
         case 0:
@@ -42,17 +42,20 @@ void identify(Base& p)
     {
         A a = dynamic_cast<A &>(p);
         i = 1;
-    } catch(const std::exception &e) {}
+    }
+    catch(const std::exception &e) {}
     try
     {
         B b = dynamic_cast<B &>(p);
         i = 2;
-    } catch(const std::exception &e) {}
+    }
+    catch(const std::exception &e) {}
     try
     {
         C c = dynamic_cast<C &>(p);
         i = 3;
-    } catch(const std::exception &e) {}
+    }
+    catch(const std::exception &e) {}
     switch (i)
     {
         case 1:
@@ -83,4 +86,5 @@ int main()
     }
     identify(p);
     identify(*p);
+    delete p;
 }

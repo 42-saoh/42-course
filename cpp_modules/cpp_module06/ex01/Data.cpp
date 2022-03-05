@@ -1,6 +1,21 @@
 #include "Data.hpp"
 
 Data::Data() : a(1), b("2"), c(3), d(4), e(5) {}
+Data::~Data() {}
+Data::Data(const Data &_d)
+{
+    (*this) = _d;
+}
+
+Data &Data::operator=(const Data &_d)
+{
+    a = _d.a;
+    b = _d.b;
+    c = _d.c;
+    d = _d.d;
+    e = _d.e;
+    return (*this);
+}
 
 void Data::print_data(void)
 {

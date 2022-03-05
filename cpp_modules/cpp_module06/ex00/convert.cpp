@@ -1,6 +1,29 @@
 #include "convert.hpp"
 
-convert::convert(const std::string &str) : s(str), _is_error(false), _is_nan(false), _is_inf(false)
+convert::convert() : s(""), val(0.0), _is_error(false), _is_nan(false), _is_inf(false), _is_exist_val(false) {}
+convert::~convert() {}
+convert::convert(const std::string &str) : s(str), val(0.0), _is_error(false), _is_nan(false), _is_inf(false), _is_exist_val(true)
+{
+    get_val();
+}
+
+convert::convert(const convert &c)
+{
+    (*this) = c;
+}
+
+convert &convert::operator=(const convert &c)
+{
+    s = c.s;
+    val = c.val;
+    _is_error = c._is_error;
+    _is_nan = c._is_nan;
+    _is_inf = c._is_inf;
+    _is_exist_val = c._is_exist_val;
+    return (*this);
+}
+
+void convert::get_val()
 {
     try
     {
@@ -29,45 +52,59 @@ convert::convert(const std::string &str) : s(str), _is_error(false), _is_nan(fal
         }
         _is_error = true;
     }
-    
+}
+
+void convert::get_str(const std::string &str)
+{
+    s = str;
 }
 
 void convert::tos()
 {
-    std::cout << "char: ";
-    if (_is_nan || _is_inf || val > 255 || val < 0)
-        std::cout << "impossible" << std::endl;
-    else if ((val >= 9 && val <= 13) || (val >= 32 && val <= 126))
+    if (_is_exist_val)
     {
-        char c = val;
-        std::cout << "'" << c << "'" << std::endl;
+        std::cout << "char: ";
+        if (_is_nan || _is_inf || val > 255 || val < 0)
+            std::cout << "impossible" << std::endl;
+        else if ((val >= 9 && val <= 13) || (val >= 32 && val <= 126))
+            std::cout << "'" << static_cast<char>(val) << "'" << std::endl;
+        else
+            std::cout << "Non displayable" << std::endl;
     }
     else
-        std::cout << "Non displayable" << std::endl;
+        std::cout << "You have no value" << std::endl;
 }
 
 void convert::toi()
 {
-    std::cout << "int: ";
-    if (_is_nan || _is_inf || val > INT32_MAX || val < INT32_MIN)
-        std::cout << "impossible" << std::endl;
-    else
+    if (_is_exist_val)
     {
-        int i = val;
-        std::cout << i << std::endl;
+        std::cout << "int: ";
+        if (_is_nan || _is_inf || val > INT32_MAX || val < INT32_MIN)
+            std::cout << "impossible" << std::endl;
+        else
+            std::cout << static_cast<int>(val) << std::endl;
     }
-
+    else
+        std::cout << "You have no value" << std::endl;
 }
 
 void convert::tof()
 {
-    float i = val;
-    std::cout << "float: " << i << "f" << std::endl;
+    if (_is_exist_val)
+        std::cout << "float: " << static_cast<float>(val) << "f" << std::endl;
+    else
+        std::cout << "You have no value" << std::endl;
 }
 
 void convert::tod()
 {
-    std::cout << "double: " << val << std::endl;
+    if (_is_exist_val)
+    {
+        std::cout << "double: " << val << std::endl;
+    }
+    else
+        std::cout << "You have no value" << std::endl;
 }
 
 bool convert::is_error(void)

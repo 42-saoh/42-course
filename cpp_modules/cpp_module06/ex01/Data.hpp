@@ -14,6 +14,9 @@ class Data
 
     public:
         Data();
+        Data(const Data &_d);
+        ~Data();
+        Data &operator=(const Data &_d);
         void print_data(void);
         static uintptr_t serialize(Data* ptr);
         static Data* deserialize(uintptr_t raw);

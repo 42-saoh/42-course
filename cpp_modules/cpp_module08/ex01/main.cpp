@@ -14,6 +14,7 @@ int main()
         std::cout << sp.shortestSpan() << std::endl;
         std::cout << sp.longestSpan() << std::endl;
     }
+    std::cout << "--------------------" << std::endl;
     Span sp(10);
     std::vector<int> vec;
     for (int i = 0; i < 10; i++)
@@ -24,4 +25,9 @@ int main()
     sp.print_all();
     std::cout << sp.shortestSpan() << std::endl;
     std::cout << sp.longestSpan() << std::endl;
+    std::cout << "--------------------" << std::endl;
+    Span w(sp);
+    w.print_all();
+    std::cout << w.shortestSpan() << std::endl;
+    std::cout << w.longestSpan() << std::endl;
 }

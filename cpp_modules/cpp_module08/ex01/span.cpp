@@ -1,6 +1,20 @@
 #include "span.hpp"
 
+Span::Span() : _capacity(0), _size(0) {}
 Span::Span(unsigned int n) : _capacity(n), _size(0) {}
+Span::~Span() {}
+Span::Span(const Span &s)
+{
+    (*this) = s;
+}
+
+Span &Span::operator=(const Span &s)
+{
+    _capacity = s._capacity;
+    _size = s._size;
+    vec = s.vec;
+    return (*this);
+}
 
 bool is_big(int i, int j)
 {

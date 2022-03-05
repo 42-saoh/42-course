@@ -12,7 +12,11 @@ class Span
         unsigned int _size;
     
     public:
+        Span();
         Span(unsigned int n);
+        Span(const Span &s);
+        Span &operator=(const Span &s);
+        ~Span();
         void addNumber(int val);
         void addNumber(std::vector<int>::iterator start, std::vector<int>::iterator end);
         long shortestSpan(void);
