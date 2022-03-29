@@ -17,9 +17,11 @@ class Array
         {
             content = new T[_size];
         }
-        Array(const Array &a)
+        Array(const Array &a) : _size(a._size)
         {
-            (*this) = a;
+            content = new T[_size];
+            for (unsigned int i = 0; i < a.size(); i++)
+                content[i] = a[i];
         }
         ~Array()
         {
@@ -29,12 +31,17 @@ class Array
         {
             return (_size);
         }
-        T &operator[](int i) const
+        T &operator[](const int i) const
         {
+            if (i < 0 || static_cast<const unsigned int>(i) >= _size)
+                throw std::range_error("Out of range");
             return (content[i]);
         }
         Array &operator=(const Array &a)
         {
+            if (content)
+                delete[] content;
+            content = 0;
             _size = a.size();
             T *temp = new T[_size];
             for (unsigned int i = 0; i < a.size(); i++)

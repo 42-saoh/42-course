@@ -16,6 +16,7 @@ class Bureaucrat
     public:
         static int GradeTooHighException(void);
         static int GradeTooLowException(void);
+        Bureaucrat();
         Bureaucrat(const std::string name, int grade);
         Bureaucrat(const Bureaucrat &b);
         ~Bureaucrat() throw();

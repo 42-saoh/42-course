@@ -1,11 +1,10 @@
 #include "ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : Form("ShrubberyCreation", 25), _target(target) {}
+ShrubberyCreationForm::ShrubberyCreationForm() : Form("ShrubberyCreation", 25, 5), _target("") {}
 
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &p) : Form("ShrubberyCreation", 25)
-{
-    (*this) = p;
-}
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : Form("ShrubberyCreation", 25, 5), _target(target) {}
+
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &p) : Form("ShrubberyCreation", 25, 5), _target(p._target) {}
 
 void ShrubberyCreationForm::action(void) const
 {
@@ -16,14 +15,6 @@ void ShrubberyCreationForm::action(void) const
     fs.open(filename, std::fstream::out | std::fstream::trunc);
     fs.write(img.c_str(), img.size());
     fs.close();
-}
-
-void ShrubberyCreationForm::execute(const Bureaucrat &executor) const
-{
-    if (executor.getGrade() <= get_grade())
-        action();
-    else
-        GradeTooLowException();
 }
 
 ShrubberyCreationForm::~ShrubberyCreationForm() throw() {}

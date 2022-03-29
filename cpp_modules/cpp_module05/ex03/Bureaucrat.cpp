@@ -1,5 +1,6 @@
 #include "Bureaucrat.hpp"
 
+Bureaucrat::Bureaucrat() : _name(""), _grade(150) {}
 Bureaucrat::Bureaucrat(const std::string name, int grade) : _name(name), _grade(grade)
 {
     if (_grade < 1)
@@ -8,10 +9,7 @@ Bureaucrat::Bureaucrat(const std::string name, int grade) : _name(name), _grade(
         GradeTooHighException();
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat &b)
-{
-    (*this) = b;
-}
+Bureaucrat::Bureaucrat(const Bureaucrat &b) : _name(b.getName()), _grade(b.getGrade()) {}
 
 Bureaucrat::~Bureaucrat() throw() {}
 
@@ -22,18 +20,18 @@ Bureaucrat &Bureaucrat::operator=(const Bureaucrat &b)
     return (*this);
 }
 
-void  Bureaucrat::increaseGrade(int inc)
+void  Bureaucrat::decreaseGrade(int inc)
 {
     if (inc + _grade > 150)
-        GradeTooHighException();
+        GradeTooLowException();
     _grade += inc;
 
 }
 
-void  Bureaucrat::decreaseGrade(int dec)
+void  Bureaucrat::increaseGrade(int dec)
 {
     if (_grade - dec < 1)
-        GradeTooLowException();
+        throw GradeTooHighException();
     _grade -= dec;
 }
 
@@ -49,12 +47,12 @@ int Bureaucrat::getGrade(void) const
 
 int Bureaucrat::GradeTooHighException(void)
 {
-    throw std::out_of_range("Too large number");
+    throw std::out_of_range("Bureaucrat has too high Grade");
 }
 
 int Bureaucrat::GradeTooLowException(void)
 {
-    throw std::out_of_range("Too small number");
+    throw std::out_of_range("Bureaucrat has too Low Grade");
 }
 
 void Bureaucrat::signForm(Form &f)
@@ -62,11 +60,11 @@ void Bureaucrat::signForm(Form &f)
     try
     {
         f.beSigned(*this);
-        std::cout << getName() << " signs " << f.get_name() << std::endl;
+        std::cout << getName() << " signed " << f.get_name() << std::endl;
     }
     catch(std::exception &e)
     {
-        std::cout << getName() << " cannot sign " << f.get_name() << " because " << getName() << "'s grade too row" << std::endl;
+        std::cerr << e.what() << std::endl;
     }
 }
 
@@ -79,7 +77,7 @@ void Bureaucrat::executeForm(const Form &f) const
     }
     catch(std::exception &e)
     {
-        std::cout << getName() << " cannot execute " << f.get_name() << " because " << getName() << "'s grade too row" << std::endl;
+        std::cerr << e.what() << std::endl;
     }
 }
 

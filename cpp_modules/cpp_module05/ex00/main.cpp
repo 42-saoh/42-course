@@ -9,7 +9,7 @@ int main()
     }
     catch (std::exception &e)
     {
-        std::cout << e.what() << std::endl;
+        std::cerr << e.what() << std::endl;
     }
     std::cout << "----------" << std::endl;
     try
@@ -19,7 +19,7 @@ int main()
     }
     catch (std::exception &e)
     {
-        std::cout << e.what() << std::endl;
+        std::cerr << e.what() << std::endl;
     }
     std::cout << "----------" << std::endl;
     try
@@ -30,18 +30,18 @@ int main()
     }
     catch (std::exception &e)
     {
-        std::cout << e.what() << std::endl;
+        std::cerr << e.what() << std::endl;
     }
     std::cout << "----------" << std::endl;
     try
     {
         Bureaucrat b("saoh", 1);
         std::cout << b << std::endl;
-        b.decreaseGrade(1);
+        b.increaseGrade(1);
     }
     catch (std::exception &e)
     {
-        std::cout << e.what() << std::endl;
+        std::cerr << e.what() << std::endl;
     }
     std::cout << "----------" << std::endl;
     try
@@ -50,10 +50,13 @@ int main()
         std::cout << b << std::endl;
         Bureaucrat c(b);
         std::cout << c << std::endl;
-        c.decreaseGrade(1);
+        Bureaucrat d;
+        d = c;
+        std::cout << d << std::endl;
+        c.increaseGrade(1);
     }
     catch (std::exception &e)
     {
-        std::cout << e.what() << std::endl;
+        std::cerr << e.what() << std::endl;
     }
 }

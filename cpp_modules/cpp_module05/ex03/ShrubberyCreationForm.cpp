@@ -1,13 +1,10 @@
 #include "ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm() : Form("ShrubberyCreation", 25), _target("") {}
+ShrubberyCreationForm::ShrubberyCreationForm() : Form("ShrubberyCreation", 25, 5), _target("") {}
 
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : Form("ShrubberyCreation", 25), _target(target) {}
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : Form("ShrubberyCreation", 25, 5), _target(target) {}
 
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &p) : Form("ShrubberyCreation", 25)
-{
-    (*this) = p;
-}
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &p) : Form("ShrubberyCreation", 25, 5), _target(p._target) {}
 
 void ShrubberyCreationForm::action(void) const
 {
@@ -20,23 +17,15 @@ void ShrubberyCreationForm::action(void) const
     fs.close();
 }
 
-void ShrubberyCreationForm::execute(const Bureaucrat &executor) const
-{
-    if (executor.getGrade() <= get_grade())
-        action();
-    else
-        GradeTooLowException();
-}
-
 ShrubberyCreationForm::~ShrubberyCreationForm() throw() {}
+
+void ShrubberyCreationForm::get_target(const std::string &target)
+{
+    _target = target;
+}
 
 ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationForm &p)
 {
     _target = p._target;
     return (*this);
-}
-
-void ShrubberyCreationForm::get_target(const std::string &target)
-{
-    _target = target;
 }

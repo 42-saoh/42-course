@@ -1,5 +1,5 @@
 NAME	= convert
-CXXFLAGS	= -Wall -Wextra -Werror
+CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
 
 SRC 	= main.cpp convert.cpp
 

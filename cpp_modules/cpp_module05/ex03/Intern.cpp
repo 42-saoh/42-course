@@ -1,14 +1,24 @@
 #include "Intern.hpp"
 
-Intern::Intern() {}
+Intern::Intern()
+{
+    form_name[0] = "robotomy";
+    form_name[1] = "presidential";
+    form_name[2] = "shrubbery";
+}
+
 Intern::Intern(const Intern &i)
 {
-    (*this) = i;
+    form_name[0] = "robotomy";
+    form_name[1] = "presidential";
+    form_name[2] = "shrubbery";
 }
+
 Intern &Intern::operator=(const Intern &i)
 {
-    i.nothing();
-    return (*this);
+    form_name[0] = "robotomy";
+    form_name[1] = "presidential";
+    form_name[2] = "shrubbery";
 }
 
 Intern::~Intern() {}
@@ -36,7 +46,6 @@ void Intern::nothing(void) const {}
 Form *Intern::makeForm(const std::string &f_name, const std::string &target)
 {
     Form *(Intern::*make_form[])() = {&Intern::RoboF, &Intern::PresF, &Intern::ShruF};
-    std::string form_name[3] = {"robotomy", "presidential", "shrubbery"};
 
     for (int i = 0; i < 3; i++)
     {
@@ -48,6 +57,6 @@ Form *Intern::makeForm(const std::string &f_name, const std::string &target)
             return (result);
         }
     }
-    std::cout << "Intern doesn't create " << f_name << " becuase the requested form is not known" << std::endl;
+    std::cerr << "Intern doesn't create " << f_name << " becuase the requested form is not known" << std::endl;
     return (0);
 }

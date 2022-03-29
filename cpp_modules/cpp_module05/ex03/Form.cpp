@@ -1,34 +1,44 @@
 #include "Form.hpp"
 
-Form::Form(const std::string name, int grade) : _name(name), _grade(grade), is_signed(false)
+Form::Form()
+    : _name("default"), _signed_grade(150), _execute_grade(150), is_signed(false) {}
+
+Form::Form(const std::string name, int s_grade, int e_grade)
+    : _name(name), _signed_grade(s_grade), _execute_grade(e_grade), is_signed(false)
 {
-    if (_grade < 1)
-        GradeTooLowException();
-    else if (_grade > 150)
-        GradeTooHighException();
+    if (s_grade < 1)
+        GradeTooHighException("Form has too high execute grade");
+    else if (s_grade > 150)
+        GradeTooLowException("Form has too low signed grade");
+    if (e_grade < 1)
+        GradeTooHighException("Form has too high execute grade");
+    else if (e_grade > 150)
+        GradeTooLowException("Form has too low execute grade");
 }
 
-Form::Form(const Form &f) : _name(""), _grade(0), is_signed(false)
-{
-    (*this) = f;
-}
+Form::Form(const Form &f) : _name(f.get_name()), _signed_grade(f.get_signed_grade()) \
+    , _execute_grade(f.get_execute_grade()), is_signed(get_is_signed()) {}
 
 Form::~Form() throw() {}
 
 Form &Form::operator=(const Form &f)
 {
-    is_signed = f.is_signed;
-    const_cast<int &>(_grade) = f._grade;
-    const_cast<std::string &>(_name) = f._name;
+    is_signed = f.get_is_signed();
+    const_cast<int &>(_signed_grade) = f.get_signed_grade();
+    const_cast<int &>(_execute_grade) = f.get_execute_grade();
+    const_cast<std::string &>(_name) = f.get_name();
     return (*this);
 }
 
 void Form::beSigned(const Bureaucrat &b)
 {
-    if (b.getGrade() < get_grade())
+    if (b.getGrade() < get_signed_grade())
         is_signed = true;
     else
-        GradeTooLowException();
+    {
+        std::string error_msg = b.getName() + " couldn’t sign " + get_name() + " because " + b.getName() + "'s grade too row";
+        GradeTooLowException(error_msg);
+    }
 }
 
 std::string Form::get_name(void) const
@@ -41,19 +51,43 @@ bool Form::get_is_signed(void) const
     return (is_signed);
 }
 
-int Form::get_grade(void) const
+int Form::get_signed_grade(void) const
 {
-    return (_grade);
+    return (_signed_grade);
 }
 
-int Form::GradeTooHighException(void)
+int Form::get_execute_grade(void) const
 {
-    throw std::out_of_range("Too large number");
+    return (_execute_grade);
 }
 
-int Form::GradeTooLowException(void)
+void Form::execute(const Bureaucrat &executor) const
 {
-    throw std::out_of_range("Too small number");
+    if (is_signed == false)
+        NotSigned();
+    if (executor.getGrade() <= get_execute_grade())
+        action();
+    else
+    {
+        std::string error_msg = executor.getName() + " couldn’t execute " + get_name() + " because " + executor.getName() + "'s grade too row";
+        GradeTooLowException(error_msg);
+    }
+}
+
+int Form::NotSigned(void)
+{
+    throw std::logic_error("Form is not signed");
+}
+
+int Form::GradeTooHighException(std::string s)
+{
+    throw std::out_of_range(s);
+}
+
+int Form::GradeTooLowException(std::string s)
+{
+    
+    throw std::out_of_range(s);
 }
 
 std::ostream &operator<<(std::ostream &os, const Form &f)
@@ -63,6 +97,7 @@ std::ostream &operator<<(std::ostream &os, const Form &f)
         os << "signed and ";
     else
         os << "not signed and ";
-    os << f.get_name() << "'s grade is " << f.get_grade(); 
+    os << f.get_name() << "'s signed grade is " << f.get_signed_grade() \
+        << " and execute grade is " << f.get_execute_grade();
     return (os);
 }

@@ -8,9 +8,7 @@ convert::convert(const std::string &str) : s(str), val(0.0), _is_error(false), _
 }
 
 convert::convert(const convert &c)
-{
-    (*this) = c;
-}
+    : s(c.s), val(c.val), _is_error(c._is_error), _is_nan(c._is_nan), _is_inf(c._is_inf), _is_exist_val(c._is_exist_val) {}
 
 convert &convert::operator=(const convert &c)
 {
@@ -30,26 +28,17 @@ void convert::get_val()
         char *remainder;
         val = std::strtod(s.c_str(), &remainder);
         if (val == 0.0 && (s[0] != '-' && s[0] != '+' && !std::isdigit(s[0])))
-            throw (0);
+            throw std::invalid_argument("Enter the correct number.");
         else if (*remainder && std::strcmp(remainder, "f"))
-            throw (1);
+            throw std::invalid_argument("Enter the correct number.");
         if (std::isnan(val))
             _is_nan = true;
         if (std::isinf(val))
             _is_inf = true;
     }
-    catch(int i)
+    catch(std::exception &e)
     {
-        switch (i)
-        {
-            case 0:
-                std::cout << "Enter the number." << std::endl;
-                break ;
-            
-            case 1:
-                std::cout << "Enter the correct number." << std::endl;
-                break ;
-        }
+        std::cout << e.what() << std::endl;
         _is_error = true;
     }
 }
@@ -92,7 +81,10 @@ void convert::toi()
 void convert::tof()
 {
     if (_is_exist_val)
-        std::cout << "float: " << static_cast<float>(val) << "f" << std::endl;
+    {
+        float p_val = val;
+        std::cout << "float: " << p_val << "f" << std::endl;
+    }
     else
         std::cout << "You have no value" << std::endl;
 }
@@ -101,7 +93,8 @@ void convert::tod()
 {
     if (_is_exist_val)
     {
-        std::cout << "double: " << val << std::endl;
+        double p_val = val;
+        std::cout << "double: " << p_val << std::endl;
     }
     else
         std::cout << "You have no value" << std::endl;

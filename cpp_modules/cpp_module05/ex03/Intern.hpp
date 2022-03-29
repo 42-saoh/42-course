@@ -10,6 +10,7 @@ class Intern
         Form *RoboF(void);
         Form *PresF(void);
         Form *ShruF(void);
+        std::string form_name[3];
 
     public:
         Intern();

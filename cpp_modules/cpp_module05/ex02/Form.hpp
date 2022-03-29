@@ -10,21 +10,27 @@ class Form : std::exception
 {
     private:
         const std::string _name;
-        const int _grade;
+        const int _signed_grade;
+        const int _execute_grade;
         bool is_signed;
+        Form &operator=(const Form &f);
 
     public:
-        static int GradeTooHighException(void);
+        static int GradeTooHighException(std::string s);
+        static int GradeTooLowException(std::string s);
         static int GradeTooLowException(void);
-        Form(const std::string name, int _grade);
+        static int NotSigned(void);
+        Form();
+        Form(const std::string name, int s_grade, int e_grade);
         Form(const Form &f);
         virtual ~Form() throw();
-        Form &operator=(const Form &f);
         void beSigned(const Bureaucrat &b);
         std::string get_name(void) const;
         bool get_is_signed(void) const;
-        int get_grade(void) const;
-        virtual void execute(const Bureaucrat &executor) const = 0;
+        int get_signed_grade(void) const;
+        int get_execute_grade(void) const;
+        void execute(const Bureaucrat &executor) const;
+        virtual void action(void) const = 0;
 };
 
 std::ostream &operator<<(std::ostream &os, const Form &b);

@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Array.hpp"
 
-#define MAX_VAL 750
+#define MAX_VAL 150
 int main(int, char**)
 {
     Array<int> numbers(MAX_VAL);
@@ -27,6 +27,7 @@ int main(int, char**)
     }
     try
     {
+        mirror[-2] = 0;
         numbers[-2] = 0;
     }
     catch(const std::exception& e)
@@ -35,16 +36,12 @@ int main(int, char**)
     }
     try
     {
+        mirror[MAX_VAL] = 0;
         numbers[MAX_VAL] = 0;
     }
     catch(const std::exception& e)
     {
         std::cerr << e.what() << '\n';
-    }
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        std::cout << "number " << i << " : " << numbers[i] << std::endl;
-        std::cout << "mirror " << i << " : " << mirror[i] << std::endl;
     }
     for (int i = 0; i < MAX_VAL; i++)
     {
