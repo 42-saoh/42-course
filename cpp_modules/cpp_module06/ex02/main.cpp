@@ -1,15 +1,12 @@
 #include "A.hpp"
 #include "B.hpp"
 #include "C.hpp"
-# include <ctime>
 # include <cstdlib>
 
 Base *generate(void)
 {
-    time_t time_now;
+    int i = (rand()) % 3;
 
-    time(&time_now);
-    int i = (time_now + rand()) % 3;
     switch (i)
     {
         case 0:
