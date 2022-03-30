@@ -1,7 +1,7 @@
 NAME	= Bureaucrat
 CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
 
-SRC 	= main.cpp Bureaucrat.cpp
+SRC 	= main.cpp GradeTooLowException.cpp GradeTooHighException.cpp Bureaucrat.cpp
 
 SRCDIR	= ./
 SRCS	= $(addprefix $(SRCDIR), $(SRC))

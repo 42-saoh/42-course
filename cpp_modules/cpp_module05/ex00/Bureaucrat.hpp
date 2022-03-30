@@ -3,16 +3,16 @@
 # include <string>
 # include <iostream>
 # include <exception>
+# include "GradeTooHighException.hpp"
+# include "GradeTooLowException.hpp"
 
-class Bureaucrat : public std::exception
+class Bureaucrat : public GradeTooHighException, public GradeTooLowException
 {
     private:
         const std::string _name;
         int _grade;
 
     public:
-        static int GradeTooHighException(void);
-        static int GradeTooLowException(void);
         Bureaucrat();
         Bureaucrat(const std::string name, int grade);
         Bureaucrat(const Bureaucrat &b);
