@@ -47,7 +47,7 @@ long Span::shortestSpan(void)
 {
     if (size() < 2)
         throw std::runtime_error("Span have Too few val");
-    long result = -4294967296;
+    long result = -2147483648;
     for (std::vector<int>::iterator iter = vec.begin(); iter != vec.end() - 1; iter++)
     {
         if (*iter - *(iter + 1) > result)
