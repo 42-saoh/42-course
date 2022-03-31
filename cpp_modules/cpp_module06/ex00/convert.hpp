@@ -4,7 +4,7 @@
 # include <iostream>
 # include <cmath>
 
-class convert
+class Convert
 {
     private:
         std::string s;
@@ -15,11 +15,11 @@ class convert
         bool _is_exist_val;
 
     public:
-        convert();
-        convert(const std::string &str);
-        convert(const convert &c);
-        ~convert();
-        convert &operator=(const convert &c);
+        Convert();
+        Convert(const std::string &str);
+        Convert(const Convert &c);
+        ~Convert();
+        Convert &operator=(const Convert &c);
         void get_str(const std::string &str);
         void get_val();
         void tos();

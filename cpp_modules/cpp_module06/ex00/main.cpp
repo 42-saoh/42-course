@@ -1,4 +1,4 @@
-#include "convert.hpp"
+#include "Convert.hpp"
 
 int main(int argc, char **argv)
 {
@@ -7,7 +7,7 @@ int main(int argc, char **argv)
         std::cout << "Arguments error" << std::endl;
         return (0);
     }
-    convert c(argv[1]);
+    Convert c(argv[1]);
     if (c.is_error())
         return (0);
     c.tos();
