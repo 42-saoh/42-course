@@ -3,12 +3,12 @@
 int main()
 {
     {
-        Span sp = Span(10);
+        Span sp = Span(10000);
 
         srand(time(0));
-        for(int i = 0; i < 10; i++)
+        for(int i = 0; i < 10000; i++)
         {
-            sp.addNumber(std::rand() % 10000);
+            sp.addNumber(std::rand());
         }
 
         sp.print_all();
@@ -20,7 +20,7 @@ int main()
     std::vector<int> vec;
     for (int i = 0; i < 10; i++)
     {
-        vec.push_back(std::rand() % 10000);
+        vec.push_back(std::rand() % 1000);
     }
     sp.addNumber(vec.begin(), vec.end());
     sp.print_all();
