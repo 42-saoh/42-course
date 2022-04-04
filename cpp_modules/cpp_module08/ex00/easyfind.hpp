@@ -5,18 +5,7 @@
 # include <list>
 # include <vector>
 # include <deque> 
-
-template <typename Iter>
-Iter hard_find(Iter begin, Iter end, int i)
-{
-    while (begin != end)
-    {
-        if (*begin == i)
-            break ;
-        begin++;
-    }
-    return (begin);
-}
+# include <algorithm>
 
 void add_string(int i, std::string &msg)
 {
@@ -42,7 +31,7 @@ void add_string(int i, std::string &msg)
 template <typename T>
 typename T::iterator easyfind(T &array, int i)
 {
-    typename T::iterator a = hard_find(array.begin(), array.end(), i);
+    typename T::iterator a = find(array.begin(), array.end(), i);
     if (a == array.end())
     {
         std::string msg = "don't have value : ";

@@ -3,10 +3,7 @@
 Span::Span() : _capacity(0), _size(0) {}
 Span::Span(unsigned int n) : _capacity(n), _size(0) {}
 Span::~Span() {}
-Span::Span(const Span &s)
-{
-    (*this) = s;
-}
+Span::Span(const Span &s) : vec(s.vec), _capacity(s._capacity), _size(s._size) {}
 
 Span &Span::operator=(const Span &s)
 {
@@ -25,7 +22,11 @@ void Span::addNumber(std::vector<int>::iterator start, std::vector<int>::iterato
 {
     while(start < end)
     {
-        addNumber(*start);
+        if (size() == capacity())
+            throw std::runtime_error("Put too many val");
+        std::vector<int>::iterator iter = std::find_first_of(vec.begin(), vec.end(), start, start + 1, is_big);
+        vec.insert(iter, *start);
+        _size++;
         start++;
     }
 }

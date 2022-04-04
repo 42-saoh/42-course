@@ -5,6 +5,7 @@ int main()
     {
         Span sp = Span(10);
 
+        srand(time(0));
         for(int i = 0; i < 10; i++)
         {
             sp.addNumber(std::rand() % 10000);
