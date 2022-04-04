@@ -1,8 +1,9 @@
-#include "mutantstack.hpp"
+#include "MutantStack.hpp"
+#include <list>
 
 int main()
 {
-    mutantstack<int> mstack;
+    MutantStack<int> mstack;
 
     mstack.push(10);
     mstack.push(20);
@@ -13,13 +14,54 @@ int main()
     mstack.push(70);
     mstack.push(80);
 
-    for(mutantstack<int>::iterator start = mstack.begin(); start < mstack.end(); start++)
+    std::cout << mstack.top() << std::endl;
+    mstack.pop();
+    std::cout << mstack.size() << std::endl;
+    std::cout << "----------------" << std::endl;
+    MutantStack<int>::iterator it = mstack.begin();
+    MutantStack<int>::iterator ite = mstack.end();
+    ++it;
+    --it;
+    while (it != ite)
+    {
+        std::cout << *it << std::endl;
+        ++it;
+    }
+    std::cout << "----------------" << std::endl;
+    for(MutantStack<int>::reverse_iterator start = mstack.rbegin(); start < mstack.rend(); start++)
     {
         std::cout << *start << std::endl;
     }
     std::cout << "----------------" << std::endl;
-    for(mutantstack<int>::reverse_iterator start = mstack.rbegin(); start < mstack.rend(); start++)
+    std::stack<int> s(mstack);
+    std::cout << s.top() << std::endl;
+    s.pop();
+    std::cout << s.size() << std::endl;
+    std::cout << "----------------" << std::endl;
     {
-        std::cout << *start << std::endl;
+        std::list<int> a;
+
+        a.push_back(10);
+        a.push_back(20);
+        a.push_back(30);
+        a.push_back(40);
+        a.push_back(50);
+        a.push_back(60);
+        a.push_back(70);
+        a.push_back(80);
+
+        std::cout << *(--a.end()) << std::endl;
+        a.pop_back();
+        std::cout << a.size() << std::endl;
+        std::cout << "----------------" << std::endl;
+        std::list<int>::iterator it = a.begin();
+        std::list<int>::iterator ite = a.end();
+        ++it;
+        --it;
+        while (it != ite)
+        {
+            std::cout << *it << std::endl;
+            ++it;
+        }
     }
 }

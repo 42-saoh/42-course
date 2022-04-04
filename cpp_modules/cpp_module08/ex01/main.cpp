@@ -1,4 +1,4 @@
-#include "span.hpp"
+#include "Span.hpp"
 
 int main()
 {
@@ -16,7 +16,7 @@ int main()
         std::cout << sp.longestSpan() << std::endl;
     }
     std::cout << "--------------------" << std::endl;
-    Span sp(10);
+    Span sp(20);
     std::vector<int> vec;
     for (int i = 0; i < 10; i++)
     {
@@ -31,4 +31,21 @@ int main()
     w.print_all();
     std::cout << w.shortestSpan() << std::endl;
     std::cout << w.longestSpan() << std::endl;
+    try
+    {
+        w.addNumber(vec.begin(), vec.end());
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+    try
+    {
+        Span ss(9);
+        ss.addNumber(vec.begin(), vec.end());
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
 }

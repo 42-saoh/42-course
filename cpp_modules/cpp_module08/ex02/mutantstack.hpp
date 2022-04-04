@@ -5,13 +5,13 @@
 # include <algorithm>
 
 template <typename T>
-class mutantstack : public std::stack<T>
+class MutantStack : public std::stack<T>
 {
     public:
-        mutantstack() : std::stack<T>() {}
-        mutantstack(const mutantstack &m) : std::stack<T>(m) {}
-        ~mutantstack() {}
-        mutantstack &operator=(const mutantstack &m)
+        MutantStack() : std::stack<T>() {}
+        MutantStack(const MutantStack &m) : std::stack<T>(m) {}
+        ~MutantStack() {}
+        MutantStack &operator=(const MutantStack &m)
         {
             static_cast<std::stack<T> >(*this) = static_cast<std::stack<T> >(m);
             return (*this);

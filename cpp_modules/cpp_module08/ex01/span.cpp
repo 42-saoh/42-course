@@ -1,4 +1,4 @@
-#include "span.hpp"
+#include "Span.hpp"
 
 Span::Span() : _capacity(0), _size(0) {}
 Span::Span(unsigned int n) : _capacity(n), _size(0) {}
@@ -18,12 +18,15 @@ bool is_big(int i, int j)
     return (i > j);
 }
 
+
 void Span::addNumber(std::vector<int>::iterator start, std::vector<int>::iterator end)
 {
     while(start < end)
     {
         if (size() == capacity())
             throw std::runtime_error("Put too many val");
+        if (vec.end() != std::find(vec.begin(), vec.end(), *start))
+            throw std::runtime_error("Put same value");
         std::vector<int>::iterator iter = std::find_first_of(vec.begin(), vec.end(), start, start + 1, is_big);
         vec.insert(iter, *start);
         _size++;
@@ -37,6 +40,8 @@ void Span::addNumber(int val)
 
     if (size() == capacity())
         throw std::runtime_error("Put too many val");
+    if (vec.end() != std::find(vec.begin(), vec.end(), val))
+        throw std::runtime_error("Put same value");
     _val[0] = val;
     _val[1] = 0;
     std::vector<int>::iterator iter = std::find_first_of(vec.begin(), vec.end(), _val, _val + 1, is_big);
