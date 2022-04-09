@@ -17,11 +17,12 @@ class Array
         {
             content = new T[_size];
         }
-        Array(const Array &a) : _size(a._size)
+        Array(const Array &a) : _size(a.size())
         {
-            content = new T[_size];
+            T *temp = new T[_size];
             for (unsigned int i = 0; i < a.size(); i++)
-                content[i] = a[i];
+                temp[i] = a[i];
+            content = temp;
         }
         ~Array()
         {

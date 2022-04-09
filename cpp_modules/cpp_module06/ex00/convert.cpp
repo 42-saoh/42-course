@@ -1,16 +1,16 @@
-#include "convert.hpp"
+#include "Convert.hpp"
 
-convert::convert() : s(""), val(0.0), _is_error(false), _is_nan(false), _is_inf(false), _is_exist_val(false) {}
-convert::~convert() {}
-convert::convert(const std::string &str) : s(str), val(0.0), _is_error(false), _is_nan(false), _is_inf(false), _is_exist_val(true)
+Convert::Convert() : s(""), val(0.0), _is_error(false), _is_nan(false), _is_inf(false), _is_exist_val(false) {}
+Convert::~Convert() {}
+Convert::Convert(const std::string &str) : s(str), val(0.0), _is_error(false), _is_nan(false), _is_inf(false), _is_exist_val(true)
 {
     get_val();
 }
 
-convert::convert(const convert &c)
+Convert::Convert(const Convert &c)
     : s(c.s), val(c.val), _is_error(c._is_error), _is_nan(c._is_nan), _is_inf(c._is_inf), _is_exist_val(c._is_exist_val) {}
 
-convert &convert::operator=(const convert &c)
+Convert &Convert::operator=(const Convert &c)
 {
     s = c.s;
     val = c.val;
@@ -21,7 +21,7 @@ convert &convert::operator=(const convert &c)
     return (*this);
 }
 
-void convert::get_val()
+void Convert::get_val()
 {
     try
     {
@@ -43,12 +43,12 @@ void convert::get_val()
     }
 }
 
-void convert::get_str(const std::string &str)
+void Convert::get_str(const std::string &str)
 {
     s = str;
 }
 
-void convert::tos()
+void Convert::tos()
 {
     if (_is_exist_val)
     {
@@ -64,7 +64,7 @@ void convert::tos()
         std::cout << "You have no value" << std::endl;
 }
 
-void convert::toi()
+void Convert::toi()
 {
     if (_is_exist_val)
     {
@@ -78,29 +78,33 @@ void convert::toi()
         std::cout << "You have no value" << std::endl;
 }
 
-void convert::tof()
+void Convert::tof()
 {
     if (_is_exist_val)
     {
-        float p_val = val;
-        std::cout << "float: " << p_val << "f" << std::endl;
+        if (val - ceil(val))
+            std::cout << "float: " << static_cast<float>(val) << "f" << std::endl;
+        else
+            std::cout << "float: " << static_cast<float>(val) << ".0f" << std::endl;
     }
     else
         std::cout << "You have no value" << std::endl;
 }
 
-void convert::tod()
+void Convert::tod()
 {
     if (_is_exist_val)
     {
-        double p_val = val;
-        std::cout << "double: " << p_val << std::endl;
+        if (val - ceil(val))
+            std::cout << "double: " << val << std::endl;
+        else
+            std::cout << "double: " << val << ".0" << std::endl;
     }
     else
         std::cout << "You have no value" << std::endl;
 }
 
-bool convert::is_error(void)
+bool Convert::is_error(void)
 {
     return (_is_error);
 }

@@ -1,10 +1,12 @@
 #include "A.hpp"
 #include "B.hpp"
 #include "C.hpp"
-# include <cstdlib>
+#include <cstdlib>
+#include <ctime> 
 
 Base *generate(void)
 {
+    srand(time(0));
     int i = (rand()) % 3;
 
     switch (i)

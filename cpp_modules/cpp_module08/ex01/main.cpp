@@ -1,13 +1,14 @@
-#include "span.hpp"
+#include "Span.hpp"
 
 int main()
 {
     {
-        Span sp = Span(10);
+        Span sp = Span(10000);
 
-        for(int i = 0; i < 10; i++)
+        srand(time(0));
+        for(int i = 0; i < 10000; i++)
         {
-            sp.addNumber(std::rand() % 10000);
+            sp.addNumber(std::rand());
         }
 
         sp.print_all();
@@ -15,11 +16,11 @@ int main()
         std::cout << sp.longestSpan() << std::endl;
     }
     std::cout << "--------------------" << std::endl;
-    Span sp(10);
+    Span sp(20);
     std::vector<int> vec;
     for (int i = 0; i < 10; i++)
     {
-        vec.push_back(std::rand() % 10000);
+        vec.push_back(std::rand() % 1000);
     }
     sp.addNumber(vec.begin(), vec.end());
     sp.print_all();
@@ -30,4 +31,21 @@ int main()
     w.print_all();
     std::cout << w.shortestSpan() << std::endl;
     std::cout << w.longestSpan() << std::endl;
+    try
+    {
+        w.addNumber(vec.begin(), vec.end());
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+    try
+    {
+        Span ss(9);
+        ss.addNumber(vec.begin(), vec.end());
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
 }

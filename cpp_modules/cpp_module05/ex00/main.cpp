@@ -26,7 +26,7 @@ int main()
     {
         Bureaucrat b("saoh", 150);
         std::cout << b << std::endl;
-        b.increaseGrade(1);
+        b.decreaseGrade(1);
     }
     catch (std::exception &e)
     {

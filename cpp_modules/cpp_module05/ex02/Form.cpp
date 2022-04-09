@@ -7,13 +7,13 @@ Form::Form(const std::string name, int s_grade, int e_grade)
     : _name(name), _signed_grade(s_grade), _execute_grade(e_grade), is_signed(false)
 {
     if (s_grade < 1)
-        GradeTooHighException("Form has too high execute grade");
+        throw GradeTooHighException();
     else if (s_grade > 150)
-        GradeTooLowException("Form has too low signed grade");
+        throw GradeTooLowException();
     if (e_grade < 1)
-        GradeTooHighException("Form has too high execute grade");
+        throw GradeTooHighException();
     else if (e_grade > 150)
-        GradeTooLowException("Form has too low execute grade");
+        throw GradeTooLowException();
 }
 
 Form::Form(const Form &f) : _name(f.get_name()), _signed_grade(f.get_signed_grade()) \
@@ -35,11 +35,9 @@ void Form::beSigned(const Bureaucrat &b)
     if (b.getGrade() < get_signed_grade())
         is_signed = true;
     else
-    {
-        std::string error_msg = b.getName() + " couldn’t sign " + get_name() + " because " + b.getName() + "'s grade too row";
-        GradeTooLowException(error_msg);
-    }
+        throw GradeTooLowException();
 }
+
 
 std::string Form::get_name(void) const
 {
@@ -64,30 +62,11 @@ int Form::get_execute_grade(void) const
 void Form::execute(const Bureaucrat &executor) const
 {
     if (is_signed == false)
-        NotSigned();
+        throw NotSign();
     if (executor.getGrade() <= get_execute_grade())
         action();
     else
-    {
-        std::string error_msg = executor.getName() + " couldn’t execute " + get_name() + " because " + executor.getName() + "'s grade too row";
-        GradeTooLowException(error_msg);
-    }
-}
-
-int Form::NotSigned(void)
-{
-    throw std::logic_error("Form is not signed");
-}
-
-int Form::GradeTooHighException(std::string s)
-{
-    throw std::out_of_range(s);
-}
-
-int Form::GradeTooLowException(std::string s)
-{
-    
-    throw std::out_of_range(s);
+        throw GradeTooLowException();
 }
 
 std::ostream &operator<<(std::ostream &os, const Form &f)

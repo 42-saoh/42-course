@@ -9,16 +9,17 @@ Intern::Intern()
 
 Intern::Intern(const Intern &i)
 {
-    form_name[0] = "robotomy";
-    form_name[1] = "presidential";
-    form_name[2] = "shrubbery";
+    form_name[0] = i.form_name[0];
+    form_name[1] = i.form_name[1];
+    form_name[2] = i.form_name[2];
 }
 
 Intern &Intern::operator=(const Intern &i)
 {
-    form_name[0] = "robotomy";
-    form_name[1] = "presidential";
-    form_name[2] = "shrubbery";
+    form_name[0] = i.form_name[0];
+    form_name[1] = i.form_name[1];
+    form_name[2] = i.form_name[2];
+    return (*this);
 }
 
 Intern::~Intern() {}

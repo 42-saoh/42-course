@@ -13,6 +13,7 @@ int main()
     rrf = someRandomIntern.makeForm("robotomy request", "Bender");
     if (rrf)
     {
+        b.signForm(*rrf);
         b.executeForm(*rrf);
         delete rrf;
     }
@@ -21,6 +22,7 @@ int main()
     rrf = someRandomIntern.makeForm("presidential pardon", "Bender");
     if (rrf)
     {
+        b.signForm(*rrf);
         b.executeForm(*rrf);
         delete rrf;
     }
@@ -29,6 +31,7 @@ int main()
     rrf = someRandomIntern.makeForm("shrubbery creation", "Bender");
     if (rrf)
     {
+        b.signForm(*rrf);
         b.executeForm(*rrf);
         delete rrf;
     }
@@ -38,6 +41,7 @@ int main()
     rrf = someRandomIntern.makeForm("ssdfjio", "Bender");
     if (rrf)
     {
+        b.signForm(*rrf);
         b.executeForm(*rrf);
         delete rrf;
     }

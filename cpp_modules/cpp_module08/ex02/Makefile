@@ -1,4 +1,4 @@
-NAME	= mutantstack
+NAME	= MutantStack
 CXXFLAGS	= -Wall -Wextra -Werror
 
 SRC 	= main.cpp

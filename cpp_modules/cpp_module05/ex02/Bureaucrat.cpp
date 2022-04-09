@@ -45,16 +45,6 @@ int Bureaucrat::getGrade(void) const
     return (_grade);
 }
 
-int Bureaucrat::GradeTooHighException(void)
-{
-    throw std::out_of_range("Bureaucrat has too high Grade");
-}
-
-int Bureaucrat::GradeTooLowException(void)
-{
-    throw std::out_of_range("Bureaucrat has too Low Grade");
-}
-
 void Bureaucrat::signForm(Form &f)
 {
     try
@@ -64,7 +54,7 @@ void Bureaucrat::signForm(Form &f)
     }
     catch(std::exception &e)
     {
-        std::cerr << e.what() << std::endl;
+        std::cerr << getName() << " couldn’t sign " << f.get_name() << " because " << e.what() << std::endl;
     }
 }
 
@@ -77,7 +67,7 @@ void Bureaucrat::executeForm(const Form &f) const
     }
     catch(std::exception &e)
     {
-        std::cerr << e.what() << std::endl;
+        std::cerr << getName() << " couldn’t execute " << f.get_name() << " because " << e.what() << std::endl;
     }
 }
 

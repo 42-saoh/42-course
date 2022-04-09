@@ -1,7 +1,7 @@
 NAME	= convert
 CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
 
-SRC 	= main.cpp convert.cpp
+SRC 	= main.cpp Convert.cpp
 
 SRCDIR	= ./
 SRCS	= $(addprefix $(SRCDIR), $(SRC))

@@ -3,10 +3,13 @@
 # include <string>
 # include <iostream>
 # include "Bureaucrat.hpp"
+# include "GradeTooHighException.hpp"
+# include "GradeTooLowException.hpp"
+# include "NotSign.hpp"
 
 class Bureaucrat;
 
-class Form : std::exception
+class Form : public GradeTooHighException, public GradeTooLowException, public NotSign
 {
     private:
         const std::string _name;
@@ -16,10 +19,6 @@ class Form : std::exception
         Form &operator=(const Form &f);
 
     public:
-        static int GradeTooHighException(std::string s);
-        static int GradeTooLowException(std::string s);
-        static int GradeTooLowException(void);
-        static int NotSigned(void);
         Form();
         Form(const std::string name, int s_grade, int e_grade);
         Form(const Form &f);

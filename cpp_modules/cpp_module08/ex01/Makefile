@@ -1,7 +1,7 @@
-NAME	= span
+NAME	= Span
 CXXFLAGS	= -Wall -Wextra -Werror
 
-SRC 	= main.cpp span.cpp
+SRC 	= main.cpp Span.cpp
 
 SRCDIR	= ./
 SRCS	= $(addprefix $(SRCDIR), $(SRC))

@@ -16,6 +16,16 @@ int main(int, char**)
     {
         Array<int> tmp = numbers;
         Array<int> test(tmp);
+        for (int i = 0; i < 10; i++)
+        {
+            std::cout << test[i] << std::endl;
+            std::cout << tmp[i] << std::endl;
+            std::cout << numbers[i] << std::endl;
+            std::cout << mirror[i] << std::endl;
+        }
+        std::cout << test.size() << std::endl;
+        std::cout << tmp.size() << std::endl;
+        std::cout << numbers.size() << std::endl;
     }
     for (int i = 0; i < MAX_VAL; i++)
     {
@@ -27,7 +37,6 @@ int main(int, char**)
     }
     try
     {
-        mirror[-2] = 0;
         numbers[-2] = 0;
     }
     catch(const std::exception& e)
@@ -36,7 +45,6 @@ int main(int, char**)
     }
     try
     {
-        mirror[MAX_VAL] = 0;
         numbers[MAX_VAL] = 0;
     }
     catch(const std::exception& e)

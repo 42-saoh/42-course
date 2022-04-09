@@ -7,13 +7,13 @@ Form::Form(const std::string name, int s_grade, int e_grade)
     : _name(name), _signed_grade(s_grade), _execute_grade(e_grade), is_signed(false)
 {
     if (s_grade < 1)
-        GradeTooHighException("signed grade");
+        throw Form::GradeTooHighException();
     else if (s_grade > 150)
-        GradeTooLowException("signed grade");
+        throw Form::GradeTooLowException();
     if (e_grade < 1)
-        GradeTooHighException("execute grade");
+        throw Form::GradeTooHighException();
     else if (e_grade > 150)
-        GradeTooLowException("execute grade");
+        throw Form::GradeTooLowException();
 }
 
 Form::Form(const Form &f) : _name(f.get_name()), _signed_grade(f.get_signed_grade()) \
@@ -35,7 +35,7 @@ void Form::beSigned(const Bureaucrat &b)
     if (b.getGrade() < get_signed_grade())
         is_signed = true;
     else
-        GradeTooLowException();
+        throw Form::GradeTooLowException();
 }
 
 std::string Form::get_name(void) const
@@ -56,21 +56,6 @@ int Form::get_signed_grade(void) const
 int Form::get_execute_grade(void) const
 {
     return (_execute_grade);
-}
-
-int Form::GradeTooHighException(std::string s)
-{
-    throw std::out_of_range("Form has too high " + s);
-}
-
-int Form::GradeTooLowException(std::string s)
-{
-    throw std::out_of_range("Form has too low " + s);
-}
-
-int Form::GradeTooLowException(void)
-{
-    throw std::out_of_range("'s grade too row");
 }
 
 std::ostream &operator<<(std::ostream &os, const Form &f)

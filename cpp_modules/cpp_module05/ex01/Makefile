@@ -1,7 +1,7 @@
 NAME	= Form
 CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
 
-SRC 	= main.cpp Bureaucrat.cpp Form.cpp
+SRC 	= main.cpp GradeTooLowException.cpp GradeTooHighException.cpp Bureaucrat.cpp Form.cpp
 
 SRCDIR	= ./
 SRCS	= $(addprefix $(SRCDIR), $(SRC))
