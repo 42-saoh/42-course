@@ -5,10 +5,10 @@
 
 namespace ft
 {
-    class Stack
+    class stack
     {
         public:
-            Stack() { std::cout << "Stack" << std::endl; }
+            stack() { std::cout << "Stack" << std::endl; }
     };
 }
 

@@ -1,4 +1,4 @@
-#include "utils.hpp"
+#include "iterator.hpp"
 #include <iostream>
 #include <iterator>
 #include <vector> 
@@ -15,7 +15,7 @@ int main()
     v.push_back(3);
     v.push_back(4);
     v.push_back(5);
-    using RevIt = std::reverse_iterator<std::vector<int>::iterator>;
+    typedef std::reverse_iterator<std::vector<int>::iterator> RevIt;
 
     const std::vector<int>::iterator it = v.begin() + 3;
     {
@@ -45,6 +45,7 @@ int main()
         RevIt r_it2 = 1 + r_it;
 
         std::cout << "rit2 " << *r_it2 << std::endl;
+        std::cout << "rit " << *r_it << std::endl;
         std::cout << "value = " << r_it2 - r_it << std::endl;
 
         if (r_it < r_it2)
@@ -92,7 +93,7 @@ int main()
 
     std::cout << " ----------ft------------- " << std::endl;
     {
-        using Revft = ft::reverse_iterator<std::vector<int>::iterator>;
+        typedef ft::reverse_iterator<std::vector<int>::iterator> Revft;
         Revft r_ft(it);
 
         std::cout << "*it == " << *it << '\n'
@@ -119,7 +120,9 @@ int main()
         Revft r_ft2 = 1 + r_ft;
 
         std::cout << "rft2 " << *r_ft2 << std::endl;
+        std::cout << "rft " << *r_ft << std::endl;
         std::cout << "value = " << r_ft2 - r_ft << std::endl;
+
 
         if (r_ft < r_ft2)
             std::cout << " < " << std::endl;

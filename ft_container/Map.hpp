@@ -5,10 +5,10 @@
 
 namespace ft
 {
-    class Map
+    class map
     {
         public:
-            Map() { std::cout << "Map" << std::endl; }
+            map() { std::cout << "Map" << std::endl; }
     };
 }
 

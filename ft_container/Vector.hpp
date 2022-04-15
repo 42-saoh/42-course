@@ -72,7 +72,7 @@ namespace ft
     };
 
     template <class _Tp, class _Alloc = std::allocator<_Tp> >
-    class Vector : protected Vector_base<_Tp, _Alloc>
+    class vector : protected Vector_base<_Tp, _Alloc>
     {
         private:
             typedef Vector_base<_Tp, _Alloc> _Base;
@@ -118,14 +118,14 @@ namespace ft
             typedef size_t size_type;
             typedef ptrdiff_t difference_type;
 
-            Vector() : _Base() {}
-            explicit Vector(const allocator_type &_a) : _Base(_a) {}
-            explicit Vector(size_type _n, const value_type &_value = value_type(), const allocator_type &_a = allocator_type())
+            vector() : _Base() {}
+            explicit vector(const allocator_type &_a) : _Base(_a) {}
+            explicit vector(size_type _n, const value_type &_value = value_type(), const allocator_type &_a = allocator_type())
                 : _Base(_n, _a)
             {
                 _M_fill_initialize(_n, _value);
             }
-            Vector(const Vector &_x) : _Base(_x.size(), _x._M_get_Tp_allocator())
+            vector(const vector &_x) : _Base(_x.size(), _x._M_get_Tp_allocator())
             {
                 this->_M_impl._M_finish = std::__uninitialize_copy_a(_x.begin(), _x.end(), this->_M_impl._M_start, _M_get_Tp_allocator());
             }
