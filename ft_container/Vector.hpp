@@ -1,7 +1,7 @@
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
-# include <string>
-# include <iostream>
+# include "utils.hpp"
+# include "iterator.hpp"
 
 namespace ft
 {
@@ -97,23 +97,26 @@ namespace ft
                     _M_deallocate(_result, _n);
                     __throw_exception_again;
                 }
-                template<typename _Integer>
-                void _M_initial_dispatch(_Integer _n, _Integer _value, __true_type)
-                {
-                    this->_M_impl._M_start = _M_allocate(static_cast<size_type>(_n));
-                    this->_M_impl._M_end_of_storage = this->_M_impl._M_start + static_case<size_type>(_n);
-                    _M_fill_initailize(static_cast<size_type>(_n), _value);
-                }
             }
+            template<typename _Integer>
+            void _M_initial_dispatch(_Integer _n, _Integer _value, __true_type)
+            {
+                this->_M_impl._M_start = _M_allocate(static_cast<size_type>(_n));
+                this->_M_impl._M_end_of_storage = this->_M_impl._M_start + static_case<size_type>(_n);
+                _M_fill_initailize(static_cast<size_type>(_n), _value);
+            }
+
             
         public:
             typedef _Tp value_type;
-            typedef value_type& reference;
-            typedef const value_type &const_reference;
-            typedef value_type* pointer;
-            typedef const value_type* const_pointer;
-            typedef pointer iterator;
-            typedef const_pointer const_iterator;
+            typedef typename _Tp_alloc_type::reference reference;
+            typedef typename _Tp_alloc_type::const_reference const_reference;
+            typedef typename _Tp_alloc_type::pointer pointer;
+            typedef typename _Tp_alloc_type::const_pointer const_pointer;
+            typedef ft::vector_iterator<pointer> iterator;
+            typedef ft::vector_iterator<const_pointer> const_iterator;
+            typedef ft::reverse_iterator<iterator> iterator;
+            typedef ft::reverse_iterator<const_iterator> const_iterator;
             typedef _Alloc allocator_type;
             typedef size_t size_type;
             typedef ptrdiff_t difference_type;

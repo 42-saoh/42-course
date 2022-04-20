@@ -107,33 +107,7 @@ class vector : protected _Vector_base<_Tp, _Alloc>
         *  @param  a  An allocator object.
         */
         explicit vector(const allocator_type& __a) : _Base(__a) { }
- 
- #ifdef __GXX_EXPERIMENTAL_CXX0X__
-        /**
-        *  @brief  Creates a %vector with default constructed elements.
-        *  @param  n  The number of elements to initially create.
-        *
-        *  This constructor fills the %vector with @a n default
-        *  constructed elements.
-        */
-        explicit vector(size_type __n) : _Base(__n)
-        {
-            _M_default_initialize(__n);
-        }
- 
-        /**
-        *  @brief  Creates a %vector with copies of an exemplar element.
-        *  @param  n  The number of elements to initially create.
-        *  @param  value  An element to copy.
-        *  @param  a  An allocator.
-        *
-        *  This constructor fills the %vector with @a n copies of @a value.
-        */
-        vector(size_type __n, const value_type& __value, const allocator_type& __a = allocator_type()) : _Base(__n, __a)
-        {
-            _M_fill_initialize(__n, __value);
-        }
- #else
+
         /**
         *  @brief  Creates a %vector with copies of an exemplar element.
         *  @param  n  The number of elements to initially create.
@@ -147,7 +121,6 @@ class vector : protected _Vector_base<_Tp, _Alloc>
         {
             _M_fill_initialize(__n, __value);
         }
- #endif
  
         /**
         *  @brief  %Vector copy constructor.
@@ -162,33 +135,6 @@ class vector : protected _Vector_base<_Tp, _Alloc>
         {
             this->_M_impl._M_finish = std::__uninitialized_copy_a(__x.begin(), __x.end(), this->_M_impl._M_start, _M_get_Tp_allocator());
         }
- 
- #ifdef __GXX_EXPERIMENTAL_CXX0X__
-        /**
-        *  @brief  %Vector move constructor.
-        *  @param  x  A %vector of identical element and allocator types.
-        *
-        *  The newly-created %vector contains the exact contents of @a x.
-        *  The contents of @a x are a valid, but unspecified %vector.
-        */
-        vector(vector&& __x) : _Base(std::move(__x)) { }
- 
-        /**
-        *  @brief  Builds a %vector from an initializer list.
-        *  @param  l  An initializer_list.
-        *  @param  a  An allocator.
-        *
-        *  Create a %vector consisting of copies of the elements in the
-        *  initializer_list @a l.
-        *
-        *  This will call the element type's copy constructor N times
-        *  (where N is @a l.size()) and do no memory reallocation.
-        */
-        vector(initializer_list<value_type> __l, const allocator_type& __a = allocator_type()) : _Base(__a)
-        {
-            _M_range_initialize(__l.begin(), __l.end(), random_access_iterator_tag());
-        }
- #endif
  
         /**
         *  @brief  Builds a %vector from a range.
@@ -236,41 +182,6 @@ class vector : protected _Vector_base<_Tp, _Alloc>
         */
         vector& operator=(const vector& __x);
  
- #ifdef __GXX_EXPERIMENTAL_CXX0X__
-        /**
-        *  @brief  %Vector move assignment operator.
-        *  @param  x  A %vector of identical element and allocator types.
-        *
-        *  The contents of @a x are moved into this %vector (without copying).
-        *  @a x is a valid, but unspecified %vector.
-        */
-        vector& operator=(vector&& __x)
-        {
-            // NB: DR 1204.
-            // NB: DR 675.
-            this->clear();
-            this->swap(__x);
-            return *this;
-        }
- 
-        /**
-        *  @brief  %Vector list assignment operator.
-        *  @param  l  An initializer_list.
-        *
-        *  This function fills a %vector with copies of the elements in the
-        *  initializer list @a l.
-        *
-        *  Note that the assignment completely changes the %vector and
-        *  that the resulting %vector's size is the same as the number
-        *  of elements assigned.  Old data may be lost.
-        */
-        vector& operator=(initializer_list<value_type> __l)
-        {
-            this->assign(__l.begin(), __l.end());
-            return *this;
-        }
- #endif
- 
         /**
         *  @brief  Assigns a given value to a %vector.
         *  @param  n  Number of elements to be assigned.
@@ -305,24 +216,6 @@ class vector : protected _Vector_base<_Tp, _Alloc>
             typedef typename std::__is_integer<_InputIterator>::__type _Integral;
             _M_assign_dispatch(__first, __last, _Integral());
         }
- 
- #ifdef __GXX_EXPERIMENTAL_CXX0X__
-        /**
-        *  @brief  Assigns an initializer list to a %vector.
-        *  @param  l  An initializer_list.
-        *
-        *  This function fills a %vector with copies of the elements in the
-        *  initializer list @a l.
-        *
-        *  Note that the assignment completely changes the %vector and
-        *  that the resulting %vector's size is the same as the number
-        *  of elements assigned.  Old data may be lost.
-        */
-        void assign(initializer_list<value_type> __l)
-        {
-            this->assign(__l.begin(), __l.end());
-        }
- #endif
  
         /// Get a copy of the memory allocation object.
         using _Base::get_allocator;
@@ -407,49 +300,7 @@ class vector : protected _Vector_base<_Tp, _Alloc>
         {
             return const_reverse_iterator(begin());
         }
- 
- #ifdef __GXX_EXPERIMENTAL_CXX0X__
-        /**
-        *  Returns a read-only (constant) iterator that points to the
-        *  first element in the %vector.  Iteration is done in ordinary
-        *  element order.
-        */
-        const_iterator cbegin() const
-        {
-            return const_iterator(this->_M_impl._M_start);
-        }
- 
-        /**
-        *  Returns a read-only (constant) iterator that points one past
-        *  the last element in the %vector.  Iteration is done in
-        *  ordinary element order.
-        */
-        const_iterator cend() const
-        {
-            return const_iterator(this->_M_impl._M_finish);
-        }
- 
-        /**
-        *  Returns a read-only (constant) reverse iterator that points
-        *  to the last element in the %vector.  Iteration is done in
-        *  reverse element order.
-        */
-        const_reverse_iterator crbegin() const
-        {
-            return const_reverse_iterator(end());
-        }
- 
-        /**
-        *  Returns a read-only (constant) reverse iterator that points
-        *  to one before the first element in the %vector.  Iteration
-        *  is done in reverse element order.
-        */
-        const_reverse_iterator crend() const
-        {
-            return const_reverse_iterator(begin());
-        }
- #endif
- 
+
         // [23.2.4.2] capacity
         /**  Returns the number of elements in the %vector.  */
         size_type size() const
@@ -462,44 +313,7 @@ class vector : protected _Vector_base<_Tp, _Alloc>
         {
             return _M_get_Tp_allocator().max_size();
         }
- 
- #ifdef __GXX_EXPERIMENTAL_CXX0X__
-        /**
-        *  @brief  Resizes the %vector to the specified number of elements.
-        *  @param  new_size  Number of elements the %vector should contain.
-        *
-        *  This function will %resize the %vector to the specified
-        *  number of elements.  If the number is smaller than the
-        *  %vector's current size the %vector is truncated, otherwise
-        *  default constructed elements are appended.
-        */
-        void resize(size_type __new_size)
-        {
-            if (__new_size > size())
-                _M_default_append(__new_size - size());
-            else if (__new_size < size())
-                _M_erase_at_end(this->_M_impl._M_start + __new_size);
-        }
- 
-        /**
-        *  @brief  Resizes the %vector to the specified number of elements.
-        *  @param  new_size  Number of elements the %vector should contain.
-        *  @param  x  Data with which new elements should be populated.
-        *
-        *  This function will %resize the %vector to the specified
-        *  number of elements.  If the number is smaller than the
-        *  %vector's current size the %vector is truncated, otherwise
-        *  the %vector is extended and new elements are populated with
-        *  given data.
-        */
-        void resize(size_type __new_size, const value_type& __x)
-        {
-            if (__new_size > size())
-                insert(end(), __new_size - size(), __x);
-            else if (__new_size < size())
-                _M_erase_at_end(this->_M_impl._M_start + __new_size);
-        }
- #else
+
         /**
         *  @brief  Resizes the %vector to the specified number of elements.
         *  @param  new_size  Number of elements the %vector should contain.
@@ -518,15 +332,6 @@ class vector : protected _Vector_base<_Tp, _Alloc>
             else if (__new_size < size())
                 _M_erase_at_end(this->_M_impl._M_start + __new_size);
         }
- #endif
- 
- #ifdef __GXX_EXPERIMENTAL_CXX0X__
-        /**  A non-binding request to reduce capacity() to size().  */
-        void shrink_to_fit()
-        {
-           std::__shrink_to_fit<vector>::_S_do_it(*this);
-        }
- #endif
  
         /**
         *  Returns the total number of elements that the %vector can
@@ -681,22 +486,12 @@ class vector : protected _Vector_base<_Tp, _Alloc>
         // DR 464. Suggestion for new member functions in standard containers.
         // data access
 
- #ifdef __GXX_EXPERIMENTAL_CXX0X__
-        _Tp*
- #else
-        pointer
- #endif
-        data()
+        pointer data()
         {
             return std::__addressof(front());
         }
  
- #ifdef __GXX_EXPERIMENTAL_CXX0X__
-        const _Tp*
- #else
-        const_pointer
- #endif
-        data() const
+        const_pointer data() const
         {
             return std::__addressof(front());
         }
@@ -723,15 +518,6 @@ class vector : protected _Vector_base<_Tp, _Alloc>
                 _M_insert_aux(end(), __x);
         }
  
- #ifdef __GXX_EXPERIMENTAL_CXX0X__
-        void push_back(value_type&& __x)
-        {
-            emplace_back(std::move(__x));
-        }
-        template<typename... _Args>
-        void emplace_back(_Args&&... __args);
- #endif
- 
         /**
         *  @brief  Removes last element.
         *
@@ -747,23 +533,6 @@ class vector : protected _Vector_base<_Tp, _Alloc>
             this->_M_impl.destroy(this->_M_impl._M_finish);
         }
  
- #ifdef __GXX_EXPERIMENTAL_CXX0X__
-        /**
-        *  @brief  Inserts an object in %vector before specified iterator.
-        *  @param  position  An iterator into the %vector.
-        *  @param  args  Arguments.
-        *  @return  An iterator that points to the inserted data.
-        *
-        *  This function will insert an object of type T constructed
-        *  with T(std::forward<Args>(args)...) before the specified location.
-        *  Note that this kind of operation could be expensive for a %vector
-        *  and if it is frequently used the user should consider using
-        *  std::list.
-        */
-        template<typename... _Args>
-        iterator emplace(iterator __position, _Args&&... __args);
- #endif
- 
         /**
         *  @brief  Inserts given value into %vector before specified iterator.
         *  @param  position  An iterator into the %vector.
@@ -776,42 +545,6 @@ class vector : protected _Vector_base<_Tp, _Alloc>
         *  used the user should consider using std::list.
         */
         iterator insert(iterator __position, const value_type& __x);
- 
- #ifdef __GXX_EXPERIMENTAL_CXX0X__
-        /**
-        *  @brief  Inserts given rvalue into %vector before specified iterator.
-        *  @param  position  An iterator into the %vector.
-        *  @param  x  Data to be inserted.
-        *  @return  An iterator that points to the inserted data.
-        *
-        *  This function will insert a copy of the given rvalue before
-        *  the specified location.  Note that this kind of operation
-        *  could be expensive for a %vector and if it is frequently
-        *  used the user should consider using std::list.
-        */
-        iterator insert(iterator __position, value_type&& __x)
-        {
-            return emplace(__position, std::move(__x));
-        }
- 
-        /**
-        *  @brief  Inserts an initializer_list into the %vector.
-        *  @param  position  An iterator into the %vector.
-        *  @param  l  An initializer_list.
-        *
-        *  This function will insert copies of the data in the 
-        *  initializer_list @a l into the %vector before the location
-        *  specified by @a position.
-        *
-        *  Note that this kind of operation could be expensive for a
-        *  %vector and if it is frequently used the user should
-        *  consider using std::list.
-        */
-        void insert(iterator __position, initializer_list<value_type> __l)
-        {
-            this->insert(__position, __l.begin(), __l.end());
-        }
- #endif
  
         /**
         *  @brief  Inserts a number of copies of given data into the %vector.
@@ -993,15 +726,6 @@ class vector : protected _Vector_base<_Tp, _Alloc>
             this->_M_impl._M_finish = this->_M_impl._M_end_of_storage;
         }
  
- #ifdef __GXX_EXPERIMENTAL_CXX0X__
-        // Called by the vector(n) constructor.
-        void _M_default_initialize(size_type __n)
-        {
-            std::__uninitialized_default_n_a(this->_M_impl._M_start, __n,  _M_get_Tp_allocator());
-            this->_M_impl._M_finish = this->_M_impl._M_end_of_storage;
-        }
- #endif
- 
         // Internal assign functions follow.  The *_aux functions do the actual
         // assignment work for the range versions.
  
@@ -1066,18 +790,9 @@ class vector : protected _Vector_base<_Tp, _Alloc>
         // the same thing.
         void _M_fill_insert(iterator __pos, size_type __n, const value_type& __x);
  
- #ifdef __GXX_EXPERIMENTAL_CXX0X__
-        // Called by resize(n).
-        void _M_default_append(size_type __n);
- #endif
  
         // Called by insert(p,x)
- #ifndef __GXX_EXPERIMENTAL_CXX0X__
         void _M_insert_aux(iterator __position, const value_type& __x);
- #else
-        template<typename... _Args>
-        void _M_insert_aux(iterator __position, _Args&&... __args);
- #endif
  
         // Called by the latter.
         size_type _M_check_len(size_type __n, const char* __s) const
