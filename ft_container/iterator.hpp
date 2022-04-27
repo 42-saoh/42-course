@@ -2,6 +2,7 @@
 # define ITERATOR_HPP
 # include <cstddef>
 # include <type_traits>
+# include <string>
 # include "utils.hpp"
 
 namespace ft
@@ -12,7 +13,7 @@ namespace ft
     struct bidirectional_iterator_tag : public forward_iterator_tag { };
     struct random_access_iterator_tag : public bidirectional_iterator_tag { };
 
-    template<typename _Category, typename _Tp, typename _Distance = ptrdiff_t, typename _Pointer = _Tp*, typename _Reference = _Tp&>
+    template <typename _Category, typename _Tp, typename _Distance = ptrdiff_t, typename _Pointer = _Tp*, typename _Reference = _Tp&>
     struct iterator
     {
         typedef _Category iterator_category;
@@ -22,14 +23,14 @@ namespace ft
         typedef _Reference reference;
     };
 
-    template <class Iterator>
+    template <class _Iterator>
     struct iterator_traits
     {
-        typedef typename Iterator::difference_type difference_type;
-        typedef typename Iterator::value_type value_type;
-        typedef typename Iterator::pointer pointer;
-        typedef typename Iterator::reference reference;
-        typedef typename Iterator::iterator_category iterator_category;
+        typedef typename _Iterator::difference_type difference_type;
+        typedef typename _Iterator::value_type value_type;
+        typedef typename _Iterator::pointer pointer;
+        typedef typename _Iterator::reference reference;
+        typedef typename _Iterator::iterator_category iterator_category;
     };
 
     template <class T>
@@ -52,33 +53,13 @@ namespace ft
         typedef random_access_iterator_tag iterator_category;
     };
 
-    template<typename _Iter>
-    typename iterator_traits<_Iter>::iterator_category _iterator_category(const _Iter &)
+    template <typename _Iterator>
+    typename iterator_traits<_Iterator>::iterator_category _iterator_category(const _Iterator &)
     {
-        return (typename iterator_traits<_Iter>::iterator_category());
+        return (typename iterator_traits<_Iterator>::iterator_category());
     }
 
-    template<typename _Iter, bool _HasBase>
-    struct _Iter_base
-    {
-        typedef _Iter iterator_type;
-        static iterator_type _S_base(_Iter _it)
-        {
-            return (_it);
-        }
-    };
-
-    template<typename _Iter>
-    struct _Iter_base<_Iter, true>
-    {
-        typedef typename _Iter::iterator_type iterator_type;
-        static iterator_type _S_base(_Iter _it)
-        {
-            return (_it.base());
-        }
-    };
-
-    template<typename _InputIterator>
+    template <typename _InputIterator>
     typename iterator_traits<_InputIterator>::difference_type
     _distance(_InputIterator _first, _InputIterator _last, input_iterator_tag)
     {
@@ -91,27 +72,27 @@ namespace ft
         return (_n);
     }
 
-    template<typename _RandomAccessIterator>
+    template <typename _RandomAccessIterator>
     typename iterator_traits<_RandomAccessIterator>::difference_type
     _distance(_RandomAccessIterator _first, _RandomAccessIterator _last, random_access_iterator_tag)
     {
         return (_last - _first);
     }
 
-    template<typename _InputIterator>
+    template <typename _InputIterator>
     typename iterator_traits<_InputIterator>::difference_type distance(_InputIterator __first, _InputIterator __last)
     {
         return (_distance(__first, __last, _iterator_category(__first)));
     }
 
-    template<typename _InputIterator, typename _Distance>
+    template <typename _InputIterator, typename _Distance>
     void _advance(_InputIterator &_i, _Distance _n, input_iterator_tag)
     {
         while (_n--)
             ++_i;
     }
 
-    template<typename _BidirectionalIterator, typename _Distance>
+    template <typename _BidirectionalIterator, typename _Distance>
     void _advance(_BidirectionalIterator &_i, _Distance _n, bidirectional_iterator_tag)
     {
         if (_n > 0)
@@ -122,13 +103,13 @@ namespace ft
                 --_i;
     }
 
-    template<typename _RandomAccessIterator, typename _Distance>
+    template <typename _RandomAccessIterator, typename _Distance>
     void _advance(_RandomAccessIterator &_i, _Distance _n, random_access_iterator_tag)
     {
         _i += _n;
     }
 
-    template<typename _InputIterator, typename _Distance>
+    template <typename _InputIterator, typename _Distance>
     void advance(_InputIterator &_i, _Distance _n)
     {
         typename iterator_traits<_InputIterator>::difference_type _d = _n;
@@ -274,16 +255,16 @@ namespace ft
         return (rhs.base() - lhs.base());
     }
 
-    template<typename Container>
+    template <typename _Container>
     class back_insert_iterator : public iterator<output_iterator_tag, void, void, void, void>
     {
         protected:
-            Container *container;
+            _Container *container;
 
         public:
-            typedef Container container_type;
-            explicit back_insert_iterator(Container &x) : container(&x) {}
-            back_insert_iterator &operator=(const typename Container::value_type &value)
+            typedef _Container container_type;
+            explicit back_insert_iterator(_Container &x) : container(&x) {}
+            back_insert_iterator &operator=(const typename _Container::value_type &value)
             {
                 container->push_back(value);
                 return (*this);
@@ -305,22 +286,22 @@ namespace ft
             }
     };
 
-    template<typename Container>
-    back_insert_iterator<Container> back_inserter(Container &x)
+    template <typename _Container>
+    back_insert_iterator<_Container> back_inserter(_Container &x)
     {
-        return (back_insert_iterator<Container>(x));
+        return (back_insert_iterator<_Container>(x));
     }
 
-    template<typename Container>
+    template <typename _Container>
     class front_insert_iterator : public iterator<output_iterator_tag, void, void, void, void>
     {
         protected:
-            Container *container;
+            _Container *container;
 
         public:
-            typedef Container container_type;
-            explicit front_insert_iterator(Container &x) : container(&x) {}
-            front_insert_iterator &operator=(const typename Container::value_type &value)
+            typedef _Container container_type;
+            explicit front_insert_iterator(_Container &x) : container(&x) {}
+            front_insert_iterator &operator=(const typename _Container::value_type &value)
             {
                 container->push_front(value);
                 return (*this);
@@ -342,25 +323,25 @@ namespace ft
             }
     };
 
-    template<typename Container>
-    front_insert_iterator<Container> front_inserter(Container &x)
+    template <typename _Container>
+    front_insert_iterator<_Container> front_inserter(_Container &x)
     {
-        return (front_insert_iterator<Container>(x));
+        return (front_insert_iterator<_Container>(x));
     }
 
-    template<typename Container>
+    template <typename _Container>
     class insert_iterator : public iterator<output_iterator_tag, void, void, void, void>
     {
         protected:
-            Container *container;
-            typename Container::iterator _iter;
+            _Container *container;
+            typename _Container::iterator _iter;
 
         public:
-            typedef Container container_type;
-            insert_iterator(Container &x, typename Container::iterator _i)
+            typedef _Container container_type;
+            insert_iterator(_Container &x, typename _Container::iterator _i)
                 : container(&x), _iter(_i) {}
 
-            insert_iterator &operator=(const typename Container::value_type &value)
+            insert_iterator &operator=(const typename _Container::value_type &value)
             {
                 _iter = container->insert(_iter, value);
                 ++_iter;
@@ -383,13 +364,13 @@ namespace ft
             }
     };
 
-    template<typename Container, typename iterator>
-    insert_iterator<Container> inserter(Container &x, iterator _iter)
+    template <typename _Container, typename iterator>
+    insert_iterator<_Container> inserter(_Container &x, iterator _iter)
     {
-        return (insert_iterator<Container>(x, typename Container::iterator(_iter)));
+        return (insert_iterator<_Container>(x, typename _Container::iterator(_iter)));
     }
 
-    template<typename _Iterator>
+    template <typename _Iterator>
     class vector_iterator
     {
         private:
@@ -404,8 +385,8 @@ namespace ft
             typedef typename iterator_traits<iterator_type>::reference reference;
 
             vector_iterator() : _iter(_Iterator()) {}
-            vector_iterator(const _Iterator &_i) : _iter(_i) {}
-            template<typename _Iter>
+            explicit vector_iterator(const _Iterator &_i) : _iter(_i) {}
+            template <typename _Iter>
             vector_iterator(const vector_iterator<_Iter> _i, typename ft::enable_if<ft::is_same<_Iter, iterator_type>::value> * = 0)
                 : _iter(_i.base()) {}
 
@@ -474,97 +455,164 @@ namespace ft
             }
     };
 
-    template<typename _IteratorL, typename _IteratorR>
+    template <typename _IteratorL, typename _IteratorR>
     bool operator==(const vector_iterator<_IteratorL> &lhs, const vector_iterator<_IteratorR> &rhs)
     {
         return (lhs.base() == rhs.base());
     }
 
-    template<typename _Iterator>
+    template <typename _Iterator>
     bool operator==(const vector_iterator<_Iterator> &lhs, const vector_iterator<_Iterator> &rhs)
     {
         return (lhs.base() == rhs.base());
     }
 
-    template<typename _IteratorL, typename _IteratorR>
+    template <typename _IteratorL, typename _IteratorR>
     bool operator!=(const vector_iterator<_IteratorL> &lhs, const vector_iterator<_IteratorR> &rhs)
     {
         return (lhs.base() != rhs.base());
     }
 
-    template<typename _Iterator>
+    template <typename _Iterator>
     bool operator!=(const vector_iterator<_Iterator> &lhs, const vector_iterator<_Iterator> &rhs)
     {
         return (lhs.base() != rhs.base());
     }
 
-    template<typename _IteratorL, typename _IteratorR>
+    template <typename _IteratorL, typename _IteratorR>
     bool operator<(const vector_iterator<_IteratorL> &lhs, const vector_iterator<_IteratorR> &rhs)
     { 
         return (lhs.base() < rhs.base());
     }
 
-    template<typename _Iterator>
+    template <typename _Iterator>
     bool operator<(const vector_iterator<_Iterator> &lhs, const vector_iterator<_Iterator> &rhs)
     { 
         return (lhs.base() < rhs.base());
     }
 
-    template<typename _IteratorL, typename _IteratorR>
+    template <typename _IteratorL, typename _IteratorR>
     bool operator<=(const vector_iterator<_IteratorL> &lhs, const vector_iterator<_IteratorR> &rhs)
     { 
         return (lhs.base() <= rhs.base());
     }
 
-    template<typename _Iterator>
+    template <typename _Iterator>
     bool operator<=(const vector_iterator<_Iterator> &lhs, const vector_iterator<_Iterator> &rhs)
     { 
         return (lhs.base() <= rhs.base());
     }
 
-    template<typename _IteratorL, typename _IteratorR>
+    template <typename _IteratorL, typename _IteratorR>
     bool operator>(const vector_iterator<_IteratorL> &lhs, const vector_iterator<_IteratorR> &rhs)
     { 
         return (lhs.base() > rhs.base());
     }
 
-    template<typename _Iterator>
+    template <typename _Iterator>
     bool operator>(const vector_iterator<_Iterator> &lhs, const vector_iterator<_Iterator> &rhs)
     { 
         return (lhs.base() > rhs.base());
     }
 
-    template<typename _IteratorL, typename _IteratorR>
+    template <typename _IteratorL, typename _IteratorR>
     bool operator>=(const vector_iterator<_IteratorL> &lhs, const vector_iterator<_IteratorR> &rhs)
     { 
         return (lhs.base() >= rhs.base());
     }
 
-    template<typename _Iterator>
+    template <typename _Iterator>
     bool operator>=(const vector_iterator<_Iterator> &lhs, const vector_iterator<_Iterator> &rhs)
     { 
         return (lhs.base() >= rhs.base());
     }
 
-    template<typename _IteratorL, typename _IteratorR>
+    template <typename _IteratorL, typename _IteratorR>
     typename vector_iterator<_IteratorL>::difference_type 
     operator-(const vector_iterator<_IteratorL> &lhs, const vector_iterator<_IteratorR> &rhs)
     {
         return (lhs.base() - rhs.base());
     }
 
-    template<typename _Iterator>
+    template <typename _Iterator>
     typename vector_iterator<_Iterator>::difference_type 
     operator-(const vector_iterator<_Iterator> &lhs, const vector_iterator<_Iterator> &rhs)
     {
         return (lhs.base() - rhs.base());
     }
 
-    template<typename _Iterator>
+    template <typename _Iterator>
     vector_iterator<_Iterator>
     operator+(typename vector_iterator<_Iterator>::difference_type n, const vector_iterator<_Iterator> &i)
     {
         return (vector_iterator<_Iterator>(i.base() + n));
+    }
+
+    template <typename _Iterator>
+    struct is_vector_iterator : public ft::false_type {};
+
+    template <typename _Iterator>
+    struct is_vector_iterator<ft::vector_iterator<_Iterator> > : public ft::true_type {};
+
+    template <typename _Iterator, bool _HasBase = is_vector_iterator<_Iterator>::value >
+    struct _Iter_base
+    {
+        typedef _Iterator iterator_type;
+        static iterator_type _S_base(_Iterator _it)
+        {
+            return (_it);
+        }
+    };
+
+    template <typename _Iterator>
+    struct _Iter_base<_Iterator, true>
+    {
+        typedef typename _Iterator::iterator_type iterator_type;
+        static iterator_type _S_base(_Iterator _it)
+        {
+            return (_it.base());
+        }
+    };
+
+    template <typename _ForwardIterator, typename _Allocator>
+    void _Destroy_alloc(_ForwardIterator _first, _ForwardIterator _last, _Allocator &_alloc)
+    {
+        for (; _first != _last; ++_first)
+            _alloc.destroy(&*_first);
+    }
+
+    template <class _InputIterator, class _ForwardIterator, class _Allocator>
+    _ForwardIterator uninitialized_copy_alloc(_InputIterator _first, _InputIterator _last, \
+                    _ForwardIterator _result, _Allocator &_alloc)
+    {
+        _ForwardIterator _cur = _result;
+        try
+        {
+            for (; _first != _last; ++_cur, ++_first)
+                _alloc.construct(&*_cur, typename iterator_traits<_ForwardIterator>::value_type(*_first));
+            return (_cur);
+        }
+        catch(...)
+        {
+            ft::_Destroy_alloc(_result, _cur, _alloc);
+            throw std::runtime_error("uninitialized_copy_alloc");
+        }
+    }
+
+    template <class _ForwardIterator, class T, class _Allocator>
+    void uninitialized_fill_alloc(_ForwardIterator _first, size_t n, const T &x, _Allocator &_alloc)
+    {
+        _ForwardIterator _cur = _first;
+        try
+        {
+            for (; n--; ++_cur)
+                _alloc.construct(&*_cur, typename iterator_traits<_ForwardIterator>::value_type(x));
+        }
+        catch(...)
+        {
+            ft::_Destroy_alloc(_first, _cur, _alloc);
+            throw std::runtime_error("uninitialized_fill_alloc");
+        }
     }
 }
 

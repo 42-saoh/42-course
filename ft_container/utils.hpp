@@ -3,10 +3,10 @@
 
 namespace ft
 {
-    template<bool Cond, class T = void>
+    template <bool Cond, class T = void>
     struct enable_if {};
     
-    template<class T>
+    template <class T>
     struct enable_if<true, T>
     {
         typedef T type;
@@ -23,10 +23,10 @@ namespace ft
     typedef integral_constant<bool, true> true_type;
     typedef integral_constant<bool, false> false_type;
 
-    template<typename T, typename U>
+    template <typename T, typename U>
     struct is_same : public false_type {};
 
-    template<typename T>
+    template <typename T>
     struct is_same<T, T> : public true_type {};
 
     template <class T>
@@ -139,7 +139,7 @@ namespace ft
         second_type second;
 
         pair() : first(), second() {}
-        template<class U, class V>
+        template <class U, class V>
         pair (const pair<U, V> &pr) : first(pr.first), second(pr.second) {}
         pair (const first_type& a, const second_type& b) : first(a), second(b) {}
         pair &operator=(const pair &pr)

@@ -13,7 +13,7 @@ int main()
     ft::back_insert_iterator<std::vector<int> > b_i = ft::back_inserter(i);
     b_i = 8;
     b_i = 9;
-    ft::vector_iterator<std::vector<int>::iterator> m_i = i.begin();
+    ft::vector_iterator<std::vector<int>::iterator> m_i(i.begin());
     ft::vector_iterator<std::vector<int>::iterator> m_e(i.end());
     ft::vector_iterator<std::vector<int>::iterator> k = m_i + 2;
     std::cout << m_e - m_i << std::endl;

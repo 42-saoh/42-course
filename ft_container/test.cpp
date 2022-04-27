@@ -1,22 +1,23 @@
-#include <vector>
+#include "Vector.hpp"
 #include <iostream>
 
 int main()
 {
-    std::vector<int> k;
-    int **q;
-    int *p;
+    ft::vector<int> a(5);
+    ft::vector<int> b(1);
 
-    k.push_back(5);
-    k.push_back(4);
-    k.push_back(3);
-    k.push_back(2);
-    k.push_back(1);
-
-    std::vector<int>::iterator i = k.begin();
-    std::cout << i.base() << std::endl;
-    std::cout << &i << std::endl;
-    q = (int **)(&i); // < i == int *
-    k.insert(i, 3);
-    std::cout << i.base() << std::endl;
+    std::cout << a.size() << std::endl;
+    std::cout << a.capacity() << std::endl;
+    a.push_back(5);
+    for (ft::vector<int>::iterator k = a.begin(); k < a.end(); k++)
+    {
+        std::cout << *k << std::endl;
+    }
+    std::cout << a.size() << std::endl;
+    std::cout << a.capacity() << std::endl;
+    b.swap(a);
+    std::cout << a.size() << std::endl;
+    std::cout << a.capacity() << std::endl;
+    std::cout << b.size() << std::endl;
+    std::cout << b.capacity() << std::endl;
 }
