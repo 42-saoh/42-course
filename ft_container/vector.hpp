@@ -7,7 +7,6 @@
 
 namespace ft
 {
-
     template <class _Tp, class _Alloc>
     struct Vector_base
     {
@@ -124,7 +123,8 @@ namespace ft
 
             ~vector()
             {
-                ft::_Destroy_alloc(this->_M_impl._M_start, this->_M_impl._M_finish, _M_get_Tp_allocator());
+                if (this->_M_impl._M_start != nullptr)
+                    ft::_Destroy_alloc(this->_M_impl._M_start, this->_M_impl._M_finish, _M_get_Tp_allocator());
             }
 
             vector &operator=(const vector &_x)

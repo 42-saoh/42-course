@@ -1,23 +1,18 @@
-#include "Vector.hpp"
+#include "vector.hpp"
 #include <iostream>
+#include <stack>
+#include <vector>
+#include "stack.hpp"
 
 int main()
 {
-    ft::vector<int> a(5);
-    ft::vector<int> b(1);
+    ft::stack<int> a;
+    std::stack<int, std::vector<int> > q;
 
-    std::cout << a.size() << std::endl;
-    std::cout << a.capacity() << std::endl;
-    a.push_back(5);
-    for (ft::vector<int>::iterator k = a.begin(); k < a.end(); k++)
-    {
-        std::cout << *k << std::endl;
-    }
-    std::cout << a.size() << std::endl;
-    std::cout << a.capacity() << std::endl;
-    b.swap(a);
-    std::cout << a.size() << std::endl;
-    std::cout << a.capacity() << std::endl;
-    std::cout << b.size() << std::endl;
-    std::cout << b.capacity() << std::endl;
+    std::cout << a.empty() << std::endl;
+    std::cout << q.empty() << std::endl;
+    a.pop();
+    q.pop();
+    std::cout << a.empty() << std::endl;
+    std::cout << q.empty() << std::endl;
 }
