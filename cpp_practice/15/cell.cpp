@@ -162,9 +162,33 @@ int StringCell::to_numeric(void)
 NumberCell::NumberCell(int data, int x, int y, Table* t)
     : data(data), Cell(x, y, t) {}
 
+void add_string(int i, std::string &msg)
+{
+    std::string tmp("");
+
+    if (i == 0)
+    {
+        msg += '0';
+        return ;
+    }
+    while(i > 0)
+    {
+        tmp += (i % 10) + '0';
+        i /= 10;
+    }
+    int tmp_size = tmp.size();
+    for (int i = 0; i < tmp_size; i++)
+    {
+        msg += tmp[tmp_size - 1 - i];
+    }
+}
+
 string NumberCell::stringify(void)
 {
-	return (to_string(data));
+	std::string result("");
+
+	add_string(data, result);
+	return (result);
 }
 
 int NumberCell::to_numeric(void)
