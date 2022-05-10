@@ -1,8 +1,7 @@
 #ifndef ITERATOR_HPP
 # define ITERATOR_HPP
 # include <cstddef>
-# include <type_traits>
-# include <string>
+# include <stdexcept>
 # include "utils.hpp"
 
 namespace ft
@@ -548,32 +547,6 @@ namespace ft
         return (vector_iterator<_Iterator>(i.base() + n));
     }
 
-    template <typename _Iterator>
-    struct is_vector_iterator : public ft::false_type {};
-
-    template <typename _Iterator>
-    struct is_vector_iterator<ft::vector_iterator<_Iterator> > : public ft::true_type {};
-
-    template <typename _Iterator, bool _HasBase = is_vector_iterator<_Iterator>::value >
-    struct _Iter_base
-    {
-        typedef _Iterator iterator_type;
-        static iterator_type _S_base(_Iterator _it)
-        {
-            return (_it);
-        }
-    };
-
-    template <typename _Iterator>
-    struct _Iter_base<_Iterator, true>
-    {
-        typedef typename _Iterator::iterator_type iterator_type;
-        static iterator_type _S_base(_Iterator _it)
-        {
-            return (_it.base());
-        }
-    };
-
     template <typename _ForwardIterator, typename _Allocator>
     void _Destroy_alloc(_ForwardIterator _first, _ForwardIterator _last, _Allocator &_alloc)
     {
@@ -589,7 +562,7 @@ namespace ft
         try
         {
             for (; _first != _last; ++_cur, ++_first)
-                _alloc.construct(&*_cur, typename iterator_traits<_ForwardIterator>::value_type(*_first));
+                _alloc.construct(&*_cur, typename ft::iterator_traits<_ForwardIterator>::value_type(*_first));
             return (_cur);
         }
         catch(...)
@@ -606,7 +579,7 @@ namespace ft
         try
         {
             for (; n--; ++_cur)
-                _alloc.construct(&*_cur, typename iterator_traits<_ForwardIterator>::value_type(x));
+                _alloc.construct(&*_cur, typename ft::iterator_traits<_ForwardIterator>::value_type(x));
         }
         catch(...)
         {

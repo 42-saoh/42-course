@@ -11,7 +11,7 @@ namespace ft
     struct Vector_base
     {
         typedef _Tp value_type;
-        typedef value_type *pointer;
+        typedef value_type* pointer;
         typedef typename _Alloc::template rebind<_Tp>::other _Tp_alloc_type;
 
         struct _Vector_impl : public _Tp_alloc_type
