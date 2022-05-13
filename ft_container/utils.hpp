@@ -191,6 +191,50 @@ namespace ft
     {
         return (pair<T1, T2>(x, y));
     }
+    
+    template <class _Arg1, class _Arg2, class _Result>
+    struct binary_function
+    {
+        typedef _Arg1 first_argument_type;
+        typedef _Arg2 second_argument_type;
+        typedef _Result result_type;
+    };
+
+
+    template<typename _Arg, typename _Result>
+    struct unary_function
+    {
+        typedef _Arg argument_type;
+        typedef _Result result_type;
+    };
+
+    template<typename _Tp>
+    struct _Identity : public ft::unary_function<_Tp, _Tp>
+    {
+        _Tp &operator()(_Tp &_x) const
+        {
+            return (_x);
+        }
+
+        const _Tp &operator()(const _Tp &_x) const
+        {
+            return (_x);
+        }
+    };
+
+    template<typename _Pair>
+    struct _Select1st : public unary_function<_Pair, typename _Pair::first_type>
+    {
+        typename _Pair::first_type &operator()(_Pair &_x) const
+        {
+            return (_x.first);
+        }
+
+        const typename _Pair::first_type &operator()(const _Pair &_x) const
+        {
+            return (_x.first);
+        }
+    };
 }
 
 #endif
