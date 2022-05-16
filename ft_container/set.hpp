@@ -123,6 +123,12 @@ namespace ft
                 return (_M_t._M_insert_unique_(_pos, _x));
             }
 
+            template<typename _InputIterator>
+            void insert(_InputIterator _first, _InputIterator _last)
+            {
+                _M_t._M_insert_unique(_first, _last);
+            }
+
             void erase(iterator _pos)
             {
                 _M_t.erase(_pos);

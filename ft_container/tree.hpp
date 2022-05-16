@@ -567,8 +567,8 @@ namespace ft
             typedef _Alloc allocator_type;
             typedef _Rb_tree_iterator<value_type> iterator;
             typedef _Rb_tree_const_iterator<value_type> const_iterator;
-            typedef std::reverse_iterator<iterator> reverse_iterator;
-            typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+            typedef ft::reverse_iterator<iterator> reverse_iterator;
+            typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
         protected:
             _Node_alloc_type& _M_get_Node_allocator()
@@ -1051,7 +1051,7 @@ namespace ft
                         return (pair<const_iterator, const_iterator>(_M_lower_bound(_x, _y, _k), _M_upper_bound(_xu, _yu, _k)));
                     }
                 }
-                return (pair<const_iterator, const_iterator>(iterator(_y), iterator(_y)));
+                return (pair<const_iterator, const_iterator>(const_iterator(_y), const_iterator(_y)));
             }
 
         protected:

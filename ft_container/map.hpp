@@ -146,7 +146,7 @@ namespace ft
 
             ft::pair<iterator, bool> insert(const value_type &_x)
             {
-                return (*_M_t._M_insert_unique(_x));
+                return (_M_t._M_insert_unique(_x));
             }
 
             iterator insert(iterator _pos, const value_type &_x)
