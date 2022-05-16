@@ -49,6 +49,12 @@ namespace ft
             {
                 c.pop_back();
             }
+
+            template<typename _Tp1, typename _Con>
+            friend bool operator==(const stack<_Tp1, _Con> &, const stack<_Tp1, _Con> &);
+
+            template<typename _Tp1, typename _Con>
+            friend bool operator<(const stack<_Tp1, _Con> &, const stack<_Tp1, _Con> &);
     };
 
     template <typename _Tp, typename _Container>

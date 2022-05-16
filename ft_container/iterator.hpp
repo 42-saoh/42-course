@@ -204,38 +204,39 @@ namespace ft
                 return (*(*this + n));
             }
     };
-    template <class _Iterator>
-    bool operator==(const reverse_iterator<_Iterator> &lhs, const reverse_iterator<_Iterator> &rhs)
+    
+    template <class _Iterator1, class _Iterator2>
+    bool operator==(const reverse_iterator<_Iterator1> &lhs, const reverse_iterator<_Iterator2> &rhs)
     {
         return (lhs.base() == rhs.base());
     }
 
-    template <class _Iterator>
-    bool operator!=(const reverse_iterator<_Iterator> &lhs, const reverse_iterator<_Iterator> &rhs)
+    template <class _Iterator1, class _Iterator2>
+    bool operator!=(const reverse_iterator<_Iterator1> &lhs, const reverse_iterator<_Iterator2> &rhs)
     {
         return (!(lhs == rhs));
     }
 
-    template <class _Iterator>
-    bool operator<(const reverse_iterator<_Iterator> &lhs, const reverse_iterator<_Iterator> &rhs)
+    template <class _Iterator1, class _Iterator2>
+    bool operator<(const reverse_iterator<_Iterator1> &lhs, const reverse_iterator<_Iterator2> &rhs)
     {
         return (lhs.base() > rhs.base());
     }
 
-    template <class _Iterator>
-    bool operator<=(const reverse_iterator<_Iterator> &lhs, const reverse_iterator<_Iterator> &rhs)
+    template <class _Iterator1, class _Iterator2>
+    bool operator<=(const reverse_iterator<_Iterator1> &lhs, const reverse_iterator<_Iterator2> &rhs)
     {
         return (!(rhs < lhs));
     }
 
-    template <class _Iterator>
-    bool operator>(const reverse_iterator<_Iterator> &lhs, const reverse_iterator<_Iterator> &rhs)
+    template <class _Iterator1, class _Iterator2>
+    bool operator>(const reverse_iterator<_Iterator1> &lhs, const reverse_iterator<_Iterator2> &rhs)
     {
         return (rhs < lhs);
     }
 
-    template <class _Iterator>
-    bool operator>=(const reverse_iterator<_Iterator> &lhs, const reverse_iterator<_Iterator> &rhs)
+    template <class _Iterator1, class _Iterator2>
+    bool operator>=(const reverse_iterator<_Iterator1> &lhs, const reverse_iterator<_Iterator2> &rhs)
     {
         return (!(lhs < rhs));
     }
@@ -247,9 +248,9 @@ namespace ft
         return (rev_it + n);
     }
 
-    template <class _Iterator>
-    typename reverse_iterator<_Iterator>::difference_type operator- (const reverse_iterator<_Iterator> &lhs, \
-        const reverse_iterator<_Iterator> &rhs)
+    template <class _Iterator1, class _Iterator2>
+    typename reverse_iterator<_Iterator1>::difference_type operator- (const reverse_iterator<_Iterator1> &lhs, \
+        const reverse_iterator<_Iterator2> &rhs)
     {
         return (rhs.base() - lhs.base());
     }
@@ -527,24 +528,54 @@ namespace ft
     }
 
     template <typename _IteratorL, typename _IteratorR>
-    typename vector_iterator<_IteratorL>::difference_type 
-    operator-(const vector_iterator<_IteratorL> &lhs, const vector_iterator<_IteratorR> &rhs)
+    typename vector_iterator<_IteratorL>::difference_type operator-(const vector_iterator<_IteratorL> &lhs, const vector_iterator<_IteratorR> &rhs)
     {
         return (lhs.base() - rhs.base());
     }
 
     template <typename _Iterator>
-    typename vector_iterator<_Iterator>::difference_type 
-    operator-(const vector_iterator<_Iterator> &lhs, const vector_iterator<_Iterator> &rhs)
+    typename vector_iterator<_Iterator>::difference_type operator-(const vector_iterator<_Iterator> &lhs, const vector_iterator<_Iterator> &rhs)
     {
         return (lhs.base() - rhs.base());
     }
 
     template <typename _Iterator>
-    vector_iterator<_Iterator>
-    operator+(typename vector_iterator<_Iterator>::difference_type n, const vector_iterator<_Iterator> &i)
+    vector_iterator<_Iterator> operator+(typename vector_iterator<_Iterator>::difference_type n, const vector_iterator<_Iterator> &i)
     {
         return (vector_iterator<_Iterator>(i.base() + n));
+    }
+
+    template <class _OutputIterator, class _Size, class _Tp>
+    _OutputIterator __fill_n(_OutputIterator _first, _Size _n, const _Tp &_value)
+    {
+        for (; _n > 0; ++_first, (void) --_n)
+            *_first = _value;
+        return (_first);
+    }
+
+    template <class _OutputIterator, class _Size, class _Tp>
+    _OutputIterator fill_n(_OutputIterator _first, _Size _n, const _Tp &_value)
+    {
+        return (__fill_n(_first, typename ft::iterator_traits<_OutputIterator>::difference_type(_n), _value));
+    }
+
+    template <class _ForwardIterator, class _Tp>
+    void __fill(_ForwardIterator _first, _ForwardIterator _last, const _Tp& _value, ft::forward_iterator_tag)
+    {
+        for (; _first != _last; ++_first)
+            *_first = _value;
+    }
+
+    template <class _RandomAccessIterator, class _Tp>
+    void __fill(_RandomAccessIterator _first, _RandomAccessIterator _last, const _Tp &_value, ft::random_access_iterator_tag)
+    {
+        fill_n(_first, _last - _first, _value);
+    }
+
+    template <class _ForwardIterator, class _Tp>
+    void fill(_ForwardIterator _first, _ForwardIterator _last, const _Tp &_value)
+    {
+        __fill(_first, _last, _value, typename ft::iterator_traits<_ForwardIterator>::iterator_category());
     }
 
     template <typename _ForwardIterator, typename _Allocator>

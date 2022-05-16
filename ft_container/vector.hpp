@@ -390,11 +390,11 @@ namespace ft
             }
 
             template <typename _Integer>
-            void _M_initial_dispatch(_Integer _n, _Integer _value, ft::true_type)
+            void _M_initialize_dispatch(_Integer _n, _Integer _value, ft::true_type)
             {
                 this->_M_impl._M_start = _M_allocate(static_cast<size_type>(_n));
                 this->_M_impl._M_end_of_storage = this->_M_impl._M_start + static_cast<size_type>(_n);
-                _M_fill_initailize(static_cast<size_type>(_n), _value);
+                _M_fill_initialize(static_cast<size_type>(_n), _value);
             }
 
             template <typename _InputIterator>
@@ -483,12 +483,12 @@ namespace ft
                 }
                 else if (_n > size())
                 {
-                    std::fill(begin(), end(), _val);
+                    ft::fill(begin(), end(), _val);
                     ft::uninitialized_fill_alloc(this->_M_impl._M_finish, _n - size(), _val, _M_get_Tp_allocator());
                     this->_M_impl._M_finish += _n - size();
                 }
                 else
-                    _M_erase_at_end(std::fill_n(this->_M_impl._M_start, _n, _val));
+                    _M_erase_at_end(ft::fill_n(this->_M_impl._M_start, _n, _val));
             }
 
             template <typename _Integer>
@@ -581,7 +581,7 @@ namespace ft
                             ft::uninitialized_copy_alloc(this->_M_impl._M_finish - _n, this->_M_impl._M_finish, this->_M_impl._M_finish, _M_get_Tp_allocator());
                             this->_M_impl._M_finish += _n;
                             std::copy_backward(_pos.base(), _old_finish - _n, _old_finish);
-                            std::fill(_pos.base(), _pos.base() + _n, _x_copy);
+                            ft::fill(_pos.base(), _pos.base() + _n, _x_copy);
                         }
                         else
                         {
@@ -589,7 +589,7 @@ namespace ft
                             this->_M_impl._M_finish += _n - _elems_after;
                             ft::uninitialized_copy_alloc(_pos.base(), _old_finish, this->_M_impl._M_finish, _M_get_Tp_allocator());
                             this->_M_impl._M_finish += _elems_after;
-                            std::fill(_pos.base(), _old_finish, _x_copy);
+                            ft::fill(_pos.base(), _old_finish, _x_copy);
                         }
                     }
                     else
@@ -668,7 +668,7 @@ namespace ft
             size_type _M_check_len(size_type _n, const char *_s) const
             {
                 if (max_size() - size() < _n)
-                    throw std::range_error("range error");
+                    throw std::range_error(_s);
                 const size_type _len = size() + std::max(size(), _n);
                 return ((_len < size() || _len > max_size()) ? max_size() : _len);
             }
