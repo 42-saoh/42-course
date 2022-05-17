@@ -130,7 +130,7 @@ namespace ft
         typedef _Tp  value_type;
         typedef _Tp& reference;
         typedef _Tp* pointer;
-        typedef ft::bidirectional_iterator_tag iterator_category;
+        typedef std::bidirectional_iterator_tag iterator_category;
         typedef ptrdiff_t difference_type;
         typedef _Rb_tree_iterator<_Tp> _Rb_iter;
         typedef _Rb_tree_node_base::_Base_ptr _Base_ptr;
@@ -196,7 +196,7 @@ namespace ft
         typedef const _Tp& reference;
         typedef const _Tp* pointer;
         typedef _Rb_tree_iterator<_Tp> iterator;
-        typedef bidirectional_iterator_tag iterator_category;
+        typedef std::bidirectional_iterator_tag iterator_category;
         typedef ptrdiff_t difference_type;
         typedef _Rb_tree_const_iterator<_Tp> _Rb_const_iter;
         typedef _Rb_tree_node_base::_Const_Base_ptr _Base_ptr;
@@ -573,12 +573,12 @@ namespace ft
         protected:
             _Node_alloc_type& _M_get_Node_allocator()
             {
-                return (*static_cast<_Node_alloc_type*>(&this->_M_impl));
+                return (*static_cast<_Node_alloc_type*>(&this->_M_base));
             }
 
             const _Node_alloc_type& _M_get_Node_allocator() const
             {
-                return (*static_cast<const _Node_alloc_type*>(&this->_M_impl));
+                return (*static_cast<const _Node_alloc_type*>(&this->_M_base));
             }
 
         public:
@@ -590,12 +590,12 @@ namespace ft
         protected:
             _Link_type _M_get_node()
             {
-                return (_M_impl.allocate(1));
+                return (_M_base.allocate(1));
             }
 
             void _M_put_node(_Link_type _p)
             {
-                _M_impl.deallocate(_p, 1);
+                _M_base.deallocate(_p, 1);
             }
 
             _Link_type _M_create_node(const value_type& _x)
@@ -631,18 +631,18 @@ namespace ft
             }
 
             template <typename _Key_compare>
-            struct _Rb_tree_impl : public _Node_alloc_type
+            struct _Rb_tree_base : public _Node_alloc_type
             {
                 _Key_compare _M_key_compare;
                 _Rb_tree_node_base _M_header;
                 size_type _M_node_count;
 
-                _Rb_tree_impl() : _Node_alloc_type(), _M_key_compare(), _M_header(), _M_node_count(0)
+                _Rb_tree_base() : _Node_alloc_type(), _M_key_compare(), _M_header(), _M_node_count(0)
                 {
                     _M_initialize();
                 }
 
-                _Rb_tree_impl(const _Key_compare& __comp, const _Node_alloc_type& __a)
+                _Rb_tree_base(const _Key_compare& __comp, const _Node_alloc_type& __a)
                     : _Node_alloc_type(__a), _M_key_compare(__comp), _M_header(), _M_node_count(0)
                 {
                     _M_initialize();
@@ -658,56 +658,56 @@ namespace ft
                     }     
             };
 
-            _Rb_tree_impl<_Compare> _M_impl;
+            _Rb_tree_base<_Compare> _M_base;
 
             _Base_ptr &_M_root()
             {
-                return (this->_M_impl._M_header._M_parent);
+                return (this->_M_base._M_header._M_parent);
             }
 
             _Const_Base_ptr _M_root() const
             {
-                return (this->_M_impl._M_header._M_parent);
+                return (this->_M_base._M_header._M_parent);
             }
 
             _Base_ptr &_M_leftmost()
             {
-                return (this->_M_impl._M_header._M_left);
+                return (this->_M_base._M_header._M_left);
             }
 
             _Const_Base_ptr _M_leftmost() const
             {
-                return (this->_M_impl._M_header._M_left);
+                return (this->_M_base._M_header._M_left);
             }
 
             _Base_ptr &_M_rightmost()
             {
-                return (this->_M_impl._M_header._M_right);
+                return (this->_M_base._M_header._M_right);
             }
 
             _Const_Base_ptr _M_rightmost() const
             {
-                return (this->_M_impl._M_header._M_right);
+                return (this->_M_base._M_header._M_right);
             }
 
             _Link_type _M_begin()
             {
-                return (static_cast<_Link_type>(this->_M_impl._M_header._M_parent));
+                return (static_cast<_Link_type>(this->_M_base._M_header._M_parent));
             }
 
             _Const_Link_type _M_begin() const
             {
-                return (static_cast<_Const_Link_type>(this->_M_impl._M_header._M_parent));
+                return (static_cast<_Const_Link_type>(this->_M_base._M_header._M_parent));
             }
 
             _Link_type _M_end()
             {
-                return (static_cast<_Link_type>(&this->_M_impl._M_header));
+                return (static_cast<_Link_type>(&this->_M_base._M_header));
             }
 
             _Const_Link_type _M_end() const
             {
-                return (static_cast<_Const_Link_type>(&this->_M_impl._M_header));
+                return (static_cast<_Const_Link_type>(&this->_M_base._M_header));
             }
 
             static const_reference _S_value(_Const_Link_type _x)
@@ -774,16 +774,16 @@ namespace ft
             _Rb_tree() { }
 
             _Rb_tree(const _Compare &_comp, const allocator_type &_a = allocator_type())
-                        : _M_impl(_comp, _a) { }
+                        : _M_base(_comp, _a) { }
 
-            _Rb_tree(const _Rb_tree& _x) : _M_impl(_x._M_impl._M_key_compare, _x._M_get_Node_allocator())
+            _Rb_tree(const _Rb_tree& _x) : _M_base(_x._M_base._M_key_compare, _x._M_get_Node_allocator())
             {
                 if (_x._M_root() != 0)
                 {
                     _M_root() = _M_copy(_x._M_begin(), _M_end());
                     _M_leftmost() = _S_minimum(_M_root());
                     _M_rightmost() = _S_maximum(_M_root());
-                    _M_impl._M_node_count = _x._M_impl._M_node_count;
+                    _M_base._M_node_count = _x._M_base._M_node_count;
                 }
             }
                 
@@ -797,13 +797,13 @@ namespace ft
                 if (this != &_x)
                 {
                     clear();
-                    _M_impl._M_key_compare = _x._M_impl._M_key_compare;
+                    _M_base._M_key_compare = _x._M_base._M_key_compare;
                     if (_x._M_root() != 0)
                     {
                         _M_root() = _M_copy(_x._M_begin(), _M_end());
                         _M_leftmost() = _S_minimum(_M_root());
                         _M_rightmost() = _S_maximum(_M_root());
-                        _M_impl._M_node_count = _x._M_impl._M_node_count;
+                        _M_base._M_node_count = _x._M_base._M_node_count;
                     }
                 }
                 return (*this);
@@ -811,27 +811,27 @@ namespace ft
 
             _Compare key_comp() const
             {
-                return (_M_impl._M_key_compare);
+                return (_M_base._M_key_compare);
             }
 
             iterator begin()
             { 
-                return (iterator(static_cast<_Link_type>(this->_M_impl._M_header._M_left)));
+                return (iterator(static_cast<_Link_type>(this->_M_base._M_header._M_left)));
             }
 
             const_iterator begin() const
             { 
-                return (const_iterator(static_cast<_Const_Link_type>(this->_M_impl._M_header._M_left)));
+                return (const_iterator(static_cast<_Const_Link_type>(this->_M_base._M_header._M_left)));
             }
 
             iterator end()
             {
-                return (iterator(static_cast<_Link_type>(&this->_M_impl._M_header)));
+                return (iterator(static_cast<_Link_type>(&this->_M_base._M_header)));
             }
 
             const_iterator end() const
             { 
-                return (const_iterator(static_cast<_Const_Link_type>(&this->_M_impl._M_header)));
+                return (const_iterator(static_cast<_Const_Link_type>(&this->_M_base._M_header)));
             }
 
             reverse_iterator rbegin()
@@ -856,12 +856,12 @@ namespace ft
 
             bool empty() const
             {
-                return (_M_impl._M_node_count == 0);
+                return (_M_base._M_node_count == 0);
             }
 
             size_type size() const
             {
-                return (_M_impl._M_node_count);
+                return (_M_base._M_node_count);
             }
 
             size_type max_size() const
@@ -905,8 +905,8 @@ namespace ft
                     _M_root()->_M_parent = _M_end();
                     _t._M_root()->_M_parent = _t._M_end();
                 }
-                std::swap(this->_M_impl._M_node_count, _t._M_impl._M_node_count);
-                std::swap(this->_M_impl._M_key_compare, _t._M_impl._M_key_compare);
+                std::swap(this->_M_base._M_node_count, _t._M_base._M_node_count);
+                std::swap(this->_M_base._M_key_compare, _t._M_base._M_key_compare);
             }
 
             void erase(iterator _pos)
@@ -950,14 +950,14 @@ namespace ft
                 _M_leftmost() = _M_end();
                 _M_root() = 0;
                 _M_rightmost() = _M_end();
-                _M_impl._M_node_count = 0;
+                _M_base._M_node_count = 0;
             }
 
             iterator find(const key_type &_k)
             {
                 iterator _j = _M_lower_bound(_M_begin(), _M_end(), _k);
 
-                if (_j == end() || _M_impl._M_key_compare(_k, _S_key(_j._M_node)))
+                if (_j == end() || _M_base._M_key_compare(_k, _S_key(_j._M_node)))
                     return (end());
                 return (_j);
             }
@@ -966,7 +966,7 @@ namespace ft
             {
                 const_iterator _j = _M_lower_bound(_M_begin(), _M_end(), _k);
 
-                if (_j == end() || _M_impl._M_key_compare(_k, _S_key(_j._M_node)))
+                if (_j == end() || _M_base._M_key_compare(_k, _S_key(_j._M_node)))
                     return (end());
                 return (_j);
             }
@@ -1006,9 +1006,9 @@ namespace ft
 
                 while (_x != 0)
                 {
-                    if (_M_impl._M_key_compare(_S_key(_x), _k))
+                    if (_M_base._M_key_compare(_S_key(_x), _k))
                         _x = _S_right(_x);
-                    else if (_M_impl._M_key_compare(_k, _S_key(_x)))
+                    else if (_M_base._M_key_compare(_k, _S_key(_x)))
                     {
                         _y = _x;
                         _x = _S_left(_x);
@@ -1034,9 +1034,9 @@ namespace ft
 
                 while (_x != 0)
                 {
-                    if (_M_impl._M_key_compare(_S_key(_x), _k))
+                    if (_M_base._M_key_compare(_S_key(_x), _k))
                         _x = _S_right(_x);
-                    else if (_M_impl._M_key_compare(_k, _S_key(_x)))
+                    else if (_M_base._M_key_compare(_k, _S_key(_x)))
                     {
                         _y = _x;
                         _x = _S_left(_x);
@@ -1057,21 +1057,21 @@ namespace ft
         protected:
             iterator _M_insert_(_Const_Base_ptr _x, _Const_Base_ptr _p, const value_type &_v)
             {
-                bool _insert_left = (_x != 0 || _p == _M_end() || _M_impl._M_key_compare(_KeyOfValue()(_v),  _S_key(_p)));
+                bool _insert_left = (_x != 0 || _p == _M_end() || _M_base._M_key_compare(_KeyOfValue()(_v),  _S_key(_p)));
                 _Link_type _z = _M_create_node(_v);
                 
-                _Rb_tree_insert_and_rebalance(_insert_left, _z, const_cast<_Base_ptr>(_p), this->_M_impl._M_header);
-                ++_M_impl._M_node_count;
+                _Rb_tree_insert_and_rebalance(_insert_left, _z, const_cast<_Base_ptr>(_p), this->_M_base._M_header);
+                ++_M_base._M_node_count;
                 return (iterator(_z));
             }
 
             iterator _M_insert_lower(_Base_ptr _x, _Base_ptr _p, const value_type &_v)
             {
-                bool _insert_left = (_x != 0 || _p == _M_end() || !_M_impl._M_key_compare(_S_key(_p), _KeyOfValue()(_v)));
+                bool _insert_left = (_x != 0 || _p == _M_end() || !_M_base._M_key_compare(_S_key(_p), _KeyOfValue()(_v)));
                 _Link_type _z = _M_create_node(_v);
 
-                _Rb_tree_insert_and_rebalance(_insert_left, _z, _p, this->_M_impl._M_header);
-                ++_M_impl._M_node_count;
+                _Rb_tree_insert_and_rebalance(_insert_left, _z, _p, this->_M_base._M_header);
+                ++_M_base._M_node_count;
                 return (iterator(_z));
             }
 
@@ -1083,7 +1083,7 @@ namespace ft
                 while (_x != 0)
                 {
                     _y = _x;
-                    _x = !_M_impl._M_key_compare(_S_key(_x), _KeyOfValue()(_v)) ? _S_left(_x) : _S_right(_x);
+                    _x = !_M_base._M_key_compare(_S_key(_x), _KeyOfValue()(_v)) ? _S_left(_x) : _S_right(_x);
                 }
                 return (_M_insert_lower(_x, _y, _v));
             }
@@ -1133,7 +1133,7 @@ namespace ft
             {
                 while (_x != 0)
                 {
-                    if (!_M_impl._M_key_compare(_S_key(_x), _k))
+                    if (!_M_base._M_key_compare(_S_key(_x), _k))
                     {
                         _y = _x;
                         _x = _S_left(_x);
@@ -1148,7 +1148,7 @@ namespace ft
             {
                 while (_x != 0)
                 {
-                    if (!_M_impl._M_key_compare(_S_key(_x), _k))
+                    if (!_M_base._M_key_compare(_S_key(_x), _k))
                     {
                         _y = _x;
                         _x = _S_left(_x);
@@ -1163,7 +1163,7 @@ namespace ft
             {
                 while (_x != 0)
                 {
-                    if (_M_impl._M_key_compare(_k, _S_key(_x)))
+                    if (_M_base._M_key_compare(_k, _S_key(_x)))
                     {
                         _y = _x;
                         _x = _S_left(_x);
@@ -1178,7 +1178,7 @@ namespace ft
             {
                 while (_x != 0)
                 {
-                    if (_M_impl._M_key_compare(_k, _S_key(_x)))
+                    if (_M_base._M_key_compare(_k, _S_key(_x)))
                     {
                         _y = _x;
                         _x = _S_left(_x);
@@ -1199,7 +1199,7 @@ namespace ft
                 while (_x != 0)
                 {
                     _y = _x;
-                    _comp = _M_impl._M_key_compare(_KeyOfValue()(_v), _S_key(_x));
+                    _comp = _M_base._M_key_compare(_KeyOfValue()(_v), _S_key(_x));
                     _x = _comp ? _S_left(_x) : _S_right(_x);
                 }
                 iterator _j = iterator(_y);
@@ -1210,7 +1210,7 @@ namespace ft
                     else
                         --_j;
                 }
-                if (_M_impl._M_key_compare(_S_key(_j._M_node), _KeyOfValue()(_v)))
+                if (_M_base._M_key_compare(_S_key(_j._M_node), _KeyOfValue()(_v)))
                     return (ft::pair<iterator, bool>(_M_insert_(_x, _y, _v), true));
                 return (ft::pair<iterator, bool>(_j, false));
             }
@@ -1223,7 +1223,7 @@ namespace ft
                 while (_x != 0)
                 {
                     _y = _x;
-                    _x = _M_impl._M_key_compare(_KeyOfValue()(_v), _S_key(_x)) ? _S_left(_x) : _S_right(_x);
+                    _x = _M_base._M_key_compare(_KeyOfValue()(_v), _S_key(_x)) ? _S_left(_x) : _S_right(_x);
                 }
                 return (_M_insert_(_x, _y, _v));
             }
@@ -1232,17 +1232,17 @@ namespace ft
             {
                 if (_pos._M_node == _M_end())
                 {
-                    if (size() > 0 && _M_impl._M_key_compare(_S_key(_M_rightmost()), _KeyOfValue()(_v)))
+                    if (size() > 0 && _M_base._M_key_compare(_S_key(_M_rightmost()), _KeyOfValue()(_v)))
                         return (_M_insert_(0, _M_rightmost(), _v));
                     else
                         return (_M_insert_unique(_v).first);
                 }
-                else if (_M_impl._M_key_compare(_KeyOfValue()(_v), _S_key(_pos._M_node)))
+                else if (_M_base._M_key_compare(_KeyOfValue()(_v), _S_key(_pos._M_node)))
                 {
                     const_iterator _before = _pos;
                     if (_pos._M_node == _M_leftmost())
                         return (_M_insert_(_M_leftmost(), _M_leftmost(), _v));
-                    else if (_M_impl._M_key_compare(_S_key((--_before)._M_node), _KeyOfValue()(_v)))
+                    else if (_M_base._M_key_compare(_S_key((--_before)._M_node), _KeyOfValue()(_v)))
                     {
                         if (_S_right(_before._M_node) == 0)
                             return (_M_insert_(0, _before._M_node, _v));
@@ -1252,12 +1252,12 @@ namespace ft
                     else
                         return (_M_insert_unique(_v).first);
                 }
-                else if (_M_impl._M_key_compare(_S_key(_pos._M_node), _KeyOfValue()(_v)))
+                else if (_M_base._M_key_compare(_S_key(_pos._M_node), _KeyOfValue()(_v)))
                 {
                     const_iterator _after = _pos;
                     if (_pos._M_node == _M_rightmost())
                         return (_M_insert_(0, _M_rightmost(), _v));
-                    else if (_M_impl._M_key_compare(_KeyOfValue()(_v), _S_key((++_after)._M_node)))
+                    else if (_M_base._M_key_compare(_KeyOfValue()(_v), _S_key((++_after)._M_node)))
                     {
                         if (_S_right(_pos._M_node) == 0)
                             return (_M_insert_(0, _pos._M_node, _v));
@@ -1275,17 +1275,17 @@ namespace ft
             {
                 if (_pos._M_node == _M_end())
                 {
-                    if (size() > 0 && !_M_impl._M_key_compare(_KeyOfValue()(_v),_S_key(_M_rightmost())))
+                    if (size() > 0 && !_M_base._M_key_compare(_KeyOfValue()(_v),_S_key(_M_rightmost())))
                         return (_M_insert_(0, _M_rightmost(), _v));
                     else
                         return (_M_insert_equal(_v));
                 }
-                else if (!_M_impl._M_key_compare(_S_key(_pos._M_node), _KeyOfValue()(_v)))
+                else if (!_M_base._M_key_compare(_S_key(_pos._M_node), _KeyOfValue()(_v)))
                 {
                     const_iterator _before = _pos;
                     if (_pos._M_node == _M_leftmost())
                         return (_M_insert_(_M_leftmost(), _M_leftmost(), _v));
-                    else if (!_M_impl._M_key_compare(_KeyOfValue()(_v), _S_key((--_before)._M_node)))
+                    else if (!_M_base._M_key_compare(_KeyOfValue()(_v), _S_key((--_before)._M_node)))
                     {
                         if (_S_right(_before._M_node) == 0)
                             return (_M_insert_(0, _before._M_node, _v));
@@ -1300,7 +1300,7 @@ namespace ft
                     const_iterator _after = _pos;
                     if (_pos._M_node == _M_rightmost())
                         return (_M_insert_(0, _M_rightmost(), _v));
-                    else if (!_M_impl._M_key_compare(_S_key((++_after)._M_node), _KeyOfValue()(_v)))
+                    else if (!_M_base._M_key_compare(_S_key((++_after)._M_node), _KeyOfValue()(_v)))
                     {
                         if (_S_right(_pos._M_node) == 0)
                             return (_M_insert_(0, _pos._M_node, _v));
@@ -1330,10 +1330,10 @@ namespace ft
             void _M_erase_aux(const_iterator _pos)
             {
                 _Link_type _y = static_cast<_Link_type>
-                                (_Rb_tree_rebalance_for_erase(const_cast<_Base_ptr>(_pos._M_node), this->_M_impl._M_header));
+                                (_Rb_tree_rebalance_for_erase(const_cast<_Base_ptr>(_pos._M_node), this->_M_base._M_header));
                 
                 _M_destroy_node(_y);
-                --_M_impl._M_node_count;
+                --_M_base._M_node_count;
             }
 
             void _M_erase_aux(const_iterator _first, const_iterator _last)

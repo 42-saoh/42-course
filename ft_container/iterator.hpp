@@ -6,11 +6,6 @@
 
 namespace ft
 {
-    struct input_iterator_tag {};
-    struct output_iterator_tag { };
-    struct forward_iterator_tag : public input_iterator_tag { };
-    struct bidirectional_iterator_tag : public forward_iterator_tag { };
-    struct random_access_iterator_tag : public bidirectional_iterator_tag { };
 
     template <typename _Category, typename _Tp, typename _Distance = ptrdiff_t, typename _Pointer = _Tp*, typename _Reference = _Tp&>
     struct iterator
@@ -39,7 +34,7 @@ namespace ft
         typedef T value_type;
         typedef T* pointer;
         typedef T& reference;
-        typedef random_access_iterator_tag iterator_category;
+        typedef std::random_access_iterator_tag iterator_category;
     };
 
     template <class T>
@@ -49,7 +44,7 @@ namespace ft
         typedef T value_type;
         typedef const T* pointer;
         typedef const T& reference;
-        typedef random_access_iterator_tag iterator_category;
+        typedef std::random_access_iterator_tag iterator_category;
     };
 
     template <typename _Iterator>
@@ -60,7 +55,7 @@ namespace ft
 
     template <typename _InputIterator>
     typename iterator_traits<_InputIterator>::difference_type
-    _distance(_InputIterator _first, _InputIterator _last, input_iterator_tag)
+    _distance(_InputIterator _first, _InputIterator _last, std::input_iterator_tag)
     {
         typename iterator_traits<_InputIterator>::difference_type _n = 0;
         while (_first != _last)
@@ -73,7 +68,7 @@ namespace ft
 
     template <typename _RandomAccessIterator>
     typename iterator_traits<_RandomAccessIterator>::difference_type
-    _distance(_RandomAccessIterator _first, _RandomAccessIterator _last, random_access_iterator_tag)
+    _distance(_RandomAccessIterator _first, _RandomAccessIterator _last, std::random_access_iterator_tag)
     {
         return (_last - _first);
     }
@@ -85,14 +80,14 @@ namespace ft
     }
 
     template <typename _InputIterator, typename _Distance>
-    void _advance(_InputIterator &_i, _Distance _n, input_iterator_tag)
+    void _advance(_InputIterator &_i, _Distance _n, std::input_iterator_tag)
     {
         while (_n--)
             ++_i;
     }
 
     template <typename _BidirectionalIterator, typename _Distance>
-    void _advance(_BidirectionalIterator &_i, _Distance _n, bidirectional_iterator_tag)
+    void _advance(_BidirectionalIterator &_i, _Distance _n, std::bidirectional_iterator_tag)
     {
         if (_n > 0)
             while (_n--)
@@ -103,7 +98,7 @@ namespace ft
     }
 
     template <typename _RandomAccessIterator, typename _Distance>
-    void _advance(_RandomAccessIterator &_i, _Distance _n, random_access_iterator_tag)
+    void _advance(_RandomAccessIterator &_i, _Distance _n, std::random_access_iterator_tag)
     {
         _i += _n;
     }
@@ -256,7 +251,7 @@ namespace ft
     }
 
     template <typename _Container>
-    class back_insert_iterator : public iterator<output_iterator_tag, void, void, void, void>
+    class back_insert_iterator : public iterator<std::output_iterator_tag, void, void, void, void>
     {
         protected:
             _Container *container;
@@ -293,7 +288,7 @@ namespace ft
     }
 
     template <typename _Container>
-    class front_insert_iterator : public iterator<output_iterator_tag, void, void, void, void>
+    class front_insert_iterator : public iterator<std::output_iterator_tag, void, void, void, void>
     {
         protected:
             _Container *container;
@@ -330,7 +325,7 @@ namespace ft
     }
 
     template <typename _Container>
-    class insert_iterator : public iterator<output_iterator_tag, void, void, void, void>
+    class insert_iterator : public iterator<std::output_iterator_tag, void, void, void, void>
     {
         protected:
             _Container *container;
@@ -543,39 +538,6 @@ namespace ft
     vector_iterator<_Iterator> operator+(typename vector_iterator<_Iterator>::difference_type n, const vector_iterator<_Iterator> &i)
     {
         return (vector_iterator<_Iterator>(i.base() + n));
-    }
-
-    template <class _OutputIterator, class _Size, class _Tp>
-    _OutputIterator __fill_n(_OutputIterator _first, _Size _n, const _Tp &_value)
-    {
-        for (; _n > 0; ++_first, (void) --_n)
-            *_first = _value;
-        return (_first);
-    }
-
-    template <class _OutputIterator, class _Size, class _Tp>
-    _OutputIterator fill_n(_OutputIterator _first, _Size _n, const _Tp &_value)
-    {
-        return (__fill_n(_first, typename ft::iterator_traits<_OutputIterator>::difference_type(_n), _value));
-    }
-
-    template <class _ForwardIterator, class _Tp>
-    void __fill(_ForwardIterator _first, _ForwardIterator _last, const _Tp& _value, ft::forward_iterator_tag)
-    {
-        for (; _first != _last; ++_first)
-            *_first = _value;
-    }
-
-    template <class _RandomAccessIterator, class _Tp>
-    void __fill(_RandomAccessIterator _first, _RandomAccessIterator _last, const _Tp &_value, ft::random_access_iterator_tag)
-    {
-        fill_n(_first, _last - _first, _value);
-    }
-
-    template <class _ForwardIterator, class _Tp>
-    void fill(_ForwardIterator _first, _ForwardIterator _last, const _Tp &_value)
-    {
-        __fill(_first, _last, _value, typename ft::iterator_traits<_ForwardIterator>::iterator_category());
     }
 
     template <typename _ForwardIterator, typename _Allocator>
