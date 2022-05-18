@@ -447,7 +447,7 @@ namespace ft
                 if (_first == _last)
                     _M_erase_at_end(_cur);
                 else
-                    insert(end(), _first, _last);
+                    _M_range_insert(end(), _first, _last, _iterator_category(_first));
             }
 
             template <typename _ForwardIterator>
