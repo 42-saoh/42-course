@@ -39,14 +39,14 @@ namespace ft
             template<typename _InputIterator>
             set(_InputIterator _first, _InputIterator _last) : _M_t()
             {
-                _M_t._M_insert_unique(_first, _last);
+                _M_t.insert(_first, _last);
             }
 
             template<typename _InputIterator>
             set(_InputIterator _first, _InputIterator _last, const _Compare &_comp, const allocator_type &_a = allocator_type())
                 : _M_t(_comp, _a)
             {
-                _M_t._M_insert_unique(_first, _last);
+                _M_t.insert(_first, _last);
             }
 
             set(const set &_x) : _M_t(_x._M_t) {}
@@ -114,19 +114,19 @@ namespace ft
 
             ft::pair<iterator, bool> insert(const value_type &_x)
             {
-                ft::pair<typename _RBT_type::iterator, bool> _p = _M_t._M_insert_unique(_x);
+                ft::pair<typename _RBT_type::iterator, bool> _p = _M_t.insert(_x);
                 return (ft::pair<iterator, bool>(_p.first, _p.second));
             }
 
             iterator insert(const iterator _pos, const value_type &_x)
             {
-                return (_M_t._M_insert_unique_(_pos, _x));
+                return (_M_t.insert(_pos, _x));
             }
 
             template<typename _InputIterator>
             void insert(_InputIterator _first, _InputIterator _last)
             {
-                _M_t._M_insert_unique(_first, _last);
+                _M_t.insert(_first, _last);
             }
 
             void erase(iterator _pos)

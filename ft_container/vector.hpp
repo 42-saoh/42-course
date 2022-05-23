@@ -102,10 +102,10 @@ namespace ft
             using _Base::get_allocator;
 
             explicit vector(const allocator_type &_a = allocator_type()) : _Base(_a) {}
-            explicit vector(size_type _n, const value_type &_value = value_type(), const allocator_type &_a = allocator_type())
+            explicit vector(size_type _n, const value_type &_val = value_type(), const allocator_type &_a = allocator_type())
                 : _Base(_n, _a)
             {
-                _M_fill_initialize(_n, _value);
+                _M_fill_initialize(_n, _val);
             }
 
             template <typename _InputIterator>
@@ -113,7 +113,7 @@ namespace ft
                 : _Base(_a)
             {
                 typedef typename ft::is_integral<_InputIterator>::type _Integral;
-                _M_initialize_dispatch(_first, _last, _Integral());
+                _M_range_initialize(_first, _last, _Integral());
             }
 
             vector(const vector &_x) : _Base(_x.size(), _x._M_get_Tp_allocator())
@@ -163,7 +163,7 @@ namespace ft
             void assign(_InputIterator _first, _InputIterator _last)
             {
                 typedef typename ft::is_integral<_InputIterator>::type _Integral;
-                _M_assign_dispatch(_first, _last, _Integral());
+                _M_range_assign(_first, _last, _Integral());
             }
 
             iterator begin()
@@ -219,7 +219,7 @@ namespace ft
             void resize(size_type new_size, value_type _x = value_type())
             {
                 if (new_size > size())
-                    insert(end(), new_size - size(), _x);
+                    _M_fill_insert(end(), new_size - size(), _x);
                 else if (new_size < size())
                     _M_erase_at_end(this->_M_base._M_start + new_size);
             }
@@ -236,9 +236,9 @@ namespace ft
 
             void reserve(size_type _n)
             {
-                if (_n > this->max_size())
+                if (_n > max_size())
                     throw std::length_error("vector::reserve");
-                if (this->capacity() < _n)
+                if (capacity() < _n)
                 {
                     const size_type _old_size = size();
                     pointer tmp = _M_allocate_and_copy(_n, this->_M_base._M_start, this->_M_base._M_finish);
@@ -300,7 +300,7 @@ namespace ft
                     ++this->_M_base._M_finish;
                 }
                 else
-                    _M_insert_aux(end(), _x);
+                    _M_single_insert(end(), _x);
             }
 
             void pop_back()
@@ -318,7 +318,7 @@ namespace ft
                     ++this->_M_base._M_finish;
                 }
                 else
-                    _M_insert_aux(_pos, _x);
+                    _M_single_insert(_pos, _x);
                 return (iterator(this->_M_base._M_start + _n));
             }
 
@@ -331,7 +331,7 @@ namespace ft
             void insert(iterator _pos, _InputIterator _first, _InputIterator _last)
             {
                 typedef typename ft::is_integral<_InputIterator>::type _Integral;
-                _M_insert_dispatch(_pos, _first, _last, _Integral());
+                _M_range_insert(_pos, _first, _last, _Integral());
             }
 
             iterator erase(iterator _pos)
@@ -385,33 +385,20 @@ namespace ft
                 catch(...)
                 {
                     _M_deallocate(_result, _n);
-                    throw std::runtime_error("malloc error");
+                    throw std::runtime_error("_M_allocate_and_copy");
                 }
             }
 
             template <typename _Integer>
-            void _M_initialize_dispatch(_Integer _n, _Integer _value, ft::true_type)
+            void _M_range_initialize(_Integer _n, _Integer _val, ft::true_type)
             {
                 this->_M_base._M_start = _M_allocate(static_cast<size_type>(_n));
                 this->_M_base._M_end_of_storage = this->_M_base._M_start + static_cast<size_type>(_n);
-                _M_fill_initialize(static_cast<size_type>(_n), _value);
+                _M_fill_initialize(static_cast<size_type>(_n), _val);
             }
 
             template <typename _InputIterator>
-            void _M_initialize_dispatch(_InputIterator _first, _InputIterator _last, ft::false_type)
-            {
-                _M_range_initialize(_first, _last, _iterator_category(_first));
-            }
-
-            template <typename _InputIterator>
-            void _M_range_initialize(_InputIterator _first, _InputIterator _last, std::input_iterator_tag)
-            {
-                for (; _first != _last; ++_first)
-                    push_back(*_first);
-            }
-
-            template <typename _ForwardIterator>
-            void _M_range_initialize(_ForwardIterator _first, _ForwardIterator _last, std::forward_iterator_tag)
+            void _M_range_initialize(_InputIterator _first, _InputIterator _last, ft::false_type)
             {
                 const size_type _n = ft::distance(_first, _last);
 
@@ -420,38 +407,20 @@ namespace ft
                 this->_M_base._M_finish = ft::uninitialized_copy_alloc(_first, _last, this->_M_base._M_start, _M_get_Tp_allocator());
             }
 
-            void _M_fill_initialize(size_type _n, const value_type& _value)
+            void _M_fill_initialize(size_type _n, const value_type& _val)
             {
-                ft::uninitialized_fill_alloc(this->_M_base._M_start, _n, _value, _M_get_Tp_allocator());
+                ft::uninitialized_fill_alloc(this->_M_base._M_start, _n, _val, _M_get_Tp_allocator());
                 this->_M_base._M_finish = this->_M_base._M_end_of_storage;
             }
 
             template <typename _Integer>
-            void _M_assign_dispatch(_Integer _n, _Integer _val, ft::true_type)
+            void _M_range_assign(_Integer _n, _Integer _val, ft::true_type)
             {
                 _M_fill_assign(_n, _val);
             }
 
             template <typename _InputIterator>
-            void _M_assign_dispatch(_InputIterator _first, _InputIterator _last, ft::false_type)
-            {
-                _M_assign_aux(_first, _last, _iterator_category(_first));
-            }
-
-            template <typename _InputIterator>
-            void _M_assign_aux(_InputIterator _first, _InputIterator _last, std::input_iterator_tag)
-            {
-                pointer _cur(this->_M_base._M_start);
-                for (; _first != _last && _cur != this->_M_base._M_finish; ++_cur, ++_first)
-                    *_cur = *_first;
-                if (_first == _last)
-                    _M_erase_at_end(_cur);
-                else
-                    _M_range_insert(end(), _first, _last, _iterator_category(_first));
-            }
-
-            template <typename _ForwardIterator>
-            void _M_assign_aux(_ForwardIterator _first, _ForwardIterator _last, std::forward_iterator_tag)
+            void _M_range_assign(_InputIterator _first, _InputIterator _last, ft::false_type)
             {
                 const size_type _len = ft::distance(_first, _last);
                 if (_len > capacity())
@@ -467,7 +436,7 @@ namespace ft
                     _M_erase_at_end(std::copy(_first, _last, this->_M_base._M_start));
                 else
                 {
-                    _ForwardIterator _mid = _first;
+                    _InputIterator _mid = _first;
                     ft::advance(_mid, size());
                     std::copy(_first, _mid, this->_M_base._M_start);
                     this->_M_base._M_finish = ft::uninitialized_copy_alloc(_mid, _last, this->_M_base._M_finish, _M_get_Tp_allocator());
@@ -478,8 +447,21 @@ namespace ft
             {
                 if (_n > capacity())
                 {
-                    vector _tmp(_n, _val, _M_get_Tp_allocator());
-                    _tmp.swap(*this);
+                    pointer _tmp(this->_M_allocate(_n));
+                    try
+                    {
+                        ft::uninitialized_fill_alloc(_tmp, _n, _val, _M_get_Tp_allocator());
+                    }
+                    catch(...)
+                    {
+                        _M_deallocate(_tmp, _n);
+                        throw std::runtime_error("_M_fill_assign");
+                    }
+                    ft::_Destroy_alloc(this->_M_base._M_start, this->_M_base._M_finish, _M_get_Tp_allocator());
+                    _M_deallocate(this->_M_base._M_start, this->_M_base._M_end_of_storage - this->_M_base._M_start);
+                    this->_M_base._M_start = _tmp;
+                    this->_M_base._M_finish = this->_M_base._M_start + _n;
+                    this->_M_base._M_end_of_storage = this->_M_base._M_finish;
                 }
                 else if (_n > size())
                 {
@@ -492,29 +474,13 @@ namespace ft
             }
 
             template <typename _Integer>
-            void _M_insert_dispatch(iterator _pos, _Integer _n, _Integer _val, ft::true_type)
+            void _M_range_insert(iterator _pos, _Integer _n, _Integer _val, ft::true_type)
             {
                 _M_fill_insert(_pos, _n, _val);
             }
 
             template <typename _InputIterator>
-            void _M_insert_dispatch(iterator _pos, _InputIterator _first, _InputIterator _last, ft::false_type)
-            {
-                _M_range_insert(_pos, _first, _last, _iterator_category(_first));
-            }
-
-            template <typename _InputIterator>
-            void _M_range_insert(iterator _pos, _InputIterator _first, _InputIterator _last, std::input_iterator_tag)
-            {
-                for (; _first != _last; ++_first)
-                {
-                    _pos = insert(_pos, *_first);
-                    ++_pos;
-                }
-            }
-
-            template <typename _ForwardIterator>
-            void _M_range_insert(iterator _pos, _ForwardIterator _first, _ForwardIterator _last, std::forward_iterator_tag)
+            void _M_range_insert(iterator _pos, _InputIterator _first, _InputIterator _last, ft::false_type)
             {
                 if (_first != _last)
                 {
@@ -532,7 +498,7 @@ namespace ft
                         }
                         else
                         {
-                            _ForwardIterator _mid = _first;
+                            _InputIterator _mid = _first;
                             ft::advance(_mid, _elems_after);
                             ft::uninitialized_copy_alloc(_mid, _last, this->_M_base._M_finish, _M_get_Tp_allocator());
                             this->_M_base._M_finish += _n - _elems_after;
@@ -556,7 +522,7 @@ namespace ft
                         {
                             ft::_Destroy_alloc(_new_start, _new_finish, _M_get_Tp_allocator());
                             _M_deallocate(_new_start, _len);
-                            throw std::runtime_error("allocator error");
+                            throw std::runtime_error("_M_range_insert");
                         }
                         ft::_Destroy_alloc(this->_M_base._M_start, this->_M_base._M_finish, _M_get_Tp_allocator());
                         _M_deallocate(this->_M_base._M_start, this->_M_base._M_end_of_storage - this->_M_base._M_start);
@@ -613,7 +579,7 @@ namespace ft
                             else
                                 ft::_Destroy_alloc(_new_start, _new_finish, _M_get_Tp_allocator());
                             _M_deallocate(_new_start, _len);
-                            throw std::runtime_error("allocator error");
+                            throw std::runtime_error("_M_fill_insert");
                         }
                         ft::_Destroy_alloc(this->_M_base._M_start, this->_M_base._M_finish, _M_get_Tp_allocator());
                         _M_deallocate(this->_M_base._M_start, this->_M_base._M_end_of_storage - this->_M_base._M_start);
@@ -624,19 +590,18 @@ namespace ft
                 }
             }
     
-            void _M_insert_aux(iterator _pos, const value_type &_x)
+            void _M_single_insert(iterator _pos, const value_type &_x)
             {
                 if (this->_M_base._M_finish != this->_M_base._M_end_of_storage)
                 {
                     this->_M_base.construct(this->_M_base._M_finish, *(this->_M_base._M_finish - 1));
                     ++this->_M_base._M_finish;
-                    _Tp _x_copy = _x;
                     std::copy_backward(_pos.base(), this->_M_base._M_finish - 2, this->_M_base._M_finish - 1);
-                    *_pos = _x_copy;
+                    *_pos = _x;
                 }
                 else
                 {
-                    const size_type _len = _M_check_len(size_type(1), "vector::_M_insert_aux");
+                    const size_type _len = _M_check_len(size_type(1), "vector::_M_single_insert");
                     const size_type _elems_before = _pos - begin();
                     pointer _new_start(this->_M_allocate(_len));
                     pointer _new_finish(_new_start);
@@ -655,7 +620,7 @@ namespace ft
                         else
                             ft::_Destroy_alloc(_new_start, _new_finish, _M_get_Tp_allocator());
                         _M_deallocate(_new_start, _len);
-                        throw std::runtime_error("allocator error");
+                        throw std::runtime_error("_M_single_insert");
                     }
                     ft::_Destroy_alloc(this->_M_base._M_start, this->_M_base._M_finish, _M_get_Tp_allocator());
                     _M_deallocate(this->_M_base._M_start, this->_M_base._M_end_of_storage - this->_M_base._M_start);

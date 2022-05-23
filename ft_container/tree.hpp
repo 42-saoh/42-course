@@ -59,7 +59,7 @@ namespace ft
         _Tp _M_value_field;
     };
 
-    static _Rb_tree_node_base *local_Rb_tree_increment(_Rb_tree_node_base *_x) throw ()
+    _Rb_tree_node_base *local_Rb_tree_increment(_Rb_tree_node_base *_x) throw ()
     {
         if (_x->_M_right != 0)
         {
@@ -81,7 +81,7 @@ namespace ft
         return (_x);
     }
 
-    static _Rb_tree_node_base *local_Rb_tree_decrement(_Rb_tree_node_base *_x) throw ()
+    _Rb_tree_node_base *local_Rb_tree_decrement(_Rb_tree_node_base *_x) throw ()
     {
         if (_x->_M_color == _S_red && _x->_M_parent->_M_parent == _x)
             _x = _x->_M_right;
@@ -556,15 +556,15 @@ namespace ft
         public:
             typedef _Key key_type;
             typedef _Val value_type;
-            typedef value_type* pointer;
-            typedef const value_type* const_pointer;
-            typedef value_type& reference;
-            typedef const value_type& const_reference;
+            typedef _Alloc allocator_type;
+            typedef typename allocator_type::pointer pointer;
+            typedef typename allocator_type::const_pointer const_pointer;
+            typedef typename allocator_type::reference reference;
+            typedef typename allocator_type::const_reference const_reference;
             typedef _Rb_tree_node<_Val>* _Link_type;
             typedef const _Rb_tree_node<_Val>* _Const_Link_type;
-            typedef size_t size_type;
-            typedef ptrdiff_t difference_type;
-            typedef _Alloc allocator_type;
+            typedef typename allocator_type::size_type size_type;
+            typedef typename allocator_type::difference_type difference_type;
             typedef _Rb_tree_iterator<value_type> iterator;
             typedef _Rb_tree_const_iterator<value_type> const_iterator;
             typedef ft::reverse_iterator<iterator> reverse_iterator;
@@ -588,19 +588,19 @@ namespace ft
             }
 
         protected:
-            _Link_type _M_get_node()
+            _Link_type _M_allocate()
             {
                 return (_M_base.allocate(1));
             }
 
-            void _M_put_node(_Link_type _p)
+            void _M_deallocate(_Link_type _p)
             {
                 _M_base.deallocate(_p, 1);
             }
 
             _Link_type _M_create_node(const value_type& _x)
             {
-                _Link_type _tmp = _M_get_node();
+                _Link_type _tmp = _M_allocate();
 
                 try
                 {
@@ -608,7 +608,7 @@ namespace ft
                 }
                 catch(...)
                 {
-                    _M_put_node(_tmp);
+                    _M_deallocate(_tmp);
                     std::runtime_error("memory alloc error");
                 }
                 return (_tmp);
@@ -617,7 +617,7 @@ namespace ft
             void _M_destroy_node(_Link_type _p)
             {
                 get_allocator().destroy(&(_p->_M_value_field));
-                _M_put_node(_p);
+                _M_deallocate(_p);
             }
 
             _Link_type _M_clone_node(_Const_Link_type _x)
@@ -937,12 +937,6 @@ namespace ft
             {
                 _M_erase_aux(_first, _last);
             }
-            
-            void erase(const key_type *_first, const key_type *_last)
-            {
-                while (_first != _last)
-                    erase(*_first++);
-            }
 
             void clear()
             {
@@ -1065,29 +1059,6 @@ namespace ft
                 return (iterator(_z));
             }
 
-            iterator _M_insert_lower(_Base_ptr _x, _Base_ptr _p, const value_type &_v)
-            {
-                bool _insert_left = (_x != 0 || _p == _M_end() || !_M_base._M_key_compare(_S_key(_p), _KeyOfValue()(_v)));
-                _Link_type _z = _M_create_node(_v);
-
-                _Rb_tree_insert_and_rebalance(_insert_left, _z, _p, this->_M_base._M_header);
-                ++_M_base._M_node_count;
-                return (iterator(_z));
-            }
-
-            iterator _M_insert_equal_lower(const value_type &_v)
-            {
-                _Link_type _x = _M_begin();
-                _Link_type _y = _M_end();
-
-                while (_x != 0)
-                {
-                    _y = _x;
-                    _x = !_M_base._M_key_compare(_S_key(_x), _KeyOfValue()(_v)) ? _S_left(_x) : _S_right(_x);
-                }
-                return (_M_insert_lower(_x, _y, _v));
-            }
-
             _Link_type _M_copy(_Const_Link_type _x, _Link_type _p)
             {
                 _Link_type _top = _M_clone_node(_x);
@@ -1190,7 +1161,14 @@ namespace ft
             }
 
         public:
-            ft::pair<iterator, bool> _M_insert_unique(const value_type &_v)
+            template<typename _InputIterator>
+            void insert(_InputIterator _first, _InputIterator _last)
+            {
+                for (; _first != _last; ++_first)
+                    insert(end(), *_first);
+            }
+
+            ft::pair<iterator, bool> insert(const value_type &_v)
             {
                 _Link_type _x = _M_begin();
                 _Link_type _y = _M_end();
@@ -1215,27 +1193,14 @@ namespace ft
                 return (ft::pair<iterator, bool>(_j, false));
             }
 
-            iterator _M_insert_equal(const value_type &_v)
-            {
-                _Link_type _x = _M_begin();
-                _Link_type _y = _M_end();
-
-                while (_x != 0)
-                {
-                    _y = _x;
-                    _x = _M_base._M_key_compare(_KeyOfValue()(_v), _S_key(_x)) ? _S_left(_x) : _S_right(_x);
-                }
-                return (_M_insert_(_x, _y, _v));
-            }
-
-            iterator _M_insert_unique_(const_iterator _pos, const value_type &_v)
+            iterator insert(const_iterator _pos, const value_type &_v)
             {
                 if (_pos._M_node == _M_end())
                 {
                     if (size() > 0 && _M_base._M_key_compare(_S_key(_M_rightmost()), _KeyOfValue()(_v)))
                         return (_M_insert_(0, _M_rightmost(), _v));
                     else
-                        return (_M_insert_unique(_v).first);
+                        return (insert(_v).first);
                 }
                 else if (_M_base._M_key_compare(_KeyOfValue()(_v), _S_key(_pos._M_node)))
                 {
@@ -1250,7 +1215,7 @@ namespace ft
                             return (_M_insert_(_pos._M_node, _pos._M_node, _v));
                     }
                     else
-                        return (_M_insert_unique(_v).first);
+                        return (insert(_v).first);
                 }
                 else if (_M_base._M_key_compare(_S_key(_pos._M_node), _KeyOfValue()(_v)))
                 {
@@ -1265,65 +1230,10 @@ namespace ft
                             return (_M_insert_(_after._M_node, _after._M_node, _v));
                     }
                     else
-                        return (_M_insert_unique(_v).first);
+                        return (insert(_v).first);
                 }
                 else
                     return (_pos._M_const_cast());
-            }
-
-            iterator _M_insert_equal_(const_iterator _pos, const value_type &_v)
-            {
-                if (_pos._M_node == _M_end())
-                {
-                    if (size() > 0 && !_M_base._M_key_compare(_KeyOfValue()(_v),_S_key(_M_rightmost())))
-                        return (_M_insert_(0, _M_rightmost(), _v));
-                    else
-                        return (_M_insert_equal(_v));
-                }
-                else if (!_M_base._M_key_compare(_S_key(_pos._M_node), _KeyOfValue()(_v)))
-                {
-                    const_iterator _before = _pos;
-                    if (_pos._M_node == _M_leftmost())
-                        return (_M_insert_(_M_leftmost(), _M_leftmost(), _v));
-                    else if (!_M_base._M_key_compare(_KeyOfValue()(_v), _S_key((--_before)._M_node)))
-                    {
-                        if (_S_right(_before._M_node) == 0)
-                            return (_M_insert_(0, _before._M_node, _v));
-                        else
-                            return (_M_insert_(_pos._M_node, _pos._M_node, _v));
-                    }
-                    else
-                        return (_M_insert_equal(_v));
-                }
-                else
-                {
-                    const_iterator _after = _pos;
-                    if (_pos._M_node == _M_rightmost())
-                        return (_M_insert_(0, _M_rightmost(), _v));
-                    else if (!_M_base._M_key_compare(_S_key((++_after)._M_node), _KeyOfValue()(_v)))
-                    {
-                        if (_S_right(_pos._M_node) == 0)
-                            return (_M_insert_(0, _pos._M_node, _v));
-                        else
-                            return (_M_insert_(_after._M_node, _after._M_node, _v));
-                    }
-                    else
-                        return _M_insert_equal_lower(_v);
-                }
-            }
-
-            template<typename _InputIterator>
-            void _M_insert_unique(_InputIterator _first, _InputIterator _last)
-            {
-                for (; _first != _last; ++_first)
-                    _M_insert_unique_(end(), *_first);
-            }
-
-            template<typename _InputIterator>
-            void _M_insert_equal(_InputIterator _first, _InputIterator _last)
-            {
-                for (; _first != _last; ++_first)
-                    _M_insert_equal_(end(), *_first);
             }
 
         protected:

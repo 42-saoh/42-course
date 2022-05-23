@@ -17,7 +17,7 @@ namespace ft
             typedef _Compare key_compare;
             typedef _Alloc allocator_type;
 
-        protected:
+        private:
             typedef typename _Alloc::value_type _Alloc_value_type;
             typedef typename _Alloc::template rebind<value_type>::other _Pair_alloc_type;
             typedef ft::_Rb_tree<key_type, value_type, ft::_Select1st<value_type>,
@@ -25,14 +25,14 @@ namespace ft
             _RBT_type _M_t;
 
         public:
-            typedef typename _Pair_alloc_type::pointer pointer;
-            typedef typename _Pair_alloc_type::const_pointer const_pointer;
-            typedef typename _Pair_alloc_type::reference reference;
-            typedef typename _Pair_alloc_type::const_reference const_reference;
+            typedef typename allocator_type::pointer pointer;
+            typedef typename allocator_type::const_pointer const_pointer;
+            typedef typename allocator_type::reference reference;
+            typedef typename allocator_type::const_reference const_reference;
             typedef typename _RBT_type::iterator iterator;
             typedef typename _RBT_type::const_iterator const_iterator;
-            typedef typename _RBT_type::size_type size_type;
-            typedef typename _RBT_type::difference_type difference_type;
+            typedef typename allocator_type::size_type size_type;
+            typedef typename allocator_type::difference_type difference_type;
             typedef typename _RBT_type::reverse_iterator reverse_iterator;
             typedef typename _RBT_type::const_reverse_iterator const_reverse_iterator;
 
@@ -45,14 +45,14 @@ namespace ft
             template<typename _InputIterator>
             map(_InputIterator _first, _InputIterator _last) : _M_t()
             {
-                _M_t._M_insert_unique(_first, _last);
+                _M_t.insert(_first, _last);
             }
 
             template<typename _InputIterator>
             map(_InputIterator _first, _InputIterator _last, const _Compare &_comp,
                     const allocator_type &_a = allocator_type()) : _M_t(_comp, _a)
             {
-                _M_t._M_insert_unique(_first, _last);
+                _M_t.insert(_first, _last);
             }
 
             map &operator=(const map &_x)
@@ -146,18 +146,18 @@ namespace ft
 
             ft::pair<iterator, bool> insert(const value_type &_x)
             {
-                return (_M_t._M_insert_unique(_x));
+                return (_M_t.insert(_x));
             }
 
             iterator insert(iterator _pos, const value_type &_x)
             {
-                return (_M_t._M_insert_unique_(_pos, _x));
+                return (_M_t.insert(_pos, _x));
             }
 
             template<typename _InputIterator>
             void insert(_InputIterator _first, _InputIterator _last)
             {
-                _M_t._M_insert_unique(_first, _last);
+                _M_t.insert(_first, _last);
             }
 
             void erase(iterator _pos)
