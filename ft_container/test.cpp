@@ -1,22 +1,100 @@
 #include <iostream>
+#include <vector>
+#include "vector.hpp"
 #include <map>
 #include "map.hpp"
-#include <set>
-#include "set.hpp"
+#include <ctime>
 
 
 int main()
 {
-    std::set<int, int> k;
-    ft::set<int, int> q;
+    typedef std::vector<int> s_vec;
+    typedef ft::vector<int> f_vec;
+    clock_t t;
+    t = clock();
+    {
+        s_vec vec;
 
-    std::cout << k.max_size() << std::endl;
-    std::cout << q.max_size() << std::endl;
-    std::cout << std::numeric_limits<size_t>::max() / 40<< std::endl;
-    std::cout << size_t(~0) / sizeof(std::__tree<std::pair<int, int>, std::less<int>, std::allocator<std::pair<int, int> > >::__node_allocator::value_type) << std::endl;
-    std::cout << size_t(~0) / sizeof(ft::map<int, int>::_RBT_type::_Node_alloc_type::value_type) << std::endl;
-    std::cout << sizeof(std::__tree<std::pair<T1, T2>, std::less<T1>, std::allocator<std::pair<T1, T2> > >::__node_allocator::value_type) << std::endl;
-	std::cout << sizeof(ft::_Rb_tree_node<std::pair<T1, T2> >) << std::endl;
-	std::cout << sizeof(ft::_Rb_tree_node_base) << std::endl;
-	std::cout << sizeof(std::pair<T1, T2>) << std::endl;
+        for (int i = 0; i < 10000; i++)
+            vec.push_back(i);
+        vec.erase(vec.begin() + 2500, vec.begin() + 7500);
+        for (int i = 0; i < 20000; i++)
+            vec.insert(vec.begin() + 2500, i);
+        vec.insert(vec.begin() + 10000, 10000, 300000);
+        s_vec vec1(vec);
+        vec1.resize(60000, 50000);
+        s_vec vec2 = vec;
+        vec2.reserve(60000);
+        for (int i = 35000; i < 60000; i++)
+            vec2.push_back(i);
+    }
+    t = clock() - t;
+    std::cout << t << std::endl;
+    t = clock();
+    {
+        f_vec vec;
+
+        for (int i = 0; i < 10000; i++)
+            vec.push_back(i);
+        vec.erase(vec.begin() + 2500, vec.begin() + 7500);
+        for (int i = 0; i < 20000; i++)
+            vec.insert(vec.begin() + 2500, i);
+        vec.insert(vec.begin() + 10000, 10000, 300000);
+        f_vec vec1(vec);
+        vec1.resize(60000, 50000);
+        f_vec vec2 = vec;
+        vec2.reserve(60000);
+        for (int i = 35000; i < 60000; i++)
+            vec2.push_back(i);
+    }
+    t = clock() - t;
+    std::cout << t << std::endl;
+    typedef std::map<int, std::string> s_map;
+    typedef ft::map<int, std::string> f_map;
+    typedef std::pair<int, std::string> s_pair;
+    typedef ft::pair<int, std::string> f_pair;
+    t = clock();
+    {
+        s_map map;
+        std::vector<s_pair> q;
+
+        for (int i = 0; i < 10000; i++)
+            map.insert(s_pair(i, "1"));
+        s_map::iterator k = map.begin();
+        s_map::iterator j = map.end();
+        for (int i = 0; i < 2500; i++)
+            k++;
+        for (int i = 0; i < 2500; i++)
+            j--;
+        map.erase(k, j);
+        for (int i = 2500; i < 7500; i++)
+            q.push_back(s_pair(i, "1"));
+        map.insert(q.begin(), q.end());
+        s_map map1(map);
+        s_map map2 = map1;
+    }
+    t = clock() - t;
+    std::cout << t << std::endl;
+    t = clock();
+    {
+        f_map map;
+        std::vector<f_pair> q;
+
+        for (int i = 0; i < 10000; i++)
+            map.insert(f_pair(i, "1"));
+        f_map::iterator k = map.begin();
+        f_map::iterator j = map.end();
+        for (int i = 0; i < 2500; i++)
+            k++;
+        for (int i = 0; i < 2500; i++)
+            j--;
+        map.erase(k, j);
+        for (int i = 2500; i < 7500; i++)
+            q.push_back(f_pair(i, "1"));
+        map.insert(q.begin(), q.end());
+        f_map map1(map);
+        f_map map2 = map1;
+    }
+    t = clock() - t;
+    std::cout << t << std::endl;
 }

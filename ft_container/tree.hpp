@@ -625,6 +625,7 @@ namespace ft
                 _Link_type _tmp = _M_create_node(_x->_M_value_field);
 
                 _tmp->_M_color = _x->_M_color;
+                _tmp->_M_parent = 0;
                 _tmp->_M_left = 0;
                 _tmp->_M_right = 0;
                 return (_tmp);
@@ -771,7 +772,7 @@ namespace ft
             }
             
         public:
-            _Rb_tree() { }
+            _Rb_tree() {}
 
             _Rb_tree(const _Compare &_comp, const allocator_type &_a = allocator_type())
                         : _M_base(_comp, _a) { }
@@ -911,31 +912,20 @@ namespace ft
 
             void erase(iterator _pos)
             {
-                _M_erase_aux(_pos);
-            }
-
-            void erase(const_iterator _pos)
-            {
-                _M_erase_aux(_pos);
+                _M_erase_single(_pos);
             }
 
             size_type erase(const key_type &_x)
             {
-                ft::pair<iterator, iterator> _p = equal_range(_x);
                 const size_type _old_size = size();
 
-                erase(_p.first, _p.second);
+                _M_erase_range(lower_bound(_x), upper_bound(_x));
                 return (_old_size - size());
             }
 
             void erase(iterator _first, iterator _last)
             {
-                _M_erase_aux(_first, _last);
-            }
-
-            void erase(const_iterator _first, const_iterator _last)
-            {
-                _M_erase_aux(_first, _last);
+                _M_erase_range(_first, _last);
             }
 
             void clear()
@@ -967,9 +957,9 @@ namespace ft
 
             size_type count(const key_type &_k) const
             {
-                ft::pair<const_iterator, const_iterator> _p = equal_range(_k);
-                const size_type _n = ft::distance(_p.first, _p.second);
-                return (_n);
+                if (find(_k) != end())
+                    return (1);
+                return (0);
             }
 
             iterator lower_bound(const key_type &_k)
@@ -995,57 +985,13 @@ namespace ft
             ft::pair<iterator, iterator>
             equal_range(const key_type &_k)
             {
-                _Link_type _x = _M_begin();
-                _Link_type _y = _M_end();
-
-                while (_x != 0)
-                {
-                    if (_M_base._M_key_compare(_S_key(_x), _k))
-                        _x = _S_right(_x);
-                    else if (_M_base._M_key_compare(_k, _S_key(_x)))
-                    {
-                        _y = _x;
-                        _x = _S_left(_x);
-                    }
-                    else
-                    {
-                        _Link_type _xu(_x);
-                        _Link_type _yu(_y);
-                        _y = _x;
-                        _x = _S_left(_x);
-                        _xu = _S_right(_xu);
-                        return (pair<iterator, iterator>(_M_lower_bound(_x, _y, _k), _M_upper_bound(_xu, _yu, _k)));
-                    }
-                }
-                return (pair<iterator, iterator>(iterator(_y), iterator(_y)));
+                return (pair<iterator, iterator>(iterator(lower_bound(_k)), iterator(upper_bound(_k))));
             }
 
             ft::pair<const_iterator, const_iterator>
             equal_range(const key_type &_k) const
             {
-                _Const_Link_type _x = _M_begin();
-                _Const_Link_type _y = _M_end();
-
-                while (_x != 0)
-                {
-                    if (_M_base._M_key_compare(_S_key(_x), _k))
-                        _x = _S_right(_x);
-                    else if (_M_base._M_key_compare(_k, _S_key(_x)))
-                    {
-                        _y = _x;
-                        _x = _S_left(_x);
-                    }
-                    else
-                    {
-                        _Const_Link_type _xu(_x);
-                        _Const_Link_type _yu(_y);
-                        _y = _x;
-                        _x = _S_left(_x);
-                        _xu = _S_right(_xu);
-                        return (pair<const_iterator, const_iterator>(_M_lower_bound(_x, _y, _k), _M_upper_bound(_xu, _yu, _k)));
-                    }
-                }
-                return (pair<const_iterator, const_iterator>(const_iterator(_y), const_iterator(_y)));
+                return (pair<const_iterator, const_iterator>(const_iterator(lower_bound(_k)), const_iterator(upper_bound(_k))));
             }
 
         protected:
@@ -1237,7 +1183,7 @@ namespace ft
             }
 
         protected:
-            void _M_erase_aux(const_iterator _pos)
+            void _M_erase_single(const_iterator _pos)
             {
                 _Link_type _y = static_cast<_Link_type>
                                 (_Rb_tree_rebalance_for_erase(const_cast<_Base_ptr>(_pos._M_node), this->_M_base._M_header));
@@ -1246,14 +1192,14 @@ namespace ft
                 --_M_base._M_node_count;
             }
 
-            void _M_erase_aux(const_iterator _first, const_iterator _last)
+            void _M_erase_range(const_iterator _first, const_iterator _last)
             {
                 if (_first == begin() && _last == end())
                     clear();
                 else
                 {
                     while (_first != _last)
-                        erase(_first++);
+                        _M_erase_single(_first++);
                 }
             }
     };

@@ -1,4 +1,6 @@
-NAME	= container
+NAME	= ft_container
+SNAME	= std_container
+TNAME	= speed_test
 CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
 
 SRC 	= main.cpp
@@ -8,18 +10,21 @@ SRCS	= $(addprefix $(SRCDIR), $(SRC))
 OBJS	= $(SRCS:.cpp=.o)
 INCDIR	= ./
 
-%.o:	%.cpp
-			clang++ $(CXXFLAGS) -I$(INCDIR) -c $< -o $@
+$(NAME):
+	c++ $(CXXFLAGS) -I$(INCDIR) $(SRCS) -o $(NAME)
 
-$(NAME): $(OBJS)
-	clang++ $(CXXFLAGS) -I$(INCDIR) -o $(NAME) $(OBJS)
+test:
+	c++ $(CXXFLAGS) -D stdtest=1 -I$(INCDIR) $(SRCS) -o $(SNAME)
 
-all: $(NAME)
+test1:
+	c++ $(CXXFLAGS) -I$(INCDIR) test.cpp -o $(TNAME)
+
+all: $(NAME) test test1
 
 clean:
 	$(RM) $(OBJS)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(SNAME) $(TNAME)
 
 re: fclean all
