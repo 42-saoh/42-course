@@ -915,6 +915,11 @@ namespace ft
                 _M_erase_single(_pos);
             }
 
+            void erase(const_iterator _pos)
+            {
+                _M_erase_single(_pos);
+            }
+
             size_type erase(const key_type &_x)
             {
                 const size_type _old_size = size();
@@ -924,6 +929,11 @@ namespace ft
             }
 
             void erase(iterator _first, iterator _last)
+            {
+                _M_erase_range(_first, _last);
+            }
+
+            void erase(const_iterator _first, const_iterator _last)
             {
                 _M_erase_range(_first, _last);
             }
